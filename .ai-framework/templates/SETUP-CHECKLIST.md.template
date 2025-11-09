@@ -1,0 +1,309 @@
+# [PROJECT_NAME] - Framework Setup Checklist
+
+**Status**: Framework copied, customization needed
+**Time Required**: 10-15 minutes
+**Date Copied**: [Date]
+
+---
+
+## ✅ Completed
+
+- [ ] Copied `.ai-framework/` to project as `.ai/`
+- [ ] Created `CLAUDE.md` at project root from template
+- [ ] Copied `env.local.example` from template
+- [ ] Copied design system files (globals.css, tailwind.config.ts)
+- [ ] Copied utilities (utils.ts)
+
+---
+
+## 🔧 Customization Required
+
+### 1. Update `CLAUDE.md` (Root of Project)
+
+**Current state**: Contains `[PROJECT_NAME]` placeholder
+**Needed**: Replace with your project name and tech stack
+
+**Changes needed**:
+- Replace all `[PROJECT_NAME]` with your actual project name
+- Update tech stack section
+- Verify links point to your `.ai/` directory
+
+---
+
+### 2. Update `.ai/project-template/PROJECT-TEMPLATE.md`
+
+**Current state**: Contains placeholder project information
+**Needed**: Replace with your project details
+
+**Fill in**:
+```markdown
+# Project: [Your Project Name]
+
+## Overview
+[Brief description of what this project is]
+
+## Tech Stack
+- Framework: [Next.js 15, Vue 3, etc.]
+- Language: [TypeScript, JavaScript]
+- Styling: [Tailwind CSS, etc.]
+- [Additional technologies]
+
+## Business Context
+- **Industry**: [Your industry]
+- **Target**: [Target audience]
+- **USPs**: [Unique selling points]
+- **Goal**: [Primary business goal with metrics]
+
+## Key Constraints
+- [Constraint 1]
+- [Constraint 2]
+- [Performance requirements]
+- [Compliance requirements]
+```
+
+---
+
+### 3. Create `.ai/project-template/DOMAIN-KNOWLEDGE.md`
+
+**What it is**: Industry-specific knowledge that helps AI understand your business context
+
+**Template structure**:
+```markdown
+# [PROJECT_NAME] - Domain Knowledge
+
+## Business Overview
+- Company profile
+- Value proposition
+- Market position
+
+## Target Audience
+- Primary audience (demographics, psychographics, pain points)
+- Secondary audience (if applicable)
+- What they want
+
+## Industry Knowledge
+- Industry-specific terminology
+- Common practices
+- Technical knowledge
+- Competitive landscape
+
+## SEO/Marketing
+- Key search terms
+- Target metrics
+- Marketing channels
+```
+
+**Why critical**: AI performs 10x better with domain context
+
+---
+
+### 4. Create `.ai/project-template/DESIGN-SYSTEM.md` (If Applicable)
+
+**What it is**: Documentation of your design system
+
+**Template structure**:
+```markdown
+# [PROJECT_NAME] - Design System
+
+## Design Philosophy
+- Core design principles
+- Brand personality
+- Visual style
+
+## Design Tokens
+- Colors (primary, secondary, accent, neutrals)
+- Typography (fonts, scales, hierarchy)
+- Spacing (8px system or your chosen system)
+- Shadows, borders, radii
+
+## Component Library
+- Button variants
+- Form components
+- Card components
+- Navigation patterns
+- [Your specific components]
+
+## Animation System
+- Timing functions
+- Duration standards
+- Animation patterns
+```
+
+---
+
+### 5. Customize `.env.local.example`
+
+**Current state**: Contains all possible integrations
+**Needed**: Uncomment only what you need
+
+**Steps**:
+1. Copy `.env.local.example` to `.env.local`
+2. Uncomment sections you need
+3. Fill in actual values (API keys, tokens)
+4. Add `.env.local` to `.gitignore` (NEVER commit secrets!)
+
+---
+
+### 6. Customize `tailwind.config.ts`
+
+**Current state**: Contains `[your-color]` placeholders
+**Needed**: Replace with your brand colors
+
+**Replace**:
+- Primary color scale (your main brand color)
+- Secondary color scale (if applicable)
+- Accent colors
+- Font families (update CSS variables in globals.css too)
+
+---
+
+### 7. Customize `globals.css`
+
+**Current state**: Contains `[Your heading font]` placeholders
+**Needed**: Replace with your chosen fonts
+
+**Replace**:
+- `--font-heading` variable
+- `--font-body` variable
+- Adjust design tokens if needed
+
+---
+
+## 🎯 Quick Wins (Optional Enhancements)
+
+### After customization, consider:
+
+1. **Add project-specific examples to templates**
+   - Fill out feature-planning.md for your first feature
+   - Create component-planning.md for key components
+   - Document specific workflows
+
+2. **Create project-specific workflows** (if applicable)
+   - CMS content update workflow
+   - Deployment workflow
+   - Testing workflow
+
+3. **Create design variations examples**
+   - Example: 5 variations of key UI component
+   - Document which variation was chosen and why
+
+---
+
+## 📁 File Structure Reference
+
+```
+your-project/
+├── CLAUDE.md                           🔧 CUSTOMIZE
+├── .env.local.example                  🔧 CUSTOMIZE
+├── .env.local                          ⚠️  CREATE (add to .gitignore)
+│
+├── .ai/                                📁 Copied from Lost Monster
+│   ├── README.md                       ✅ Universal (no changes)
+│   ├── INDEX.md                        ✅ Universal (no changes)
+│   │
+│   ├── core/                           ✅ Universal (no changes)
+│   │   ├── COMMUNICATION.md
+│   │   ├── DEVELOPMENT-PRINCIPLES.md
+│   │   └── WORKFLOW.md
+│   │
+│   ├── frameworks/                     ✅ Universal (no changes)
+│   │   ├── coda.md
+│   │   └── design-variations.md
+│   │
+│   ├── project-template/               🔧 CUSTOMIZE THESE
+│   │   ├── PROJECT-TEMPLATE.md         ⚠️  MUST EDIT
+│   │   ├── DOMAIN-KNOWLEDGE.md         ⚠️  CREATE (optional but highly recommended)
+│   │   ├── DESIGN-SYSTEM.md            ⚠️  CREATE (if applicable)
+│   │   ├── PRE-DESIGN-CHECKLIST.md     ✅ Universal
+│   │   └── DESIGN-SCORES.md            ✅ Universal
+│   │
+│   └── templates/                      ✅ Universal (no changes)
+│       ├── feature-planning.md
+│       ├── component-planning.md
+│       ├── DESIGN-BRIEF.md.template
+│       └── README.md
+│
+├── src/
+│   ├── lib/
+│   │   └── utils.ts                    ✅ Copied (extend as needed)
+│   └── styles/
+│       └── globals.css                 🔧 CUSTOMIZE
+│
+└── tailwind.config.ts                  🔧 CUSTOMIZE
+```
+
+---
+
+## ✅ Verification Checklist
+
+After customization, verify:
+
+- [ ] `CLAUDE.md` mentions your project name (not `[PROJECT_NAME]`)
+- [ ] `.ai/project-template/PROJECT-TEMPLATE.md` has your project details
+- [ ] `.ai/project-template/DOMAIN-KNOWLEDGE.md` created (if applicable)
+- [ ] `.ai/project-template/DESIGN-SYSTEM.md` created (if applicable)
+- [ ] `tailwind.config.ts` has your brand colors (not placeholders)
+- [ ] `globals.css` has your font names (not placeholders)
+- [ ] `.env.local.example` uncommented for needed services
+- [ ] `.env.local` created with actual values (NOT committed!)
+- [ ] `.gitignore` includes `.env.local`
+- [ ] No placeholder text remains (`[PROJECT_NAME]`, `[your-color]`, etc.)
+
+---
+
+## 🚀 Ready to Code
+
+Once customization is complete:
+
+### 1. Reference the framework in your prompts:
+   - "Follow the CODA framework for this feature"
+   - "Use the Design Variations workflow to create 5 options"
+   - "Apply the design system from DESIGN-SYSTEM.md"
+   - "Check this against the Pre-Design Checklist before showing me"
+
+### 2. AI will automatically:
+   - Use universal development principles from `.ai/core/`
+   - Apply your project-specific design rules
+   - Follow CODA planning methodology
+   - Create 5 design variations when needed
+   - Maintain 80/100 quality minimum
+
+### 3. For major features, use planning templates:
+   - Copy `.ai/templates/feature-planning.md` to your feature directory
+   - Fill out sections relevant to your feature
+   - Use as CODA Details section
+
+---
+
+## 📊 Time Investment vs Return
+
+**Time to customize**: 10-15 minutes
+**Time saved per project**: 7+ hours
+**ROI**: 30-40x on first project
+
+**What you're saving**:
+- ✅ Framework setup: 2 hours
+- ✅ Environment variables: 1-2 hours
+- ✅ Design system: 2 hours
+- ✅ Utilities: 1 hour
+- ✅ Planning templates: 1 hour
+- ✅ Best practices research: 2+ hours
+
+---
+
+## 🆘 Need Help?
+
+**Framework docs**: See [`.ai/README.md`](../.ai/README.md) for complete framework overview
+
+**Template docs**: See [`.ai/templates/README.md`](../.ai/templates/README.md) for template usage
+
+**Integration guides**: See [`../integrations/README.md`](../../integrations/README.md) for setup guides
+
+---
+
+**Framework Status**: ⏳ Pending customization
+**Next Action**: Follow this checklist step by step
+
+---
+
+**Make Lost Monster yours. Customize once, benefit forever.** 🚀

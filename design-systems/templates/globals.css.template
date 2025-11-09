@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* [PROJECT_NAME] Design Tokens */
+    /* Customize these for your project */
+    --font-heading: "[Your heading font]", "Outfit", "Sora", system-ui, sans-serif;
+    --font-body: "[Your body font]", "Inter", system-ui, -apple-system, sans-serif;
+
+    /* Animation durations */
+    --duration-fast: 200ms;
+    --duration-base: 300ms;
+    --duration-slow: 600ms;
+    --duration-slower: 1000ms;
+
+    /* Easing functions - Natural ease timing (great for most animations) */
+    --ease-natural: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-mechanical: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
+    --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  * {
+    @apply border-neutral-200;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-white font-body text-base text-neutral-900 antialiased;
+  }
+
+  /* Typography base styles - Responsive sizing */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+
+  h4 {
+    @apply text-lg md:text-xl font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  /* Focus styles for accessibility (WCAG 2.1 AA) */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-600;
+  }
+
+  /* Reduced motion support (respects user preferences) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Container component */
+  .container-custom {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section padding - Consistent spacing across pages */
+  .section-padding {
+    @apply py-12 md:py-20 lg:py-24;
+  }
+
+  /* Glass morphism utilities (use sparingly for premium feel) */
+  .glass-light {
+    @apply bg-white/80 backdrop-blur-xl border border-white/60;
+  }
+
+  .glass-dark {
+    @apply bg-neutral-900/95 backdrop-blur-xl border border-white/10;
+  }
+
+  .glass-premium {
+    @apply bg-neutral-950/90 backdrop-blur-2xl border border-white/5;
+  }
+
+  /* Hover effects - Common interaction patterns */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  /* Image overlay gradients (for text readability over images) */
+  .overlay-gradient-dark {
+    @apply bg-gradient-to-b from-black/60 via-black/50 to-black/30;
+  }
+
+  .overlay-gradient-light {
+    @apply bg-gradient-to-b from-white/20 to-white/40;
+  }
+
+  /* Aspect ratios - Consistent image/video ratios */
+  .aspect-video-custom {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-square-custom {
+    aspect-ratio: 1 / 1;
+  }
+
+  .aspect-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@layer utilities {
+  /* Text utilities - Modern CSS text wrapping */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Scrollbar styling - Hide scrollbars (use carefully) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Gradient text - Use with your brand colors */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent;
+  }
+
+  /* Animation delays for staggered effects */
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+}

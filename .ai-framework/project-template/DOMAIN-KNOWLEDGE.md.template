@@ -1,0 +1,457 @@
+# [PROJECT_NAME] - Domain Knowledge
+
+> **Business context, target audience, and industry knowledge**
+>
+> This file contains the domain-specific information that informs content, messaging, and feature decisions.
+>
+> **Why this matters**: AI performs 10x better when it understands your business context, target audience, and industry knowledge.
+
+---
+
+## Business Overview
+
+### Company Profile
+
+**Name**: [Your company/product name]
+**Established**: [When founded / Years in operation]
+**Location**: [Geographic location if relevant]
+**Industry**: [Primary industry/sector]
+**Product/Service**: [What you sell/provide]
+**Style/Positioning**: [Unique positioning - e.g., "Premium", "Budget-friendly", "Luxury", "Accessible"]
+
+### Value Proposition
+
+**Core Promise**: [One-sentence core value proposition]
+
+**Unique Positioning**:
+1. **[USP 1]**: [Description]
+2. **[USP 2]**: [Description]
+3. **[USP 3]**: [Description]
+4. **[USP 4]**: [Description]
+5. **[USP 5]**: [Description]
+
+---
+
+## Target Audience
+
+### Primary Audience: [Name This Segment]
+
+**Demographics**:
+- Age: [Age range]
+- Income: [Income bracket or description]
+- Location: [Geographic focus]
+- [Other relevant demographics - education, family status, occupation]
+
+**Psychographics**:
+- [Value or belief 1]
+- [Value or belief 2]
+- [Behavioral trait 1]
+- [Behavioral trait 2]
+- [Interest or hobby]
+
+**Pain Points**:
+- [Pain point 1: What frustrates them]
+- [Pain point 2: What they struggle with]
+- [Pain point 3: What they're trying to avoid]
+- [Pain point 4: What prevents them from success]
+
+**What They Want**:
+- [Desired outcome 1]
+- [Desired outcome 2]
+- [Desired feature/benefit 1]
+- [Desired feature/benefit 2]
+- [Emotional need 1]
+
+---
+
+### Secondary Audience: [Name This Segment] (If Applicable)
+
+**Demographics**:
+- [Key demographics]
+
+**Psychographics**:
+- [Key traits and values]
+
+**Pain Points**:
+- [Pain points specific to this segment]
+
+**What They Want**:
+- [What this segment is looking for]
+
+---
+
+### Tertiary Audience: [Name This Segment] (If Applicable)
+
+**Demographics**:
+- [Key demographics]
+
+**Needs**:
+- [Specific needs of this smaller segment]
+
+---
+
+## Product/Service Details (If Applicable)
+
+### [Product/Service Category 1]
+
+**Description**: [What this is]
+**Configuration**: [Options, sizes, variants]
+**Features**: [Key features]
+
+**Example Structure**:
+
+#### [Specific Product/Service 1]
+- [Key specification]: [Value]
+- [Key specification]: [Value]
+- Features: [List of features]
+
+#### [Specific Product/Service 2]
+- [Key specifications]
+- Features: [List]
+
+---
+
+## Messaging & Voice
+
+### Brand Voice
+
+**Characteristics**:
+- [Voice trait 1] (not [opposite trait])
+- [Voice trait 2] (not [opposite trait])
+- [Voice trait 3] (not [opposite trait])
+- [Voice trait 4]
+
+**Tone Examples**:
+
+✅ **[Your Brand] style**:
+> "[Example of your ideal tone - emotionally resonant, specific, authentic]"
+
+❌ **Too [wrong tone 1]**:
+> "[Example of what NOT to sound like]"
+
+❌ **Too [wrong tone 2]**:
+> "[Another example of what to avoid]"
+
+---
+
+### Key Messages
+
+#### "[Message Theme 1]"
+**Meaning**: [What this communicates]
+**Use When**: [When to emphasize this message]
+
+#### "[Message Theme 2]"
+**Meaning**: [What this communicates]
+**Use When**: [Situations to use this]
+
+#### "[Message Theme 3]"
+**Meaning**: [Core idea]
+**Use When**: [Application]
+
+---
+
+### Content Guidelines
+
+**Always include**:
+- [Specific detail type 1 - e.g., geographic references, data points]
+- [Specific detail type 2]
+- [Specific detail type 3]
+- [Authenticity marker 1]
+- [Authenticity marker 2]
+
+**Never include**:
+- [Generic phrase type to avoid]
+- [Cliché to avoid]
+- [Overpromise to avoid]
+- [Inauthentic element to avoid]
+- [Style element to avoid - e.g., emojis in formal content]
+
+---
+
+## SEO & Keywords
+
+### Primary Keywords
+
+**[Category] + [Type]**:
+- [keyword phrase 1]
+- [keyword phrase 2]
+- [keyword phrase 3]
+- [keyword phrase 4]
+
+**[Benefit] + [Category]**:
+- [keyword phrase 1]
+- [keyword phrase 2]
+- [keyword phrase 3]
+
+**[Activity/Use Case] + [Product/Service]**:
+- [keyword phrase 1]
+- [keyword phrase 2]
+- [keyword phrase 3]
+
+---
+
+### Content Authority Strategy
+
+**Strategy**: [Overall SEO content approach]
+
+**Content Pillars**:
+1. **[Pillar 1]**: [Topic area and purpose]
+2. **[Pillar 2]**: [Topic area and purpose]
+3. **[Pillar 3]**: [Topic area and purpose]
+4. **[Pillar 4]**: [Topic area and purpose]
+5. **[Pillar 5]**: [Topic area and purpose]
+
+**Goal**: [What you want to rank for]
+
+---
+
+## Industry Knowledge
+
+### [Your Industry/Sector] Context
+
+**Market Context**:
+- [Industry stat or trend 1]
+- [Industry stat or trend 2]
+- [Market size or growth rate]
+- [Peak seasons or timing]
+
+**Customer Behavior**:
+- [Buying behavior insight 1]
+- [Decision-making pattern]
+- [Typical customer journey length]
+- [Price sensitivity or shopping behavior]
+
+---
+
+### Conversion Optimization
+
+**Industry Benchmarks**:
+- Average [your industry] conversion: [X%]
+- Target for optimized sites: [X%]
+- [Abandonment or drop-off rate]: [X%]
+- [Mobile vs desktop performance]
+
+**Conversion Drivers**:
+1. **[Driver 1]** - [Description]
+2. **[Driver 2]** - [Description]
+3. **[Driver 3]** - [Description]
+4. **[Driver 4]** - [Description]
+5. **[Driver 5]** - [Description]
+6. **[Driver 6]** - [Description]
+
+---
+
+### Competitive Landscape
+
+**Competition Types**:
+- **[Competitor Type 1]**: [Pros and cons vs your offering]
+- **[Competitor Type 2]**: [Pros and cons]
+- **[Competitor Type 3]**: [Pros and cons]
+- **[Competitor Type 4]**: [Pros and cons]
+
+**Your Competitive Advantage**:
+- [Advantage 1] (unique differentiator)
+- [Advantage 2] (hard to replicate)
+- [Advantage 3] (clear benefit)
+- [Advantage 4] (positioning strength)
+
+---
+
+## Seasonal Marketing (If Applicable)
+
+### [Season 1 - e.g., Spring, Q1, Peak Season]
+
+**Messaging**: "[Theme]"
+- [Seasonal benefit 1]
+- [Seasonal benefit 2]
+- [Seasonal offering]
+- [Unique seasonal angle]
+
+**Imagery**: [Visual themes for this season]
+
+---
+
+### [Season 2]
+
+**Messaging**: "[Theme]"
+- [Seasonal benefits]
+
+**Imagery**: [Visual themes]
+
+---
+
+### [Season 3]
+
+**Messaging**: "[Theme]"
+- [Seasonal benefits]
+
+**Imagery**: [Visual themes]
+
+---
+
+### [Season 4]
+
+**Messaging**: "[Theme]"
+- [Seasonal benefits]
+
+**Imagery**: [Visual themes]
+
+---
+
+## Content Strategy
+
+### [Primary Page Type - e.g., Product Pages, Service Pages]
+
+**Formula**: [Structure formula]
+
+**Storytelling Structure**:
+1. **Hero Section**: [What goes here]
+2. **[Section 2]**: [Purpose and content]
+3. **[Section 3]**: [Purpose and content]
+4. **[Section 4]**: [Purpose and content]
+5. **[Section 5]**: [Purpose and content]
+6. **[Section 6]**: [Purpose and content]
+7. **[CTA Section]**: [Conversion focus]
+
+**Example Opening**:
+> "[Write an example of your ideal page opening - emotionally engaging, specific, benefit-focused]"
+
+---
+
+### Blog/Content Strategy (If Applicable)
+
+**Topics** (for SEO and engagement):
+1. "[Blog topic idea 1 - helpful, keyword-focused]"
+2. "[Blog topic idea 2]"
+3. "[Blog topic idea 3]"
+4. "[Blog topic idea 4]"
+5. "[Blog topic idea 5]"
+6. "[Blog topic idea 6]"
+7. "[Blog topic idea 7]"
+
+**Content Principles**:
+- Helpful, not salesy (80% value, 20% promotion)
+- Specific and actionable (not vague)
+- [Content principle 3]
+- [Content principle 4]
+- Internal links to [conversion pages]
+
+---
+
+### Testimonials / Social Proof
+
+**Requirements**:
+- [Verification method - e.g., "Real customers, verified via [system]"]
+- [Attribution format - e.g., "First name + location"]
+- [Specificity requirement]
+- [Emotional + practical value balance]
+- [Variety requirement]
+
+**Example**:
+> "[Write an example testimonial showing the format and level of detail you want]"
+
+---
+
+## Technical/System Requirements (If Applicable)
+
+### [Core System - e.g., Booking System, E-commerce Platform]
+
+**Essential Features**:
+1. **[Feature 1]** - [Why it matters]
+2. **[Feature 2]** - [Why it matters]
+3. **[Feature 3]** - [Why it matters]
+4. **[Feature 4]** - [Why it matters]
+
+---
+
+### [Primary User Flow - e.g., Checkout, Booking, Signup]
+
+**[X] Steps Max**
+
+**Step 1: [Step Name]**
+- [What user does]
+- [What system shows]
+
+**Step 2: [Step Name]**
+- [What user does]
+- [What system shows]
+
+**Step 3: [Step Name]**
+- [What happens]
+
+---
+
+## Business Goals
+
+### Primary Goals
+
+1. **[Goal 1]**: [Measurable target]
+2. **[Goal 2]**: [Measurable target]
+3. **[Goal 3]**: [Measurable target]
+4. **[Goal 4]**: [Measurable target]
+5. **[Goal 5]**: [Measurable target]
+
+### Secondary Goals
+
+1. **[Goal 1]**: [Measurable target or description]
+2. **[Goal 2]**: [Measurable target or description]
+3. **[Goal 3]**: [Measurable target or description]
+4. **[Goal 4]**: [Measurable target or description]
+5. **[Goal 5]**: [Measurable target or description]
+
+---
+
+## Summary
+
+**Target Audience**: [One-sentence summary of who you serve]
+
+**Unique Value**:
+- [USP 1]
+- [USP 2]
+- [USP 3]
+- [USP 4]
+- [USP 5]
+
+**Voice**: [Comma-separated voice characteristics]
+
+**[Geographic/Industry] Context**: [Relevant context]
+
+**Key Differentiation**: [One-sentence unique positioning]
+
+---
+
+## Tips for Completing This Template
+
+### When to Fill This Out
+- ✅ Start of every new project (within first week)
+- ✅ When AI doesn't "get" your business context
+- ✅ Before creating marketing content
+- ✅ When onboarding new team members
+
+### When to Update This
+- 🔄 Quarterly (review and refresh)
+- 🔄 When target audience shifts
+- 🔄 When competitive landscape changes
+- 🔄 When messaging evolves
+
+### How to Use This
+1. **Fill out all sections relevant to your business** (skip sections that don't apply)
+2. **Be specific** - Vague descriptions don't help AI understand
+3. **Use real examples** - Show, don't just tell
+4. **Keep it updated** - Outdated context is worse than no context
+
+### Value Delivered
+- ⚡ AI generates content that sounds like YOUR brand (not generic)
+- ⚡ AI understands your customers (creates resonant messaging)
+- ⚡ AI knows your industry (uses correct terminology)
+- ⚡ AI respects your voice (matches your tone)
+- ⚡ Time saved: 70% reduction in content revision rounds
+
+---
+
+**Related resources**:
+
+- **Project overview**: [`PROJECT-TEMPLATE.md`](./PROJECT-TEMPLATE.md)
+- **Design system**: [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) (if applicable)
+- **Pre-design checklist**: [`PRE-DESIGN-CHECKLIST.md`](./PRE-DESIGN-CHECKLIST.md)
+- **CODA framework**: [`../frameworks/coda.md`](../frameworks/coda.md)

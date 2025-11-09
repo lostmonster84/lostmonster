@@ -1,0 +1,172 @@
+# [PROJECT_NAME] - AI Instructions
+
+> **AI Framework v2.1 - Universal Edition**
+>
+> All AI instructions are in the `.ai/` folder for better organization and reusability.
+
+---
+
+## 🚨 PRE-DESIGN CHECKLIST - MANDATORY
+
+**⚠️ CRITICAL: Before presenting ANY design, layout, or UI solution, you MUST verify ALL items below.**
+
+This checklist prevents recurring design violations. **If ANY item fails → STOP and redesign before presenting.**
+
+**See:** [.ai/project/PRE-DESIGN-CHECKLIST.md](./.ai/project/PRE-DESIGN-CHECKLIST.md) for full checklist and scoring details.
+
+### Quick Checklist Summary
+
+- [ ] Design principles verified
+- [ ] Brand voice consistent
+- [ ] Mobile-first approach
+- [ ] Accessibility standards met
+- [ ] Performance optimized
+- [ ] **Quality scored ≥80/100**
+
+**📚 Full Documentation**
+For comprehensive design rules, see:
+- [DESIGN-BRIEF.md](DESIGN-BRIEF.md) - Complete design language and brand guidelines
+- [.ai/project/PROJECT.md](./.ai/project/PROJECT.md) - Tech stack and design system
+- [.ai/project/PRE-DESIGN-CHECKLIST.md](./.ai/project/PRE-DESIGN-CHECKLIST.md) - Detailed scoring system
+
+**❌ STOP CHECK: If you cannot check ALL boxes above, redesign before presenting the solution to the user.**
+
+---
+
+## 📊 MANDATORY SCORING - Rate Your Work Out of 100
+
+**⚠️ CRITICAL: Before presenting ANY design solution, you MUST calculate and report the quality score.**
+
+### Scoring System (Total: 100 points)
+
+See [.ai/project/PRE-DESIGN-CHECKLIST.md](./.ai/project/PRE-DESIGN-CHECKLIST.md) for complete scoring breakdown.
+
+### Grading Scale
+
+| Score Range | Grade | Verdict | Action Required |
+|-------------|-------|---------|-----------------|
+| **90-100** | A - Excellent | ✅ Ready | Present to user immediately |
+| **80-89** | B - Good | ✅ Acceptable | Present with minor improvement notes |
+| **70-79** | C - Acceptable | ⚠️ Marginal | Present only if time-constrained |
+| **60-69** | D - Poor | ❌ Redesign | Major issues - do not present |
+| **0-59** | F - Failing | ❌ STOP | Complete redesign required |
+
+### Required Presentation Format
+
+**When presenting ANY design work, you MUST include this scorecard:**
+
+```markdown
+## 📊 Design Quality Score
+
+**Overall Score: XX/100 (Grade: X)**
+
+### Category Breakdown:
+- [Category 1]: XX/XX (XX%)
+- [Category 2]: XX/XX (XX%)
+- [Category 3]: XX/XX (XX%)
+- [Category 4]: XX/XX (XX%)
+- [Category 5]: XX/XX (XX%)
+- [Category 6]: XX/XX (XX%)
+
+### Verdict:
+[✅ Ready to present / ⚠️ Needs improvement / ❌ Requires redesign]
+
+### Key Issues (if any):
+- [List any items that scored ❌ FAIL]
+- [List any items that scored ⚠️ PARTIAL]
+
+### Improvements Needed (if score < 90):
+- [Specific actions to reach 90+]
+```
+
+### Scoring Rules
+
+**MANDATORY:**
+1. **Calculate score BEFORE showing work to user**
+2. **Include scorecard in every design presentation**
+3. **DO NOT present work with score < 80** without explicit justification
+4. **Track scores** in [.ai/project/DESIGN-SCORES.md](./.ai/project/DESIGN-SCORES.md)
+
+**Why 80 is the minimum:**
+- 80% = B grade = Professional quality
+- < 80% = Has significant quality issues
+- User deserves B+ work minimum
+
+---
+
+## Quick Start
+
+**For universal development guidelines:**
+→ See [.ai/README.md](./.ai/README.md)
+
+**For [PROJECT_NAME]-specific rules:**
+→ See [.ai/project/PROJECT.md](./.ai/project/PROJECT.md)
+
+**For [PROJECT_NAME] design language:**
+→ See [.ai/project/DESIGN-LANGUAGE.md](./.ai/project/DESIGN-LANGUAGE.md) *(needs customization)*
+
+**For advanced planning (CODA framework):**
+→ See [.ai/frameworks/coda.md](./.ai/frameworks/coda.md)
+
+**For Trello workflow automation:**
+→ See [.ai/workflows/trello-workflow.md](./.ai/workflows/trello-workflow.md)
+
+---
+
+## 🎯 Standard Workflow: Fix → Commit → Update Trello
+
+**After completing any significant work, always follow this workflow:**
+
+1. **Fix/Build** - Complete the task or feature
+2. **Test** - Verify it works correctly
+3. **Commit** - Commit changes with clear message
+4. **Push** - Push to remote repository
+5. **Update Trello** - Create or move card to Done with summary
+
+See [.ai/workflows/trello-workflow.md](./.ai/workflows/trello-workflow.md) for detailed instructions and automation setup.
+
+---
+
+## Tech Stack
+
+[CUSTOMIZE THIS SECTION FOR YOUR PROJECT]
+
+- **Framework**: [e.g., Next.js 15, Vue 3, etc.]
+- **Language**: [e.g., TypeScript]
+- **Styling**: [e.g., Tailwind CSS]
+- **Animations**: [e.g., Framer Motion]
+- **Forms**: [e.g., React Hook Form]
+- **State**: [e.g., Zustand, Pinia, etc.]
+- **CMS**: [e.g., Sanity.io]
+- **Hosting**: [e.g., Vercel]
+
+---
+
+## ⚠️ Customization Checklist
+
+Before using this file, customize these sections:
+
+- [ ] Replace `[PROJECT_NAME]` with actual project name throughout
+- [ ] Update Tech Stack section with your actual stack
+- [ ] Customize `.ai/project/PROJECT.md` with project details
+- [ ] Customize `.ai/project/PRE-DESIGN-CHECKLIST.md` for your design principles
+- [ ] Customize `.ai/project/DESIGN-LANGUAGE.md` for your brand
+- [ ] Set up Trello board IDs in workflow documentation (if using Trello)
+- [ ] Add project-specific design constraints or rules below
+
+---
+
+## Project-Specific Rules
+
+[ADD YOUR PROJECT-SPECIFIC RULES HERE]
+
+Examples:
+- Design constraints (e.g., "NO gradients", "Icons only from Lucide")
+- Brand voice requirements
+- Performance targets
+- Accessibility standards
+- Browser support requirements
+
+---
+
+**Start here**: [.ai/README.md](./.ai/README.md)

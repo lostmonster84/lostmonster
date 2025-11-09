@@ -1,0 +1,440 @@
+# [PROJECT_NAME] - Design Brief
+
+**Last Updated:** [Date]
+
+---
+
+## Project Overview
+
+**Product/Service:** [Description of what the product/service is]
+**Industry:** [Industry/sector]
+**Current Situation:** [Existing website/app or starting from scratch]
+**Goal:** [High-level goal for this project]
+
+---
+
+## Business Objectives
+
+1. **[Primary objective]** (with measurable target if applicable)
+2. **[Secondary objective]** (with measurable target if applicable)
+3. **[Tertiary objective]** (with measurable target if applicable)
+4. **[Additional objective]**
+5. **[Additional objective]**
+
+---
+
+## Target Audience
+
+**Primary:** [Main audience segment]
+- [Demographics: age, location, income, etc.]
+- [Psychographics: values, interests, behaviors]
+- [Pain points they're trying to solve]
+- [What they're looking for]
+
+**Secondary:** [Additional audience segment if applicable]
+- [Key characteristics]
+
+**Demographics:**
+- Age: [Range]
+- Location: [Geographic focus]
+- Income: [Income bracket]
+- Education: [Level]
+- Values: [What matters to them]
+
+---
+
+## Unique Selling Points
+
+1. **[USP 1]** - [Explanation]
+2. **[USP 2]** - [Explanation]
+3. **[USP 3]** - [Explanation]
+4. **[USP 4]** - [Explanation]
+5. **[USP 5]** - [Explanation]
+6. **[USP 6]** - [Explanation]
+
+---
+
+## Design Principles
+
+### Visual Style
+- **Overall Aesthetic:** [e.g., Modern minimalist, Luxury premium, Playful and energetic]
+- **Design Philosophy:** [Core design approach]
+- **Visual Restrictions:** [Things to avoid - e.g., NO gradients, NO stock photos]
+- **Key Visual Elements:** [What should dominate - e.g., Photography, Illustrations, Data viz]
+- **Brand Personality:** [How the brand should feel]
+
+### Color Palette:
+  - **Primary:** [Color] - [When to use]
+  - **Secondary:** [Color] - [When to use]
+  - **Accent:** [Color(s)] - [When to use]
+  - **Neutrals:** [Gray scale or specific neutrals]
+  - **Contrast:** [High contrast elements]
+
+### Typography
+- **Headers:** [Font family or style - e.g., "Elegant serif", "Modern sans-serif"]
+- **Body:** [Font family or style]
+- **Sizes:** [Minimum body text size, line-height guidelines]
+- **Hierarchy:** [How heading levels should work]
+
+### Photography/Imagery Strategy
+**Essential Imagery:**
+- **Hero shots:** [What hero images should show]
+- **Supporting imagery:** [What other images are needed]
+- **Seasonal/contextual variation:** [If applicable]
+- **User-generated content:** [If using customer photos]
+- **Product shots:** [Product photography needs]
+- **Lifestyle shots:** [Contextual/environmental shots]
+- **Technical shots:** [If applicable - e.g., 360° tours, diagrams]
+
+**Photography Principles:**
+- [Lighting preference - e.g., Golden hour, Studio lighting]
+- [Style - e.g., Cinematic, Documentary, Editorial]
+- [Authenticity - e.g., Authentic vs staged]
+- [What to showcase - e.g., People, products, environment]
+- [Technical requirements - e.g., WebP format, mobile-optimized]
+
+---
+
+## User Experience & Conversion
+
+### Homepage Architecture
+
+1. **Hero Section** ([Description - e.g., Full-screen, Above-fold])
+   - [Visual element - e.g., Video loop, Static image, Slider]
+   - Headline: "[Example headline]"
+   - Subhead: "[Example subhead]"
+   - Primary CTA: "[CTA text]"
+   - Secondary CTA: "[CTA text]"
+
+2. **[Section 2 Name]** ([Format - e.g., Visual cards, Grid layout])
+   - [Content purpose]
+   - [Key elements]
+
+3. **[Section 3 Name]** ([Format])
+   - [Content purpose]
+   - [Key elements]
+
+4. **[Section 4 Name]** ([Format])
+   - [Content purpose]
+   - [Key elements]
+
+5. **Social Proof**
+   - [Testimonials, reviews, ratings]
+   - [Trust badges]
+   - [Social proof notifications]
+   - [Logos of partners/clients]
+
+6. **[Final Section - e.g., Location, Contact, Final CTA]**
+   - [Content purpose]
+
+### Primary User Flow (e.g., Booking/Purchase/Signup)
+
+**Persistent CTA:** [Description - e.g., Sticky "Buy Now" button in header]
+
+**Step 1: [Step Name]**
+- [What user does]
+- [What system shows]
+- [CTA to next step]
+
+**Step 2: [Step Name]**
+- [What user does]
+- [What system shows]
+- [CTA to next step]
+
+**Step 3: [Step Name]**
+- [What user does]
+- [What system shows]
+- [Confirmation action]
+
+**Alternative Flow** (if applicable):
+- [Alternative approach or integration]
+
+### Conversion Optimization Tactics
+
+**Throughout Site:**
+- ✅ [Tactic 1 - e.g., Above-fold CTA on all pages]
+- ✅ [Tactic 2 - e.g., Real-time availability]
+- ✅ [Tactic 3 - e.g., Dynamic pricing]
+- ✅ [Tactic 4 - e.g., Limited availability indicators]
+- ✅ [Tactic 5 - e.g., Recent purchase notifications]
+- ✅ [Tactic 6 - e.g., Trust badges]
+- ✅ [Tactic 7 - e.g., Exit-intent offers]
+- ✅ [Tactic 8 - e.g., Mobile-first experience]
+
+**Trust Signals:**
+- [Certification/rating]
+- [Security badges]
+- [Customer review scores]
+- [Awards and recognition]
+- [Clear policies - refund, privacy, terms]
+- [Contact information]
+- [Authentic customer content]
+
+---
+
+## Technical Requirements
+
+### Technology Stack
+- **Framework:** [e.g., Next.js 15 with App Router, Vue 3, etc.]
+- **Language:** [TypeScript, JavaScript, etc.]
+- **Styling:** [Tailwind CSS, CSS-in-JS, etc.]
+- **CMS:** [Headless CMS if applicable - Sanity, Contentful, etc.]
+- **Backend:** [If applicable - e.g., Supabase, Firebase, Custom API]
+- **Analytics:** [Google Analytics 4, Plausible, etc.]
+- **Email:** [Resend, SendGrid, etc.]
+- **Hosting:** [Vercel, Netlify, AWS, etc.]
+- **CDN:** [Cloudflare, etc.]
+- **Payment:** [Stripe, PayPal, etc. - if e-commerce]
+
+### Performance Targets
+- **Lighthouse:** [Score target - e.g., 95+ on all metrics]
+- **Page Load:** [Time targets - e.g., <2s on 3G]
+- **Core Web Vitals:**
+  - LCP (Largest Contentful Paint): [Target - e.g., <2.5s]
+  - FID (First Input Delay): [Target - e.g., <100ms]
+  - CLS (Cumulative Layout Shift): [Target - e.g., <0.1]
+  - INP (Interaction to Next Paint): [Target - e.g., <200ms]
+- **Mobile Performance:** [Score target - e.g., 90+]
+
+### Image Optimization
+- [Format - e.g., WebP with fallbacks]
+- [Responsive images - srcset]
+- [Lazy loading strategy]
+- [Placeholder strategy - blur, skeleton]
+- [Image optimization service - e.g., Next.js Image, Cloudinary]
+
+### Accessibility (WCAG 2.1 AA)
+- ✅ Color contrast [ratio - e.g., 4.5:1 minimum]
+- ✅ Keyboard navigation throughout
+- ✅ Screen reader support (ARIA labels, semantic HTML)
+- ✅ Alt text for all images
+- ✅ Focus indicators visible
+- ✅ Form labels and error messages
+- ✅ No content relies solely on color
+
+---
+
+## Content Strategy
+
+### Core Pages
+
+**1. [Page Name - e.g., Home]**
+- [Purpose]
+- [Key sections]
+- [Main CTAs]
+
+**2. [Page Name - e.g., Products/Services]**
+- [Purpose]
+- [Key sections]
+- [Individual pages if applicable]:
+  - **[Sub-page 1]** - [Description]
+  - **[Sub-page 2]** - [Description]
+
+**3. [Page Name - e.g., About]**
+- [Purpose]
+- [Key content areas]
+
+**4. [Page Name - e.g., Contact/Location]**
+- [Purpose]
+- [Key elements]
+
+**5. [Additional Pages]**
+- [List remaining core pages]
+
+**6. [Blog/Resources]** (if applicable)
+- [Content strategy for blog]
+- [Content themes]
+
+### SEO Implementation
+
+**Target Keywords:**
+- "[Keyword phrase 1]"
+- "[Keyword phrase 2]"
+- "[Keyword phrase 3]"
+- "[Keyword phrase 4]"
+- "[Keyword phrase 5]"
+
+**Technical SEO:**
+- Schema.org structured data:
+  - [Schema type 1 - e.g., Organization]
+  - [Schema type 2 - e.g., Product]
+  - [Schema type 3 - e.g., Review/AggregateRating]
+  - [Schema type 4 - e.g., FAQPage]
+  - [Schema type 5 - e.g., BreadcrumbList]
+- XML sitemap
+- Robots.txt
+- Canonical URLs
+- OpenGraph + Twitter Card meta tags
+- Semantic HTML5
+- Proper heading hierarchy
+
+**Local SEO** (if applicable):
+- [Local listing optimization]
+- [Directory listings]
+- [Location-specific content]
+
+### Generative Engine Optimization (GEO)
+
+**AI Search Visibility (ChatGPT, Claude, Perplexity):**
+
+**Citation-Friendly Statements:**
+- "[Factual statement about your business that AI can cite]"
+- "[Clear, quotable fact]"
+- "[Statistics or unique data]"
+
+**Answer Common Queries:**
+- "[Question users might ask]" → [How your product/service answers it]
+- "[Question users might ask]" → [How your product/service answers it]
+
+**Authority Signals:**
+- [Certifications, ratings]
+- [Years of operation]
+- [Review scores]
+- [Credentials]
+
+---
+
+## Mobile-First Design
+
+**[X]% of traffic is mobile - design for phone first, enhance for desktop**
+
+### Mobile Optimization
+- Touch-optimized ([minimum tap target size - e.g., 44x44px])
+- [Mobile interaction pattern - e.g., Swipeable galleries]
+- [Mobile CTA approach - e.g., Large, tappable buttons]
+- [Navigation approach - e.g., Hamburger, bottom nav]
+- [Mobile-specific features - e.g., Tap-to-call, tap-to-email]
+- [Mobile payment options - e.g., Apple Pay, Google Pay]
+- [Performance target - e.g., Fast loading on 4G]
+- [Form optimization - e.g., Minimal fields, autofill]
+
+### Mobile User Flow
+- [Mobile-specific flow considerations]
+- [Progress indicators]
+- [One-thumb operation where possible]
+- [No hover-dependent functionality]
+
+---
+
+## Emotional Storytelling Themes
+
+**Hero Messaging:**
+- "[Headline option 1]"
+- "[Headline option 2]"
+- "[Headline option 3]"
+
+**Experience Descriptions:**
+- "[Evocative description 1]"
+- "[Evocative description 2]"
+- "[Evocative description 3]"
+
+**[Product/Service] Descriptions (Examples):**
+
+**[Product/Service Variant 1]:**
+> "[Sample description showcasing benefits, features, and emotional appeal]"
+
+**[Product/Service Variant 2]:**
+> "[Sample description showcasing benefits, features, and emotional appeal]"
+
+---
+
+## Content Ideas (SEO & Engagement)
+
+### Blog/Resource Content Ideas
+1. **"[Blog post title idea 1]"**
+2. **"[Blog post title idea 2]"**
+3. **"[Blog post title idea 3]"**
+4. **"[Blog post title idea 4]"**
+5. **"[Blog post title idea 5]"**
+6. **"[Blog post title idea 6]"**
+7. **"[Blog post title idea 7]"**
+8. **"[Blog post title idea 8]"**
+9. **"[Blog post title idea 9]"**
+10. **"[Blog post title idea 10]"**
+
+### Supporting Pages (if applicable)
+- [Related resource or location 1]
+- [Related resource or location 2]
+- [Related resource or location 3]
+
+---
+
+## Success Metrics
+
+### Quantitative Targets
+- **Conversion rate:** [Target %]
+- **[Primary action]:** [Target %]
+- **Mobile conversion:** [Target - e.g., Within 10% of desktop]
+- **Page load speed:** [Target - e.g., <2 seconds]
+- **Lighthouse score:** [Target - e.g., 95+]
+- **Bounce rate:** [Target - e.g., <40%]
+- **Average [metric]:** [Target and improvement goal]
+- **Organic traffic:** [Growth target]
+
+### Qualitative Goals
+- "[Perception goal - e.g., Industry-leading website]"
+- "[Brand positioning goal]"
+- "[UX goal]"
+- "[Emotional goal]"
+- "[Differentiation goal]"
+- "[Trust goal]"
+
+---
+
+## Implementation Phases
+
+### Phase 1: Foundation (Timeframe)
+- [Setup task 1]
+- [Setup task 2]
+- [Setup task 3]
+- [Setup task 4]
+
+### Phase 2: Design (Timeframe)
+- [Design task 1]
+- [Design task 2]
+- [Design task 3]
+- [Design task 4]
+
+### Phase 3: Development (Timeframe)
+- [Development task 1]
+- [Development task 2]
+- [Development task 3]
+- [Development task 4]
+- [Development task 5]
+
+### Phase 4: Testing & Launch (Timeframe)
+- [Testing task 1]
+- [Testing task 2]
+- [Testing task 3]
+- [Launch task 1]
+- [Launch task 2]
+
+---
+
+## Critical Constraints
+
+- **[Constraint 1]:** [Why it's important]
+- **[Constraint 2]:** [Why it's important]
+- **[Constraint 3]:** [Why it's important]
+- **[Constraint 4]:** [Why it's important]
+- **[Constraint 5]:** [Why it's important]
+
+---
+
+## Next Steps
+
+1. **[Next step 1]:** [Details]
+2. **[Next step 2]:** [Details]
+3. **[Next step 3]:** [Details]
+4. **[Next step 4]:** [Details]
+5. **[Next step 5]:** [Details]
+
+---
+
+**This document is the foundation for creating a [description of ideal outcome - e.g., world-class e-commerce experience that converts].**
+
+**Reference:**
+- [Link to project plan if applicable]
+- [Link to design language doc]
+- [Link to design system]
+- [Link to domain knowledge]

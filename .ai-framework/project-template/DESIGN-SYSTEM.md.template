@@ -1,0 +1,543 @@
+# [PROJECT_NAME] - Design System Documentation
+
+**Version:** 1.0.0
+**Last Updated:** [Date]
+**Status:** [Draft / In Progress / Production Ready]
+
+---
+
+## Table of Contents
+
+1. [Design Philosophy](#design-philosophy)
+2. [Design Tokens](#design-tokens)
+3. [Components](#components)
+4. [Animation System](#animation-system)
+5. [Best Practices](#best-practices)
+6. [Accessibility](#accessibility)
+7. [Performance](#performance)
+
+---
+
+## Design Philosophy
+
+### Core Principles
+
+**[Principle 1 Name]**
+
+- [Description of this design principle]
+- [How it manifests in the design]
+- [Example or guideline]
+
+**[Principle 2 Name]**
+
+- [Description]
+- [How it applies]
+
+**[Principle 3 Name]**
+
+- [Description]
+- [Guidelines]
+
+**[Principle 4 Name]**
+
+- [Description]
+- [Application]
+
+---
+
+## Design Tokens
+
+### Colors
+
+#### Primary Palette ([Your Primary Color Name])
+
+```css
+primary-50:  #[hex]
+primary-100: #[hex]
+primary-200: #[hex]
+primary-300: #[hex]
+primary-400: #[hex]
+primary-500: #[hex]
+primary-600: #[hex] /* DEFAULT - [Your Brand Color Name] */
+primary-700: #[hex]
+primary-800: #[hex]
+primary-900: #[hex]
+```
+
+**Usage**: [When to use - e.g., "Primary CTAs, key highlights, main brand elements"]
+
+---
+
+#### Secondary Palette ([Your Secondary Color Name]) (If Applicable)
+
+```css
+secondary-50:  #[hex]
+secondary-100: #[hex]
+secondary-200: #[hex]
+secondary-300: #[hex]
+secondary-400: #[hex]
+secondary-500: #[hex]
+secondary-600: #[hex] /* DEFAULT */
+secondary-700: #[hex]
+secondary-800: #[hex]
+secondary-900: #[hex]
+```
+
+**Usage**: [When to use - e.g., "Secondary CTAs, supporting elements"]
+
+---
+
+#### Accent Colors (If Applicable)
+
+```css
+/* [Accent Purpose 1] */
+accent-[name]-600: #[hex]
+
+/* [Accent Purpose 2] */
+accent-[name]-600: #[hex]
+```
+
+**Usage**: [When to use - e.g., "Special callouts, seasonal highlights (use sparingly)"]
+
+---
+
+#### Neutrals
+
+```css
+/* [Your neutral choice - e.g., Slate, Gray, etc.] */
+neutral-50:  #f8fafc
+neutral-100: #f1f5f9
+neutral-200: #e2e8f0
+neutral-300: #cbd5e1
+neutral-400: #94a3b8
+neutral-500: #64748b
+neutral-600: #475569
+neutral-700: #334155
+neutral-800: #1e293b
+neutral-900: #0f172a
+neutral-950: #020617
+```
+
+**Usage**: Text, backgrounds, borders, shadows
+
+---
+
+### Typography
+
+#### Font Families
+
+```css
+/* Headings - [Description - e.g., "Modern, clean"] */
+font-heading: '[Your Font]', [fallback], system-ui, sans-serif
+
+/* Body - [Description - e.g., "Readable, modern"] */
+font-body: '[Your Font]', [fallback], system-ui, -apple-system, sans-serif
+```
+
+#### Type Scale
+
+**Pixel Sizes (Mobile → Desktop)**
+
+```css
+h1:      [size]px → [size]px → [size]px (Hero titles)
+h2:      [size]px → [size]px (Section headings)
+h3:      [size]px → [size]px (Card headings)
+h4:      [size]px → [size]px (Subheadings)
+body-lg: [size]px → [size]px (Important paragraphs)
+body:    16px (Default body text - minimum for accessibility)
+small:   14px (Metadata, captions)
+tiny:    12px (Labels - use sparingly)
+```
+
+#### Tailwind Class Mappings
+
+```tsx
+/* Hero Titles (h1) */
+className = "font-heading text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
+
+/* Section Headings (h2) */
+className = "font-heading text-2xl md:text-3xl font-bold tracking-tight"
+
+/* Card Headings (h3) */
+className = "font-heading text-xl md:text-2xl font-bold tracking-tight"
+
+/* Subheadings (h4) */
+className = "font-semibold text-lg md:text-xl"
+
+/* Large Body Text */
+className = "text-lg md:text-xl"
+
+/* Body Text (Default) */
+className = "text-base"
+
+/* Small Text */
+className = "text-sm"
+
+/* Labels / Eyebrows */
+className = "text-xs uppercase tracking-wide font-semibold"
+```
+
+#### Font Weights
+
+```css
+regular:  400
+medium:   500
+semibold: 600
+bold:     700
+```
+
+#### Line Heights
+
+```css
+tight:   1.2 (headings)
+normal:  1.5 (default)
+relaxed: 1.7 (body copy for readability)
+```
+
+---
+
+### Spacing
+
+**[Your System - e.g., 8px Base Unit System]**
+
+```css
+4px (0.5), 8px (1), 12px (1.5), 16px (2), 20px (2.5),
+24px (3), 32px (4), 40px (5), 48px (6), 64px (8), 96px (12)
+```
+
+**Section Padding Standards**:
+- Mobile: `py-12` ([size]px)
+- Desktop: `py-20` ([size]px)
+- Large: `py-24` ([size]px)
+
+---
+
+### Shadows
+
+**Depth System**
+
+```css
+shadow-sm:   /* Subtle elevation - [use case] */
+shadow-md:   /* Base cards - [use case] */
+shadow-lg:   /* Elevated cards, hover states - [use case] */
+shadow-xl:   /* Modals, dropdowns - [use case] */
+shadow-2xl:  /* Premium overlays - [use case] */
+```
+
+---
+
+### Border Radius
+
+```css
+rounded-sm:  0.125rem (2px)
+rounded:     0.25rem (4px)
+rounded-md:  0.375rem (6px)
+rounded-lg:  0.5rem (8px)
+rounded-xl:  0.75rem (12px)
+rounded-2xl: 1rem (16px)
+rounded-3xl: 1.5rem (24px)
+rounded-full: 9999px
+```
+
+**Standards**: `rounded-[your choice]` for cards, `rounded-[your choice]` for buttons
+
+---
+
+## Components
+
+### Button
+
+#### Variants
+
+**Primary** - [When to use]
+
+```tsx
+<Button variant="primary" size="lg">
+  [CTA Text]
+</Button>
+```
+
+Styling: `bg-primary-600 text-white hover:bg-primary-700`
+
+---
+
+**Secondary** - [When to use]
+
+```tsx
+<Button variant="secondary" size="md">
+  [Action Text]
+</Button>
+```
+
+Styling: `bg-secondary-600 text-white hover:bg-secondary-700`
+
+---
+
+**Outline** - [When to use]
+
+```tsx
+<Button variant="outline">
+  [Action Text]
+</Button>
+```
+
+Styling: `border-2 border-primary-600 text-primary-600 hover:bg-primary-50`
+
+---
+
+**Ghost** - [When to use]
+
+```tsx
+<Button variant="ghost">
+  [Action Text]
+</Button>
+```
+
+Styling: `text-primary-600 hover:bg-primary-50`
+
+---
+
+#### Sizes
+
+```tsx
+size="sm"  // Compact actions
+size="md"  // Default
+size="lg"  // Primary CTAs
+size="xl"  // Hero CTAs
+```
+
+---
+
+### Card
+
+**Purpose**: [What cards are used for in your project]
+
+**Structure**:
+```tsx
+<Card>
+  <CardImage src="..." alt="..." />
+  <CardContent>
+    <CardTitle>[Title]</CardTitle>
+    <CardDescription>[Description]</CardDescription>
+  </CardContent>
+  <CardFooter>
+    <Button>[CTA]</Button>
+  </CardFooter>
+</Card>
+```
+
+**Styling**: `bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow`
+
+---
+
+### [Your Key Component 1]
+
+**Purpose**: [What this component does]
+
+**Props**:
+```tsx
+interface [Component]Props {
+  [prop]: [type]  // [description]
+  [prop]?: [type] // [description]
+}
+```
+
+**Usage**:
+```tsx
+<[Component] [prop]="value" />
+```
+
+---
+
+### [Your Key Component 2]
+
+**Purpose**: [What this component does]
+
+**Variants**: [If applicable]
+- [Variant 1]: [When to use]
+- [Variant 2]: [When to use]
+
+---
+
+## Animation System
+
+### Timing Functions
+
+```css
+/* Natural ease (recommended for most animations) */
+transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94)
+
+/* Mechanical (precise, UI elements) */
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
+
+/* Entrance (elements appearing) */
+transition-timing-function: cubic-bezier(0, 0, 0.2, 1)
+
+/* Exit (elements leaving) */
+transition-timing-function: cubic-bezier(0.4, 0, 1, 1)
+```
+
+### Duration Standards
+
+```css
+fast:   200ms  /* Micro-interactions, hover states */
+base:   300ms  /* Default transitions */
+slow:   600ms  /* Page transitions, important UI changes */
+slower: 1000ms /* Hero animations, special effects */
+```
+
+### Animation Patterns
+
+**Fade In**
+```tsx
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.6, ease: naturalEase }}
+/>
+```
+
+**Slide Up**
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: naturalEase }}
+/>
+```
+
+**Scale In**
+```tsx
+<motion.div
+  initial={{ opacity: 0, scale: 0.95 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.6, ease: naturalEase }}
+/>
+```
+
+---
+
+## Best Practices
+
+### Do's ✅
+
+- [Best practice 1 - e.g., "Use 16px minimum for body text"]
+- [Best practice 2 - e.g., "Design mobile-first, enhance for desktop"]
+- [Best practice 3 - e.g., "Maintain consistent spacing using 8px system"]
+- [Best practice 4 - e.g., "Use semantic HTML for accessibility"]
+- [Best practice 5 - e.g., "Keep color contrast ratio 4.5:1 minimum"]
+
+### Don'ts ❌
+
+- [Anti-pattern 1 - e.g., "Don't use body text smaller than 14px"]
+- [Anti-pattern 2 - e.g., "Don't mix spacing systems"]
+- [Anti-pattern 3 - e.g., "Don't animate more than 3 properties simultaneously"]
+- [Anti-pattern 4 - e.g., "Don't rely on color alone for information"]
+
+---
+
+## Accessibility
+
+### WCAG 2.1 AA Compliance
+
+**Color Contrast**:
+- Text: 4.5:1 minimum against background
+- Large text (18px+): 3:1 minimum
+- Interactive elements: Clear visual distinction
+
+**Focus States**:
+```css
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-600;
+}
+```
+
+**Semantic HTML**:
+- Use proper heading hierarchy (h1 → h2 → h3)
+- Use `<button>` for clickable actions (not `<div>`)
+- Use `<a>` for navigation (not `<button>`)
+- Use `<nav>`, `<main>`, `<article>` for structure
+
+**ARIA Labels**:
+- All interactive elements have accessible names
+- Images have alt text (descriptive or empty)
+- Form inputs have associated labels
+
+**Keyboard Navigation**:
+- All interactive elements are keyboard accessible
+- Tab order is logical
+- Skip links for main content
+
+**Motion**:
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+---
+
+## Performance
+
+### Image Optimization
+
+**Format**: WebP with fallbacks
+**Loading**: Lazy load below-fold images
+**Sizes**: Responsive srcset for different viewports
+**Placeholder**: Blur-up placeholder for loading states
+
+### Code Splitting
+
+- Route-based splitting (automatic in Next.js)
+- Component-based splitting for heavy components
+- Dynamic imports for modals, overlays
+
+### Performance Targets
+
+- **Lighthouse**: 95+ on all metrics
+- **LCP (Largest Contentful Paint)**: <2.5s
+- **FID (First Input Delay)**: <100ms
+- **CLS (Cumulative Layout Shift)**: <0.1
+- **INP (Interaction to Next Paint)**: <200ms
+
+---
+
+## Component Library Checklist
+
+When creating new components, ensure:
+
+- [ ] Component follows design token system (colors, spacing, typography)
+- [ ] All variants documented with usage guidelines
+- [ ] Props interface typed with JSDoc comments
+- [ ] Accessibility requirements met (WCAG 2.1 AA)
+- [ ] Keyboard navigation works
+- [ ] Focus states visible
+- [ ] Responsive across breakpoints
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Usage examples provided
+- [ ] Tested in major browsers
+
+---
+
+## Updating This Document
+
+**When to update**:
+- ✏️ New component added to library
+- ✏️ Design tokens change
+- ✏️ New pattern emerges
+- ✏️ Accessibility improvements made
+
+**Version history**: Track changes in git commits
+
+---
+
+**Related resources**:
+
+- **Tailwind Config**: [`../../design-systems/templates/tailwind.config.template.ts`](../../design-systems/templates/tailwind.config.template.ts)
+- **Global Styles**: [`../../design-systems/templates/globals.css.template`](../../design-systems/templates/globals.css.template)
+- **Project Overview**: [`PROJECT-TEMPLATE.md`](./PROJECT-TEMPLATE.md)
+- **Pre-Design Checklist**: [`PRE-DESIGN-CHECKLIST.md`](./PRE-DESIGN-CHECKLIST.md)
