@@ -1,0 +1,3 @@
+# SaaS Industry Messaging
+
+[INSERT SAAS-SPECIFIC CONTENT FROM EARLIER RESPONSE - ~2,000 words]

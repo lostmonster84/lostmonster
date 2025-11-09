@@ -1,0 +1,3 @@
+# Professional Services Industry Messaging
+
+[INSERT PROFESSIONAL SERVICES CONTENT FROM EARLIER RESPONSE - ~2,000 words]

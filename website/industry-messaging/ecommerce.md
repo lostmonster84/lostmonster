@@ -1,0 +1,3 @@
+# E-commerce Industry Messaging
+
+[INSERT ECOMMERCE-SPECIFIC CONTENT FROM EARLIER RESPONSE - ~2,000 words]

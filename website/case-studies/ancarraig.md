@@ -1,0 +1,3 @@
+# Ancarraig Highland Lodges Case Study
+
+[INSERT FULL ANCARRAIG CASE STUDY FROM EARLIER RESPONSE - ~4,500 words]

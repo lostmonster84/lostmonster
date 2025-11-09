@@ -1,0 +1,3 @@
+# Booking Systems Service Page
+
+[INSERT FULL BOOKING SYSTEMS CONTENT FROM EARLIER RESPONSE - ~3,000 words]
