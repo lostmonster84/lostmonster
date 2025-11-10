@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, CheckCircle2, DollarSign, Clock, TrendingUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const colors = {
@@ -105,36 +105,6 @@ export default function HomePage() {
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Metrics Section - Separate Below */}
-      <section className="relative py-20 md:py-32">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {[
-              { value: '50+', label: 'Projects Built', subtext: 'Delivered on time', icon: CheckCircle2 },
-              { value: '70%', label: 'Cost Savings', subtext: 'vs agencies', icon: DollarSign },
-              { value: '4.9/5', label: 'Client Rating', subtext: 'Real reviews', icon: TrendingUp },
-              { value: '2-4 wks', label: 'Typical Build', subtext: 'Not months', icon: Clock },
-            ].map((metric, i) => {
-              const Icon = metric.icon;
-              return (
-                <div
-                  key={i}
-                  className="bg-white/5 backdrop-blur-md border rounded-xl p-6 hover:bg-white/10 transition-all"
-                  style={{
-                    borderColor: `${color.accent}20`,
-                  }}
-                >
-                  <Icon className="w-6 h-6 mx-auto mb-3 transition-colors duration-300" style={{ color: color.accent }} />
-                  <div className="text-4xl font-bold text-white mb-2">{metric.value}</div>
-                  <div className="text-sm font-semibold text-white mb-1">{metric.label}</div>
-                  <div className="text-xs text-neutral-400">{metric.subtext}</div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>
