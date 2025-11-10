@@ -84,11 +84,11 @@ export default function ContactPage() {
       </section>
 
 
-      {/* Color switcher */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <div className="bg-black/80 backdrop-blur-md border border-neutral-700 rounded-lg p-4 shadow-2xl">
-          <div className="text-xs font-semibold text-white mb-3 text-center">Choose Your Color</div>
-          <div className="flex gap-3">
+      {/* Color switcher - Mobile optimized */}
+      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
+        <div className="bg-black/80 backdrop-blur-md border border-neutral-700 rounded-lg p-3 md:p-4 shadow-2xl">
+          <div className="text-xs font-semibold text-white mb-2 md:mb-3 text-center">Choose Your Color</div>
+          <div className="flex gap-2 md:gap-3">
             {(Object.keys(colors) as ColorKey[]).map((colorKey) => (
               <button
                 key={colorKey}
@@ -96,7 +96,7 @@ export default function ContactPage() {
                   setSelectedColor(colorKey);
                   localStorage.setItem('lostmonster-color', colorKey);
                 }}
-                className={`w-10 h-10 rounded-full transition-all ${
+                className={`w-8 h-8 md:w-10 md:h-10 rounded-full transition-all ${
                   selectedColor === colorKey
                     ? 'ring-2 ring-white ring-offset-2 ring-offset-black scale-110'
                     : 'opacity-50 hover:opacity-100 hover:scale-105'
@@ -107,7 +107,7 @@ export default function ContactPage() {
               />
             ))}
           </div>
-          <div className="text-xs text-neutral-400 mt-2 text-center">
+          <div className="text-xs text-neutral-400 mt-2 text-center hidden md:block">
             {color.name}
           </div>
         </div>
