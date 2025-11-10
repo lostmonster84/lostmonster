@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
     if (resend) {
       try {
         await resend.emails.send({
-          from: process.env.CONTACT_EMAIL_FROM || 'contact@lostmonster.com',
-          to: process.env.CONTACT_EMAIL_TO || 'hello@lostmonster.com',
+          from: process.env.CONTACT_EMAIL_FROM || 'contact@lostmonster.io',
+          to: process.env.CONTACT_EMAIL_TO || 'hello@lostmonster.io',
           replyTo: validatedData.email,
           subject: `New Project Enquiry from ${validatedData.name}`,
           html: `

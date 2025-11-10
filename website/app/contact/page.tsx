@@ -93,11 +93,11 @@ export default function ContactPage() {
                 <div className="text-left">
                   <p className="text-sm text-neutral-400 mb-1">Prefer email?</p>
                   <a
-                    href="mailto:hello@lostmonster.com"
+                    href="mailto:hello@lostmonster.io"
                     className="text-white font-medium hover:opacity-80 transition-opacity"
                     style={{ color: color.accent }}
                   >
-                    hello@lostmonster.com
+                    hello@lostmonster.io
                   </a>
                 </div>
               </div>

@@ -93,8 +93,8 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
               <h3 className="font-bold text-white mb-1">Something Went Wrong</h3>
               <p className="text-neutral-300 text-sm">
                 Please try again or email me directly at{' '}
-                <a href="mailto:hello@lostmonster.com" className="underline hover:text-white">
-                  hello@lostmonster.com
+                <a href="mailto:hello@lostmonster.io" className="underline hover:text-white">
+                  hello@lostmonster.io
                 </a>
               </p>
             </div>

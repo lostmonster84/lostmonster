@@ -16,10 +16,10 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <Link
-              href="mailto:hello@lostmonster.com"
+              href="mailto:hello@lostmonster.io"
               className="text-neutral-300 hover:text-white transition-colors text-sm"
             >
-              hello@lostmonster.com
+              hello@lostmonster.io
             </Link>
           </div>
 
