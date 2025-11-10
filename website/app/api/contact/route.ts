@@ -8,6 +8,7 @@ const contactSchema = z.object({
   projectType: z.enum(['booking-system', 'ecommerce', 'custom-app', 'design-system', 'other']),
   budget: z.enum(['15-30k', '30-50k', '50-75k', '75k-plus', 'not-sure']),
   message: z.string().min(10),
+  turnstileToken: z.string().min(1),
 });
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -40,6 +41,34 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
+
+    // Verify Turnstile token
+    if (process.env.TURNSTILE_SECRET_KEY) {
+      const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          secret: process.env.TURNSTILE_SECRET_KEY,
+          response: validatedData.turnstileToken,
+        }),
+      });
+
+      const turnstileData = await turnstileResponse.json();
+
+      if (!turnstileData.success) {
+        console.error('❌ Turnstile verification failed:', turnstileData);
+        return NextResponse.json(
+          { error: 'Verification failed. Please try again.' },
+          { status: 400 }
+        );
+      }
+
+      console.log('✅ Turnstile verification passed');
+    } else {
+      console.warn('⚠️  Turnstile secret key not configured. Skipping verification.');
+    }
 
     // Log submission (always do this as backup)
     console.log('Contact form submission:', {

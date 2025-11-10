@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { CheckCircle2, AlertCircle, Send } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -16,6 +17,7 @@ const contactSchema = z.object({
     required_error: 'Please select a budget range',
   }),
   message: z.string().min(10, 'Please tell me about your project (at least 10 characters)'),
+  turnstileToken: z.string().min(1, 'Please complete the verification'),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -27,12 +29,14 @@ interface ContactFormProps {
 export default function ContactForm({ accentColor }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
@@ -53,6 +57,7 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
       if (response.ok) {
         setSubmitStatus('success');
         reset();
+        setTurnstileToken('');
         // Scroll to success message
         setTimeout(() => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -218,10 +223,38 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
           )}
         </div>
 
+        {/* Turnstile CAPTCHA */}
+        <div>
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+            onSuccess={(token) => {
+              setTurnstileToken(token);
+              setValue('turnstileToken', token);
+            }}
+            onError={() => {
+              setTurnstileToken('');
+              setValue('turnstileToken', '');
+            }}
+            onExpire={() => {
+              setTurnstileToken('');
+              setValue('turnstileToken', '');
+            }}
+            options={{
+              theme: 'dark',
+              size: 'normal',
+            }}
+          />
+          {errors.turnstileToken && (
+            <p className="mt-2 text-sm text-red-400" role="alert">
+              {errors.turnstileToken.message}
+            </p>
+          )}
+        </div>
+
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !turnstileToken}
           className="w-full px-8 py-4 text-lg font-bold rounded-lg transition-all shadow-2xl text-black flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
           style={{
             backgroundColor: accentColor,
