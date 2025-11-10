@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { Resend } from 'resend';
+import { rateLimit, getClientIdentifier } from '@/lib/rate-limit';
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -39,6 +40,29 @@ const formatBudget = (budget: string) => {
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting: 5 requests per 15 minutes per IP
+    const identifier = getClientIdentifier(request);
+    const rateLimitResult = rateLimit(identifier, 5, 15 * 60 * 1000);
+
+    if (!rateLimitResult.allowed) {
+      const resetTime = new Date(rateLimitResult.resetTime).toISOString();
+      return NextResponse.json(
+        { 
+          error: 'Too many requests. Please try again later.',
+          retryAfter: resetTime,
+        },
+        { 
+          status: 429,
+          headers: {
+            'Retry-After': Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000).toString(),
+            'X-RateLimit-Limit': '5',
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': rateLimitResult.resetTime.toString(),
+          },
+        }
+      );
+    }
+
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
 
@@ -152,7 +176,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: 'Message sent successfully' },
-      { status: 200 }
+      { 
+        status: 200,
+        headers: {
+          'X-RateLimit-Limit': '5',
+          'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+          'X-RateLimit-Reset': rateLimitResult.resetTime.toString(),
+        },
+      }
     );
   } catch (error) {
     if (error instanceof z.ZodError) {
