@@ -85,10 +85,10 @@ export default function HomePage() {
               I understand your problems because I've lived them.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* CTA */}
+            <div className="flex justify-center">
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-12 py-6 text-xl font-bold rounded-lg transition-all shadow-2xl text-black group"
                 style={{
                   backgroundColor: color.accent,
@@ -103,12 +103,6 @@ export default function HomePage() {
               >
                 Start Your Project
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#work"
-                className="inline-flex items-center justify-center px-12 py-6 border-2 border-neutral-700 text-white text-xl font-semibold rounded-lg hover:border-neutral-500 hover:bg-neutral-900 transition-all"
-              >
-                See My Work
               </a>
             </div>
           </div>

@@ -1,5 +1,17 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Lost Monster Website - Tailwind Configuration
+ *
+ * Design System: Bold Personal Brand
+ * - Dynamic color theming (5 user-selectable options)
+ * - Dark backgrounds with gradients
+ * - Large-scale typography (up to 128px)
+ * - Glassmorphism and technical details
+ *
+ * See: /website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md for full documentation
+ */
+
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,7 +20,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary Brand Color - Lost Monster Blue
+        /**
+         * Primary Brand Color - Blue (one of 5 dynamic options)
+         * Used as fallback/default in static contexts
+         * Dynamic colors controlled via JavaScript state in components
+         */
         primary: {
           50: "#eff6ff",
           100: "#dbeafe",
@@ -34,9 +50,16 @@ const config: Config = {
           800: "#1f2937",
           900: "#111827",
         },
-        // PALETTE EXPLORATIONS (use these to test different looks)
+        /**
+         * PALETTE EXPLORATIONS
+         * These are NOT part of the active design system
+         * The actual color system uses 5 dynamic options (blue/teal/orange/purple/green)
+         * controlled via JavaScript state, not Tailwind classes
+         *
+         * These palettes are kept for exploration/testing only
+         */
 
-        // Emerald Authority (Premium Bold)
+        // Emerald Authority (exploration palette)
         emerald: {
           50: "#ecfdf5",
           100: "#d1fae5",
@@ -155,10 +178,20 @@ const config: Config = {
         },
       },
       fontFamily: {
+        /**
+         * Typography System
+         * heading: Outfit - Geometric, bold at large sizes
+         * body: Inter - Readable, professional
+         */
         heading: ["var(--font-heading)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "-apple-system", "sans-serif"],
       },
       fontSize: {
+        /**
+         * Bold Personal Brand Typography Scale
+         * NOTE: Uses large scale - up to text-9xl (128px) for hero headlines
+         * This is intentional for Bold Personal Brand aesthetic
+         */
         xs: ["0.75rem", { lineHeight: "1rem" }],
         sm: ["0.875rem", { lineHeight: "1.25rem" }],
         base: ["1rem", { lineHeight: "1.5rem" }],
