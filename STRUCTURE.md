@@ -16,6 +16,26 @@ lostmonster/
 ├── STRUCTURE.md                 # This file - complete structure guide
 ├── .gitignore                   # Git ignore rules
 │
+├── .ai-framework/               # 🤖 AI Development Framework
+│   ├── README.md                # Framework overview
+│   ├── INDEX.md                 # Complete navigation
+│   ├── core/                    # Universal principles (never change)
+│   │   ├── DEVELOPMENT-PRINCIPLES.md
+│   │   ├── WORKFLOW.md
+│   │   └── COMMUNICATION.md
+│   ├── frameworks/              # Planning methodologies
+│   │   ├── coda.md              # CODA planning (VITAL)
+│   │   └── design-variations.md # 5 variations (CRITICAL)
+│   ├── project-template/        # Customizable templates
+│   │   ├── PROJECT-TEMPLATE.md
+│   │   ├── PRE-DESIGN-CHECKLIST.md
+│   │   └── DESIGN-SCORES.md
+│   ├── templates/               # Reusable boilerplates
+│   │   ├── CLAUDE.md.template
+│   │   ├── component-planning.md
+│   │   └── ...
+│   └── workflows/               # Process automation
+│
 ├── components/                  # 🧩 Component Library
 │   ├── README.md
 │   ├── react/                   # React components
@@ -158,15 +178,53 @@ lostmonster/
 │   └── architecture/            # Architecture docs
 │       └── README.md
 │
-└── examples/                    # 💡 Real-World Examples
-    ├── README.md
-    ├── case-studies/            # Project case studies
-    │   └── README.md
-    └── implementations/         # Implementation examples
-        └── README.md
+├── examples/                    # 💡 Real-World Examples
+│   ├── README.md
+│   ├── case-studies/            # Project case studies
+│   │   └── README.md
+│   └── implementations/         # Implementation examples
+│       └── README.md
+│
+└── website/                     # 🌐 Lost Monster Website (Production)
+    ├── README.md                # Website documentation
+    ├── app/                     # Next.js App Router
+    ├── components/              # Website components
+    ├── .ai/                     # Project-specific AI docs
+    │   ├── CODA-WEBSITE.md
+    │   ├── DESIGN-DECISIONS.md
+    │   ├── QUALITY-SCORES.md
+    │   └── ...
+    └── ...                      # Standard Next.js structure
 ```
 
 ## Section Purposes
+
+### AI Framework (`/.ai-framework`)
+**Purpose:** Battle-tested AI development methodology and templates
+
+**What goes here:**
+- Universal development principles (5 pillars)
+- Standard workflows (Think → Research → Plan → Verify → Implement → Review)
+- Communication guidelines
+- CODA planning framework (Context → Objective → Details → Acceptance)
+- Design variations methodology (always create 5 options)
+- Project templates (customizable per project)
+- Reusable boilerplates and templates
+
+**When to use:**
+- Starting any new project
+- Planning complex features
+- Making design decisions
+- Setting quality standards
+- Configuring AI assistants
+- Establishing consistent workflows
+
+**Key Features:**
+- **Universal Core**: Never-changing principles that apply to all projects
+- **Proven Methodologies**: CODA planning, 5 design variations
+- **Quality Standards**: 100-point scoring system, 80+ threshold
+- **Reusable Templates**: Copy and customize for new projects
+- **Time Savings**: 3-5 day project setup vs industry 2-3 weeks
 
 ### Components (`/components`)
 **Purpose:** Reusable UI components and business logic
@@ -299,6 +357,15 @@ lostmonster/
 
 ### I want to...
 
+**Plan a new project**
+→ Start with `/.ai-framework/README.md` and CODA planning
+
+**Understand development methodology**
+→ Read `/.ai-framework/core/DEVELOPMENT-PRINCIPLES.md`
+
+**Make design decisions**
+→ Use `/.ai-framework/frameworks/design-variations.md`
+
 **Build a user interface**
 → Start with `/components` and `/design-systems`
 
@@ -378,16 +445,28 @@ This structure is designed to be:
 
 | Need | Location |
 |------|----------|
+| **AI Framework** | |
+| Framework Overview | `/.ai-framework/README.md` |
+| Development Principles | `/.ai-framework/core/DEVELOPMENT-PRINCIPLES.md` |
+| CODA Planning | `/.ai-framework/frameworks/coda.md` |
+| Design Variations | `/.ai-framework/frameworks/design-variations.md` |
+| Project Template | `/.ai-framework/project-template/PROJECT-TEMPLATE.md` |
+| **Components & Design** | |
 | React Button | `/components/react/Button` |
+| Design Tokens | `/design-systems/style-guides` |
+| **Integrations** | |
 | Stripe Integration | `/integrations/payment/stripe` |
+| Auth Example | `/examples/implementations/auth` |
+| **Templates & Standards** | |
 | Next.js Template | `/templates/frontend/nextjs-app` |
 | Coding Standards | `/standards/coding` |
+| **Utilities** | |
 | String Utilities | `/utilities/helpers/string.ts` |
 | useDebounce Hook | `/utilities/hooks/useDebounce.ts` |
 | Form Validation | `/utilities/validators/form.ts` |
-| Design Tokens | `/design-systems/style-guides` |
-| Auth Example | `/examples/implementations/auth` |
+| **Documentation** | |
 | Getting Started | `/docs/getting-started` |
+| Production Example | `/website` |
 
 ## Updates
 
