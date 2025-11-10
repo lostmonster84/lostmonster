@@ -23,7 +23,7 @@ export default function Navigation({ className, onLinkClick }: NavigationProps) 
   return (
     <nav className={cn('flex items-center gap-8', className)}>
       {navItems.map((item) => {
-        const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+        const isActive = pathname === item.href || (pathname?.startsWith(item.href + '/') ?? false);
         return (
           <Link
             key={item.href}

@@ -9,12 +9,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   try {
-    const content = await getServiceContent(params.slug);
+    const { slug } = await params;
+    const content = await getServiceContent(slug);
     return {
-      title: `${content.title || params.slug} - Lost Monster Services`,
-      description: content.description || `Learn about ${params.slug} services from Lost Monster.`,
+      title: `${content.title || slug} - Lost Monster Services`,
+      description: content.description || `Learn about ${slug} services from Lost Monster.`,
     };
   } catch {
     return {
@@ -23,9 +24,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function ServicePage({ params }: { params: { slug: string } }) {
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   try {
-    const content = await getServiceContent(params.slug);
+    const { slug } = await params;
+    const content = await getServiceContent(slug);
 
     return (
       <article className="section-padding bg-white">

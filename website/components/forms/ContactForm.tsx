@@ -11,10 +11,10 @@ const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   projectType: z.enum(['booking-system', 'ecommerce', 'custom-app', 'design-system', 'other'], {
-    required_error: 'Please select a project type',
+    message: 'Please select a project type',
   }),
   budget: z.enum(['15-30k', '30-50k', '50-75k', '75k-plus', 'not-sure'], {
-    required_error: 'Please select a budget range',
+    message: 'Please select a budget range',
   }),
   message: z.string().min(10, 'Please tell me about your project (at least 10 characters)'),
   turnstileToken: z.string().min(1, 'Please complete the verification'),
