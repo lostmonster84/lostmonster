@@ -83,31 +83,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Alternative Contact Section */}
-      <section className="relative pb-20 md:pb-32">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-3 px-6 py-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg">
-                <Mail className="w-5 h-5 text-white" />
-                <div className="text-left">
-                  <p className="text-sm text-neutral-400 mb-1">Prefer email?</p>
-                  <a
-                    href="mailto:hello@lostmonster.io"
-                    className="text-white font-medium hover:opacity-80 transition-opacity"
-                    style={{ color: color.accent }}
-                  >
-                    hello@lostmonster.io
-                  </a>
-                </div>
-              </div>
-              <p className="mt-4 text-sm text-neutral-400">
-                I typically respond within 24 hours
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Color switcher */}
       <div className="fixed bottom-8 right-8 z-50">

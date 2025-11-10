@@ -13,16 +13,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Contact */}
-          <div>
-            <Link
-              href="mailto:hello@lostmonster.io"
-              className="text-neutral-300 hover:text-white transition-colors text-sm"
-            >
-              hello@lostmonster.io
-            </Link>
-          </div>
-
           {/* Copyright */}
           <div className="pt-4 text-neutral-500 text-xs">
             <p>© {new Date().getFullYear()} Lost Monster. All rights reserved.</p>
