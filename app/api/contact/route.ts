@@ -4,12 +4,16 @@ import { Resend } from 'resend';
 import { rateLimit, getClientIdentifier } from '@/lib/rate-limit';
 
 const contactSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  projectType: z.enum(['booking-system', 'ecommerce', 'custom-app', 'design-system', 'other']),
-  budget: z.enum(['15-30k', '30-50k', '50-75k', '75k-plus', 'not-sure']),
-  message: z.string().min(10),
-  turnstileToken: z.string().min(1),
+  name: z.string().trim().min(2, 'Name must be at least 2 characters'),
+  email: z.string().trim().email('Please enter a valid email address'),
+  projectType: z.enum(['booking-system', 'ecommerce', 'custom-app', 'design-system', 'other'], {
+    message: 'Please select a project type',
+  }),
+  budget: z.enum(['15-30k', '30-50k', '50-75k', '75k-plus', 'not-sure'], {
+    message: 'Please select a budget range',
+  }),
+  message: z.string().trim().min(10, 'Please tell me about your project (at least 10 characters)'),
+  turnstileToken: z.string().min(1, 'Please complete the verification'),
 });
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -67,31 +71,50 @@ export async function POST(request: NextRequest) {
     const validatedData = contactSchema.parse(body);
 
     // Verify Turnstile token
-    if (process.env.TURNSTILE_SECRET_KEY) {
-      const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          secret: process.env.TURNSTILE_SECRET_KEY,
-          response: validatedData.turnstileToken,
-        }),
-      });
+    const turnstileSecretKey = process.env.TURNSTILE_SECRET_KEY;
+    const isDevToken = validatedData.turnstileToken.startsWith('dev-token-');
 
-      const turnstileData = await turnstileResponse.json();
+    if (turnstileSecretKey) {
+      // Skip verification for development tokens
+      if (isDevToken) {
+        console.warn('⚠️  Development token detected. Skipping Turnstile verification.');
+      } else {
+        const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            secret: turnstileSecretKey,
+            response: validatedData.turnstileToken,
+          }),
+        });
 
-      if (!turnstileData.success) {
-        console.error('❌ Turnstile verification failed:', turnstileData);
+        const turnstileData = await turnstileResponse.json();
+
+        if (!turnstileData.success) {
+          console.error('❌ Turnstile verification failed:', turnstileData);
+          return NextResponse.json(
+            { error: 'Verification failed. Please complete the CAPTCHA and try again.' },
+            { status: 400 }
+          );
+        }
+
+        console.log('✅ Turnstile verification passed');
+      }
+    } else {
+      // In production, require Turnstile to be configured
+      if (process.env.NODE_ENV === 'production') {
+        console.error('❌ Turnstile secret key not configured in production');
         return NextResponse.json(
-          { error: 'Verification failed. Please try again.' },
-          { status: 400 }
+          { error: 'Security verification not configured. Please contact support.' },
+          { status: 500 }
         );
       }
-
-      console.log('✅ Turnstile verification passed');
-    } else {
-      console.warn('⚠️  Turnstile secret key not configured. Skipping verification.');
+      // In development, allow dev tokens
+      if (!isDevToken) {
+        console.warn('⚠️  Turnstile secret key not configured. Skipping verification (development mode).');
+      }
     }
 
     // Log submission (always do this as backup)
@@ -106,9 +129,12 @@ export async function POST(request: NextRequest) {
     // Send email via Resend if API key is configured
     if (resend) {
       try {
-        await resend.emails.send({
-          from: process.env.CONTACT_EMAIL_FROM || 'contact@lostmonster.io',
-          to: process.env.CONTACT_EMAIL_TO || 'hello@lostmonster.io',
+        const emailTo = process.env.CONTACT_EMAIL_TO || 'hello@lostmonster.io';
+        const emailFrom = process.env.CONTACT_EMAIL_FROM || 'contact@lostmonster.io';
+
+        const emailResult = await resend.emails.send({
+          from: emailFrom,
+          to: emailTo,
           replyTo: validatedData.email,
           subject: `New Project Enquiry from ${validatedData.name}`,
           html: `
@@ -165,13 +191,31 @@ export async function POST(request: NextRequest) {
           `,
         });
 
-        console.log('✅ Email sent successfully via Resend');
-      } catch (emailError) {
+        if (emailResult.error) {
+          console.error('❌ Resend API error:', emailResult.error);
+          throw new Error(`Email service error: ${emailResult.error.message || 'Unknown error'}`);
+        }
+
+        console.log('✅ Email sent successfully via Resend:', emailResult.data?.id);
+      } catch (emailError: any) {
         console.error('❌ Failed to send email via Resend:', emailError);
-        // Don't fail the request if email fails - we still have the console log
+        // Return error response so user knows email failed
+        return NextResponse.json(
+          { 
+            error: emailError?.message || 'Failed to send email. Please check your email configuration or try again later.',
+            details: process.env.NODE_ENV === 'development' ? String(emailError) : undefined,
+          },
+          { status: 500 }
+        );
       }
     } else {
       console.warn('⚠️  Resend API key not configured. Email not sent. Check .env.local');
+      return NextResponse.json(
+        { 
+          error: 'Email service not configured. Please contact the site administrator.',
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json(

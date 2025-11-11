@@ -8,15 +8,15 @@ import { CheckCircle2, AlertCircle, Send } from 'lucide-react';
 import { Turnstile } from '@marsidev/react-turnstile';
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
+  name: z.string().trim().min(2, 'Name must be at least 2 characters'),
+  email: z.string().trim().email('Please enter a valid email address'),
   projectType: z.enum(['booking-system', 'ecommerce', 'custom-app', 'design-system', 'other'], {
     message: 'Please select a project type',
   }),
   budget: z.enum(['15-30k', '30-50k', '50-75k', '75k-plus', 'not-sure'], {
     message: 'Please select a budget range',
   }),
-  message: z.string().min(10, 'Please tell me about your project (at least 10 characters)'),
+  message: z.string().trim().min(10, 'Please tell me about your project (at least 10 characters)'),
   turnstileToken: z.string().min(1, 'Please complete the verification'),
 });
 
@@ -29,7 +29,12 @@ interface ContactFormProps {
 export default function ContactForm({ accentColor }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [turnstileToken, setTurnstileToken] = useState<string>('');
+  
+  // Check if Turnstile is properly configured
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const isTurnstileConfigured = turnstileSiteKey && turnstileSiteKey !== '1x00000000000000000000AA' && !turnstileSiteKey.startsWith('1x00000000');
 
   const {
     register,
@@ -44,15 +49,32 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setErrorMessage('');
 
     try {
+      // Trim string fields before sending
+      const trimmedData = {
+        ...data,
+        name: data.name.trim(),
+        email: data.email.trim(),
+        message: data.message.trim(),
+      };
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(trimmedData),
       });
+
+      let responseData;
+      try {
+        responseData = await response.json();
+      } catch (jsonError) {
+        // If response is not JSON, use status text
+        throw new Error(response.statusText || 'Invalid response from server');
+      }
 
       if (response.ok) {
         setSubmitStatus('success');
@@ -64,9 +86,20 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
         }, 100);
       } else {
         setSubmitStatus('error');
+        // Extract error message from API response
+        if (responseData.error) {
+          setErrorMessage(responseData.error);
+        } else if (responseData.details && Array.isArray(responseData.details)) {
+          // Handle Zod validation errors
+          const zodErrors = responseData.details.map((err: any) => err.message).join(', ');
+          setErrorMessage(zodErrors);
+        } else {
+          setErrorMessage('Failed to send message. Please try again.');
+        }
       }
-    } catch (error) {
+    } catch (error: any) {
       setSubmitStatus('error');
+      setErrorMessage(error?.message || 'Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -94,10 +127,10 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
         <div className="mb-8 p-6 bg-red-500/10 border border-red-500/30 rounded-lg" role="alert">
           <div className="flex items-start gap-3">
             <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
-            <div>
+            <div className="flex-1">
               <h3 className="font-bold text-white mb-1">Something Went Wrong</h3>
               <p className="text-neutral-300 text-sm">
-                Please try again or refresh the page and resubmit.
+                {errorMessage || 'Please try again or refresh the page and resubmit.'}
               </p>
             </div>
           </div>
@@ -221,32 +254,55 @@ export default function ContactForm({ accentColor }: ContactFormProps) {
         </div>
 
         {/* Turnstile CAPTCHA */}
-        <div>
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
-            onSuccess={(token) => {
-              setTurnstileToken(token);
-              setValue('turnstileToken', token);
-            }}
-            onError={() => {
-              setTurnstileToken('');
-              setValue('turnstileToken', '');
-            }}
-            onExpire={() => {
-              setTurnstileToken('');
-              setValue('turnstileToken', '');
-            }}
-            options={{
-              theme: 'dark',
-              size: 'normal',
-            }}
-          />
-          {errors.turnstileToken && (
-            <p className="mt-2 text-sm text-red-400" role="alert">
-              {errors.turnstileToken.message}
+        {isTurnstileConfigured ? (
+          <div>
+            <Turnstile
+              siteKey={turnstileSiteKey!}
+              onSuccess={(token) => {
+                setTurnstileToken(token);
+                setValue('turnstileToken', token);
+              }}
+              onError={() => {
+                setTurnstileToken('');
+                setValue('turnstileToken', '');
+              }}
+              onExpire={() => {
+                setTurnstileToken('');
+                setValue('turnstileToken', '');
+              }}
+              options={{
+                theme: 'dark',
+                size: 'normal',
+              }}
+            />
+            {errors.turnstileToken && (
+              <p className="mt-2 text-sm text-red-400" role="alert">
+                {errors.turnstileToken.message}
+              </p>
+            )}
+          </div>
+        ) : (
+          <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+            <p className="text-sm text-yellow-400">
+              <strong>Development Mode:</strong> Turnstile CAPTCHA is not configured. 
+              Please set <code className="bg-black/30 px-1 rounded">NEXT_PUBLIC_TURNSTILE_SITE_KEY</code> in your environment variables.
             </p>
-          )}
-        </div>
+            {/* Auto-set a token for development when Turnstile is not configured */}
+            {!turnstileToken && (
+              <button
+                type="button"
+                onClick={() => {
+                  const devToken = 'dev-token-' + Date.now();
+                  setTurnstileToken(devToken);
+                  setValue('turnstileToken', devToken);
+                }}
+                className="mt-2 text-xs text-yellow-300 underline hover:text-yellow-200"
+              >
+                Click to bypass (development only)
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Submit Button */}
         <button
