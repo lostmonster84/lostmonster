@@ -12,14 +12,33 @@ export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showContactSection, setShowContactSection] = useState(false);
 
-  // Listen for reset event from header logo click
+  // Listen for events from header
   useEffect(() => {
     const handleReset = () => {
       setShowContactSection(false);
     };
 
+    const handleOpenModal = () => {
+      setIsModalOpen(true);
+    };
+
+    const handleTriggerMorph = () => {
+      // Programmatically click the main morph button
+      const morphButton = document.querySelector('[data-morph-button]') as HTMLElement;
+      if (morphButton) {
+        morphButton.click();
+      }
+    };
+
     window.addEventListener('resetToHome', handleReset);
-    return () => window.removeEventListener('resetToHome', handleReset);
+    window.addEventListener('openContactModal', handleOpenModal);
+    window.addEventListener('triggerMorph', handleTriggerMorph);
+
+    return () => {
+      window.removeEventListener('resetToHome', handleReset);
+      window.removeEventListener('openContactModal', handleOpenModal);
+      window.removeEventListener('triggerMorph', handleTriggerMorph);
+    };
   }, []);
 
   return (
@@ -61,6 +80,7 @@ export default function HomePage() {
                     backgroundColor: color.accent,
                     boxShadow: `0 20px 60px -15px ${color.accent}40`,
                   }}
+                  data-morph-button="true"
                 >
                   Start Your Project
                   <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />

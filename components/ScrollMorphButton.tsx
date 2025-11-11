@@ -9,6 +9,7 @@ interface ScrollMorphButtonProps {
   onMorphComplete: () => void;
   className?: string;
   style?: React.CSSProperties;
+  'data-morph-button'?: string;
 }
 
 export function ScrollMorphButton({
@@ -17,6 +18,7 @@ export function ScrollMorphButton({
   onMorphComplete,
   className,
   style,
+  ...rest
 }: ScrollMorphButtonProps) {
   const [isAnimating, setIsAnimating] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -116,6 +118,7 @@ export function ScrollMorphButton({
         stiffness: 400,
         damping: 30,
       }}
+      {...rest}
     >
       {children}
     </motion.div>

@@ -20,7 +20,7 @@ const colors = {
     hoverAccent: '#08D4F0',
   },
   orange: {
-    name: 'Bold Orange',
+    name: 'Bold Yellow',
     bg: 'from-neutral-900 via-stone-900 to-neutral-900',
     bgGradient: 'linear-gradient(135deg, #171717 0%, #1c1917 50%, #171717 100%)',
     bgDark: '#171717', // Dark color for inverted page
@@ -58,7 +58,7 @@ interface ColorContextType {
 const ColorContext = createContext<ColorContextType | undefined>(undefined);
 
 export function ColorProvider({ children }: { children: ReactNode }) {
-  const [selectedColor, setSelectedColorState] = useState<ColorKey>('orange');
+  const [selectedColor, setSelectedColorState] = useState<ColorKey>('teal');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
