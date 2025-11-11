@@ -41,56 +41,56 @@ export default function ContactModal({ isOpen, onClose, accentColor }: ContactMo
     }
   };
 
-  // Handle successful form submission
+  // Form submission success - modal stays open until user manually closes
   const handleFormSuccess = () => {
-    // Wait 2 seconds to show success message, then close
-    setTimeout(() => {
-      onClose();
-    }, 2000);
+    // Success screen will show, user closes modal when ready
   };
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-300 overflow-hidden"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
       {/* Backdrop with blur */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" aria-hidden="true" />
+      <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" aria-hidden="true" />
 
       {/* Modal Container */}
       <div
-        className="relative w-full max-w-3xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto bg-white/5 backdrop-blur-md border border-white/10 rounded-xl md:rounded-2xl shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-4 duration-400 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20"
+        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-4 duration-400 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20"
         style={{
-          borderColor: `${accentColor}20`,
-          boxShadow: `0 20px 60px -15px ${accentColor}40, 0 0 0 1px ${accentColor}10`
+          background: 'linear-gradient(135deg, #0a0a0a 0%, #171717 50%, #0a0a0a 100%)',
         }}
       >
+        {/* Grid Pattern Background */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAyKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40 pointer-events-none rounded-2xl"></div>
+
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 md:top-6 md:right-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+          className="absolute top-6 right-6 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-white hover:scale-105"
           aria-label="Close modal"
         >
-          <X className="w-5 h-5" />
+          <X className="w-6 h-6" />
         </button>
 
         {/* Modal Content */}
-        <div className="p-6 md:p-8">
-          {/* Header */}
-          <div className="text-center mb-4 md:mb-6">
+        <div className="relative p-6 md:p-10">
+          {/* Header - Bold, Massive Typography */}
+          <div className="text-center mb-6 md:mb-8">
             <h2
               id="modal-title"
-              className="text-2xl md:text-3xl font-bold mb-2 leading-tight tracking-tight"
+              className="text-4xl md:text-5xl font-bold mb-3 leading-none tracking-tighter"
             >
-              <span className="text-white">Let's Build</span>{' '}
+              <span className="text-white">Let's Build</span>
+              <br />
               <span className="transition-colors duration-300" style={{ color: accentColor }}>
                 Something
               </span>
             </h2>
-            <p className="text-sm md:text-base text-neutral-300 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-neutral-400 max-w-2xl mx-auto">
               Tell me about your project. I'll tell you if we're a good fit.
             </p>
           </div>
