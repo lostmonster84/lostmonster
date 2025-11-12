@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useColor } from '@/contexts/ColorContext';
 import ContactModal from '@/components/ContactModal';
@@ -11,6 +11,20 @@ export default function HomePage() {
   const { selectedColor, setSelectedColor, color, colors } = useColor();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showContactSection, setShowContactSection] = useState(false);
+
+  // Color navigation helpers
+  const colorKeys = Object.keys(colors) as Array<keyof typeof colors>;
+  const currentColorIndex = colorKeys.indexOf(selectedColor);
+
+  const nextColor = () => {
+    const nextIndex = (currentColorIndex + 1) % colorKeys.length;
+    setSelectedColor(colorKeys[nextIndex]);
+  };
+
+  const previousColor = () => {
+    const prevIndex = (currentColorIndex - 1 + colorKeys.length) % colorKeys.length;
+    setSelectedColor(colorKeys[prevIndex]);
+  };
 
   // Listen for events from header
   useEffect(() => {
@@ -56,7 +70,7 @@ export default function HomePage() {
           <div className="container mx-auto px-6 w-full">
             <div className="text-center max-w-6xl mx-auto">
               {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter">
                 <span className="text-white">Built by</span>
                 <br />
                 <span className="text-white">Someone Who</span>
@@ -65,7 +79,7 @@ export default function HomePage() {
               </h1>
 
               {/* Subheadline */}
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
+              <p className="text-lg sm:text-xl md:text-xl lg:text-2xl text-neutral-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
                 Not just codes them. I build systems for my own businesses to cut costs.
                 I understand your problems because I've lived them.
               </p>
@@ -109,7 +123,7 @@ export default function HomePage() {
             <div className="text-center max-w-6xl mx-auto">
               {/* Headline - slides up + fades in */}
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter px-4"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter px-4"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -139,7 +153,7 @@ export default function HomePage() {
 
               {/* Subheadline - slides up + fades in */}
               <motion.p
-                className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-700 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
+                className="text-lg sm:text-xl md:text-xl lg:text-2xl text-neutral-700 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -195,21 +209,87 @@ export default function HomePage() {
         accentColor={color.accent}
       />
 
-      {/* Color switcher - Compact mobile design */}
-      <div className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-8 md:right-8 z-50">
-        <div className="bg-black/80 backdrop-blur-md border border-neutral-700 rounded-md sm:rounded-lg p-1.5 sm:p-3 md:p-4 shadow-2xl">
-          <div className="text-[9px] sm:text-xs font-semibold text-white mb-1 sm:mb-2 md:mb-3 text-center hidden sm:block">
+      {/* Color Switcher - Swipeable on Mobile, Dots on Desktop */}
+
+      {/* Mobile: Swipeable Color Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+        <motion.div
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(event, info) => {
+            // Swipe right (positive offset) = previous color
+            if (info.offset.x > 100) {
+              previousColor();
+            }
+            // Swipe left (negative offset) = next color
+            else if (info.offset.x < -100) {
+              nextColor();
+            }
+          }}
+          className="relative h-20 cursor-grab active:cursor-grabbing"
+          style={{ backgroundColor: color.accent }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {/* Gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+
+          {/* Content */}
+          <div className="relative h-full flex items-center justify-between px-6">
+            {/* Left Arrow Hint */}
+            <div className="flex items-center gap-2 opacity-60">
+              <ChevronLeft className="w-5 h-5 text-white" />
+              <div className="text-xs font-semibold text-white uppercase tracking-wide">Prev</div>
+            </div>
+
+            {/* Center: Current Color Name */}
+            <div className="text-center">
+              <div className="text-sm font-bold text-white uppercase tracking-wider">
+                {color.name}
+              </div>
+              <div className="text-xs text-white/70 mt-0.5">
+                Swipe to change color
+              </div>
+            </div>
+
+            {/* Right Arrow Hint */}
+            <div className="flex items-center gap-2 opacity-60">
+              <div className="text-xs font-semibold text-white uppercase tracking-wide">Next</div>
+              <ChevronRight className="w-5 h-5 text-white" />
+            </div>
+          </div>
+
+          {/* Color Indicator Dots */}
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex gap-1.5">
+            {colorKeys.map((colorKey) => (
+              <div
+                key={colorKey}
+                className={`w-1.5 h-1.5 rounded-full transition-all ${
+                  selectedColor === colorKey
+                    ? 'bg-white scale-125'
+                    : 'bg-white/30'
+                }`}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Desktop: Click Buttons */}
+      <div className="hidden md:block fixed bottom-8 right-8 z-50">
+        <div className="bg-black/80 backdrop-blur-md border border-neutral-700 rounded-lg p-4 shadow-2xl">
+          <div className="text-xs font-semibold text-white mb-3 text-center">
             Choose Your Color
           </div>
-          <div className="flex gap-1 sm:gap-2 md:gap-3">
-            {(Object.keys(colors) as Array<keyof typeof colors>).map((colorKey) => (
+          <div className="flex gap-3">
+            {colorKeys.map((colorKey) => (
               <button
                 key={colorKey}
                 onClick={() => setSelectedColor(colorKey)}
-                className={`w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-all flex items-center justify-center touch-manipulation ${
+                className={`w-10 h-10 rounded-full transition-all flex items-center justify-center ${
                   selectedColor === colorKey
-                    ? 'ring-1 sm:ring-2 ring-white ring-offset-1 sm:ring-offset-2 ring-offset-black scale-110'
-                    : 'opacity-50 hover:opacity-100 hover:scale-105 active:scale-95 active:opacity-100'
+                    ? 'ring-2 ring-white ring-offset-2 ring-offset-black scale-110'
+                    : 'opacity-50 hover:opacity-100 hover:scale-105 active:scale-95'
                 }`}
                 style={{ backgroundColor: colors[colorKey].accent }}
                 title={colors[colorKey].name}
@@ -217,7 +297,7 @@ export default function HomePage() {
               />
             ))}
           </div>
-          <div className="text-[9px] sm:text-xs text-neutral-400 mt-1 sm:mt-2 text-center hidden md:block">
+          <div className="text-xs text-neutral-400 mt-2 text-center">
             {color.name}
           </div>
         </div>
