@@ -40,8 +40,8 @@ export default function Header() {
               isOnLightSection ? "text-black hover:text-black/70 active:text-black/60" : "text-white hover:text-white/80 active:text-white/70"
             )}
           >
-            <span className="hidden xs:inline">Lost Monster</span>
-            <span className="inline xs:hidden">LM</span>
+            <span className="hidden sm:inline">Lost Monster</span>
+            <span className="inline sm:hidden">LM</span>
           </button>
 
           {/* Start Project Button - smart contextual behavior */}
