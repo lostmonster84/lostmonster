@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useColor } from '@/contexts/ColorContext';
 import ContactModal from '@/components/ContactModal';
 import { ScrollMorphButton } from '@/components/ScrollMorphButton';
@@ -56,7 +56,7 @@ export default function HomePage() {
           <div className="container mx-auto px-6 w-full">
             <div className="text-center max-w-6xl mx-auto">
               {/* Headline */}
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none tracking-tighter">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter">
                 <span className="text-white">Built by</span>
                 <br />
                 <span className="text-white">Someone Who</span>
@@ -65,25 +65,26 @@ export default function HomePage() {
               </h1>
 
               {/* Subheadline */}
-              <p className="text-xl md:text-2xl text-neutral-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
                 Not just codes them. I build systems for my own businesses to cut costs.
                 I understand your problems because I've lived them.
               </p>
 
               {/* CTA - Morphing Button */}
-              <div className="flex justify-center">
+              <div className="flex justify-center px-4">
                 <ScrollMorphButton
                   accentColor={color.accent}
                   onMorphComplete={() => setShowContactSection(true)}
-                  className="inline-flex items-center justify-center gap-2 px-12 py-6 text-xl font-bold rounded-lg shadow-2xl text-black group cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 text-base sm:text-lg md:text-xl font-bold rounded-lg shadow-2xl text-black group cursor-pointer min-h-[44px] w-full sm:w-auto max-w-sm sm:max-w-none"
                   style={{
                     backgroundColor: color.accent,
                     boxShadow: `0 20px 60px -15px ${color.accent}40`,
                   }}
                   data-morph-button="true"
                 >
-                  Start Your Project
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  <span className="hidden sm:inline">Start Your Project</span>
+                  <span className="inline sm:hidden">Start Project</span>
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                 </ScrollMorphButton>
               </div>
             </div>
@@ -108,7 +109,7 @@ export default function HomePage() {
             <div className="text-center max-w-6xl mx-auto">
               {/* Headline - slides up + fades in */}
               <motion.h1
-                className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 leading-none tracking-tighter"
+                className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter px-4"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -138,7 +139,7 @@ export default function HomePage() {
 
               {/* Subheadline - slides up + fades in */}
               <motion.p
-                className="text-xl md:text-2xl text-neutral-700 mb-12 max-w-3xl mx-auto leading-relaxed"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-neutral-700 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -153,7 +154,7 @@ export default function HomePage() {
 
               {/* CTA Button - scales in + fades in */}
               <motion.div
-                className="flex justify-center"
+                className="flex justify-center px-4"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -165,7 +166,7 @@ export default function HomePage() {
               >
                 <motion.button
                   onClick={() => setIsModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 px-12 py-6 text-xl font-bold rounded-lg shadow-2xl text-white group cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 text-sm sm:text-base md:text-lg lg:text-xl font-bold rounded-lg shadow-2xl text-white group cursor-pointer min-h-[44px] w-full sm:w-auto max-w-md sm:max-w-none"
                   style={{
                     backgroundColor: color.bgDark,
                     boxShadow: `0 20px 60px -15px ${color.bgDark}40`,
@@ -176,8 +177,9 @@ export default function HomePage() {
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  What Problem Are You Solving?
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  <span className="hidden sm:inline">What Problem Are You Solving?</span>
+                  <span className="inline sm:hidden">Start Building</span>
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                 </motion.button>
               </motion.div>
             </div>
@@ -193,19 +195,21 @@ export default function HomePage() {
         accentColor={color.accent}
       />
 
-      {/* Color switcher - Mobile optimized */}
-      <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50">
-        <div className="bg-black/80 backdrop-blur-md border border-neutral-700 rounded-lg p-3 md:p-4 shadow-2xl">
-          <div className="text-xs font-semibold text-white mb-2 md:mb-3 text-center">Choose Your Color</div>
-          <div className="flex gap-2 md:gap-3">
+      {/* Color switcher - Compact mobile design */}
+      <div className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-8 md:right-8 z-50">
+        <div className="bg-black/80 backdrop-blur-md border border-neutral-700 rounded-md sm:rounded-lg p-1.5 sm:p-3 md:p-4 shadow-2xl">
+          <div className="text-[9px] sm:text-xs font-semibold text-white mb-1 sm:mb-2 md:mb-3 text-center hidden sm:block">
+            Choose Your Color
+          </div>
+          <div className="flex gap-1 sm:gap-2 md:gap-3">
             {(Object.keys(colors) as Array<keyof typeof colors>).map((colorKey) => (
               <button
                 key={colorKey}
                 onClick={() => setSelectedColor(colorKey)}
-                className={`w-8 h-8 md:w-10 md:h-10 rounded-full transition-all ${
+                className={`w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-all flex items-center justify-center touch-manipulation ${
                   selectedColor === colorKey
-                    ? 'ring-2 ring-white ring-offset-2 ring-offset-black scale-110'
-                    : 'opacity-50 hover:opacity-100 hover:scale-105'
+                    ? 'ring-1 sm:ring-2 ring-white ring-offset-1 sm:ring-offset-2 ring-offset-black scale-110'
+                    : 'opacity-50 hover:opacity-100 hover:scale-105 active:scale-95 active:opacity-100'
                 }`}
                 style={{ backgroundColor: colors[colorKey].accent }}
                 title={colors[colorKey].name}
@@ -213,7 +217,7 @@ export default function HomePage() {
               />
             ))}
           </div>
-          <div className="text-xs text-neutral-400 mt-2 text-center hidden md:block">
+          <div className="text-[9px] sm:text-xs text-neutral-400 mt-1 sm:mt-2 text-center hidden md:block">
             {color.name}
           </div>
         </div>
