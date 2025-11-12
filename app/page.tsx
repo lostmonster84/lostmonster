@@ -56,7 +56,22 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="relative">
+    <motion.div
+      className="relative"
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.1}
+      onDragEnd={(event, info) => {
+        // Swipe right (positive offset) = previous color
+        if (info.offset.x > 50) {
+          previousColor();
+        }
+        // Swipe left (negative offset) = next color
+        else if (info.offset.x < -50) {
+          nextColor();
+        }
+      }}
+    >
       {/* Section 1: Hero - Dark Background - Hide when contact section shows */}
       {!showContactSection && (
         <section
@@ -211,43 +226,20 @@ export default function HomePage() {
 
       {/* Color Switcher - Swipeable on Mobile, Dots on Desktop */}
 
-      {/* Mobile: Swipeable Color Bar - iOS Style */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
-          onDragEnd={(event, info) => {
-            // Swipe right (positive offset) = previous color
-            if (info.offset.x > 100) {
-              previousColor();
-            }
-            // Swipe left (negative offset) = next color
-            else if (info.offset.x < -100) {
-              nextColor();
-            }
-          }}
-          className="relative h-16 cursor-grab active:cursor-grabbing"
-          style={{ backgroundColor: color.accent }}
-          whileTap={{ scale: 0.99 }}
-        >
-          {/* Gradient overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-
-          {/* Color Indicator Dots - iOS Style */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-2">
-            {colorKeys.map((colorKey) => (
-              <div
-                key={colorKey}
-                className={`rounded-full transition-all ${
-                  selectedColor === colorKey
-                    ? 'w-2 h-2 bg-white'
-                    : 'w-1.5 h-1.5 bg-white/40'
-                }`}
-              />
-            ))}
-          </div>
-        </motion.div>
+      {/* Mobile: Progress Dots Only - Minimal iOS Style */}
+      <div className="md:hidden fixed bottom-6 left-0 right-0 z-50 pointer-events-none">
+        <div className="flex justify-center gap-2">
+          {colorKeys.map((colorKey) => (
+            <div
+              key={colorKey}
+              className={`rounded-full transition-all duration-300 ${
+                selectedColor === colorKey
+                  ? 'w-2 h-2 bg-white shadow-lg'
+                  : 'w-1.5 h-1.5 bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Desktop: Click Buttons */}
@@ -277,6 +269,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
