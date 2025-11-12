@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useColor } from '@/contexts/ColorContext';
 import ContactModal from '@/components/ContactModal';
@@ -211,7 +211,7 @@ export default function HomePage() {
 
       {/* Color Switcher - Swipeable on Mobile, Dots on Desktop */}
 
-      {/* Mobile: Swipeable Color Bar */}
+      {/* Mobile: Swipeable Color Bar - iOS Style */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
         <motion.div
           drag="x"
@@ -227,47 +227,22 @@ export default function HomePage() {
               nextColor();
             }
           }}
-          className="relative h-20 cursor-grab active:cursor-grabbing"
+          className="relative h-16 cursor-grab active:cursor-grabbing"
           style={{ backgroundColor: color.accent }}
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.99 }}
         >
           {/* Gradient overlay for depth */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
 
-          {/* Content */}
-          <div className="relative h-full flex items-center justify-between px-6">
-            {/* Left Arrow Hint */}
-            <div className="flex items-center gap-2 opacity-60">
-              <ChevronLeft className="w-5 h-5 text-white" />
-              <div className="text-xs font-semibold text-white uppercase tracking-wide">Prev</div>
-            </div>
-
-            {/* Center: Current Color Name */}
-            <div className="text-center">
-              <div className="text-sm font-bold text-white uppercase tracking-wider">
-                {color.name}
-              </div>
-              <div className="text-xs text-white/70 mt-0.5">
-                Swipe to change color
-              </div>
-            </div>
-
-            {/* Right Arrow Hint */}
-            <div className="flex items-center gap-2 opacity-60">
-              <div className="text-xs font-semibold text-white uppercase tracking-wide">Next</div>
-              <ChevronRight className="w-5 h-5 text-white" />
-            </div>
-          </div>
-
-          {/* Color Indicator Dots */}
-          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex gap-1.5">
+          {/* Color Indicator Dots - iOS Style */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-2">
             {colorKeys.map((colorKey) => (
               <div
                 key={colorKey}
-                className={`w-1.5 h-1.5 rounded-full transition-all ${
+                className={`rounded-full transition-all ${
                   selectedColor === colorKey
-                    ? 'bg-white scale-125'
-                    : 'bg-white/30'
+                    ? 'w-2 h-2 bg-white'
+                    : 'w-1.5 h-1.5 bg-white/40'
                 }`}
               />
             ))}
