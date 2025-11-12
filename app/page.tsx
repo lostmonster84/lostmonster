@@ -85,7 +85,7 @@ export default function HomePage() {
           <div className="container mx-auto px-6 w-full">
             <div className="text-center max-w-6xl mx-auto">
               {/* Headline */}
-              <h1 className="text-6xl sm:text-7xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter">
+              <h1 className="text-[55px] sm:text-7xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter">
                 <span className="text-white">Built by</span>
                 <br />
                 <span className="text-white">Someone Who</span>
@@ -138,7 +138,7 @@ export default function HomePage() {
             <div className="text-center max-w-6xl mx-auto">
               {/* Headline - slides up + fades in */}
               <motion.h1
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter px-4"
+                className="text-[55px] sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 md:mb-8 leading-none tracking-tighter px-4"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
