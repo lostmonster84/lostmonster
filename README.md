@@ -1,200 +1,97 @@
-# Lost Monster Website
+# Lost Monster - Monorepo
 
-Production-ready Next.js 15 website for Lost Monster Development Agency.
+> **Personal Brand Website + Universal Development Framework**
 
-## Overview
+---
 
-This is a complete, production-ready website built with:
-- **Next.js 15** (App Router)
-- **TypeScript**
-- **Tailwind CSS** (using Lost Monster design system)
-- **Markdown content** (from `pages/`, `services/`, `case-studies/` folders)
+## Repository Structure
 
-## Getting Started
+```
+lostmonster/
+├── website/              # Lost Monster marketing website
+│   ├── CLAUDE.md         # Website-specific AI instructions
+│   ├── .ai/              # Design system & project docs
+│   ├── app/              # Next.js 15 App Router
+│   ├── components/       # React components
+│   ├── lib/              # Utilities
+│   └── public/           # Static assets
+│
+├── framework/            # Universal development framework
+│   ├── CLAUDE.md         # Framework AI instructions
+│   ├── START-HERE.md     # Quick orientation
+│   ├── .ai/frameworks/   # 20 planning frameworks
+│   ├── agents/           # AI agents
+│   ├── templates/        # Project templates
+│   ├── docs/             # Reference docs
+│   └── utilities/        # Scripts & helpers
+│
+└── CLAUDE.md             # This file (repo overview)
+```
 
-### Prerequisites
+---
 
-- Node.js 18+ 
-- npm or yarn
+## Quick Start
 
-### Installation
+### Website Development
 
-1. Install dependencies:
 ```bash
+cd website
 npm install
-```
-
-2. Copy environment variables:
-```bash
-cp .env.example .env.local
-```
-
-3. Update `.env.local` with your configuration:
-- `NEXT_PUBLIC_SITE_URL` - Your production URL
-- `RESEND_API_KEY` - For contact form emails (optional)
-
-### Development
-
-Run the development server:
-
-```bash
 npm run dev
+# Open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+**Read:** [website/CLAUDE.md](./website/CLAUDE.md) for design system.
 
-### Building for Production
+### Using Frameworks
+
+**Read:** [framework/START-HERE.md](./framework/START-HERE.md) for quick orientation.
+
+**Full Guide:** [framework/HOW-TO-USE.md](./framework/HOW-TO-USE.md)
+
+---
+
+## Framework Quick Reference
+
+| Framework | Purpose | Trigger |
+|-----------|---------|---------|
+| **APEX** | Meta-framework for complete systems | `APEX: [feature]` |
+| **CODA** | Strategic planning | `plan with CODA` |
+| **PLANX** | Execution blueprint | `PLANX: [feature]` |
+| **AIDA** | Content conversion | `run AIDA` |
+| **SOPHIA** | Design quality audit | `run SOPHIA` |
+| **TOUCH** | Mobile-native transform | `TOUCH` |
+| **CRUDX** | Full-stack content management | `CRUDX` |
+| **DEMX** | Rapid design variations | `DEMX: [element]` |
+| **AUDITX** | System health audit | `run AUDITX` |
+| **PIXELX** | Pixel-perfect bug hunting | `run PIXELX` |
+| **MAPX** | Application mapping | `run MAPX` |
+| **CONSTX** | UI consistency scanner | `run CONSTX` |
+| **DESKX** | Desktop optimization | `run DESKX` |
+
+**Full list:** [framework/.ai/frameworks/FRAMEWORK-MAP.md](./framework/.ai/frameworks/FRAMEWORK-MAP.md)
+
+---
+
+## Copy to New Project
 
 ```bash
-npm run build
-npm start
+# Copy entire framework
+cp -R ~/Projects/lostmonster/framework ~/Projects/new-project/
+
+# Or just the AI frameworks
+cp -R ~/Projects/lostmonster/framework/.ai ~/Projects/new-project/
 ```
-
-## Project Structure
-
-```
-website/
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Homepage
-│   ├── about/              # About page
-│   ├── services/           # Services pages
-│   ├── case-studies/       # Case study pages
-│   ├── process/             # Process page
-│   ├── faq/                # FAQ page
-│   ├── contact/            # Contact page
-│   └── api/                # API routes
-├── components/             # React components
-│   ├── layout/             # Header, Footer, Navigation
-│   ├── sections/           # Homepage sections
-│   ├── ui/                 # Reusable UI components
-│   └── forms/              # Form components
-├── lib/                    # Utilities and helpers
-│   ├── markdown.ts         # Markdown parser
-│   ├── content.ts          # Content loaders
-│   └── utils.ts            # General utilities
-├── styles/                 # Global styles
-│   └── globals.css         # Tailwind CSS
-├── pages/                  # Markdown content (pages)
-├── services/               # Markdown content (services)
-├── case-studies/           # Markdown content (case studies)
-└── public/                 # Static assets
-```
-
-## Lost Monster Principles Applied
-
-This website demonstrates Lost Monster's framework-driven approach:
-
-- **CODA Planning:** Complete planning document in `.ai/CODA-WEBSITE.md`
-- **Design Variations:** 5 hero and 5 layout variations available at `/demo`
-- **Quality Checklist:** Customized checklist in `.ai/PRE-DESIGN-CHECKLIST.md`
-- **Domain Knowledge:** Business context captured in `.ai/DOMAIN-KNOWLEDGE.md`
-- **Quality Scores:** All variations scored in `.ai/QUALITY-SCORES.md`
-- **Design Decisions:** Rationale documented in `.ai/DESIGN-DECISIONS.md`
-
-**Chosen Design:** Variation C (Data-Driven) - Score: 87/100
-
-See the [Design Variations Demo](/demo) to explore all options.
 
 ---
 
-## Content Management
+## What's What
 
-Content is managed through Markdown files:
-
-- **Pages**: `pages/*.md` (home.md, about.md, process.md, faq.md)
-- **Services**: `services/*.md` (booking-systems.md, ecommerce-systems.md, etc.)
-- **Case Studies**: `case-studies/*.md` (ancarraig.md, etc.)
-
-### Adding New Content
-
-1. Create a new `.md` file in the appropriate folder
-2. Add frontmatter (optional):
-```markdown
----
-title: Page Title
-description: Page description
----
-```
-
-3. Write your content in Markdown
-4. The page will be automatically available at the route matching the filename
-
-### Dynamic Routes
-
-- Services: `/services/[slug]` - automatically generated from `services/*.md`
-- Case Studies: `/case-studies/[slug]` - automatically generated from `case-studies/*.md`
-
-## Features
-
-- ✅ Responsive design (mobile-first)
-- ✅ SEO optimized (sitemap, robots.txt, metadata)
-- ✅ Accessibility (WCAG 2.1 AA)
-- ✅ Contact form with validation
-- ✅ Markdown content rendering
-- ✅ Type-safe with TypeScript
-- ✅ Performance optimized
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push to GitHub/GitLab
-2. Import project in Vercel
-3. Add environment variables
-4. Deploy
-
-### Other Platforms
-
-The site can be deployed to any platform that supports Next.js:
-- Netlify
-- AWS Amplify
-- Railway
-- DigitalOcean App Platform
-
-## Customization
-
-### Colors
-
-Edit `tailwind.config.ts` to customize brand colors.
-
-### Fonts
-
-Fonts are configured in `app/layout.tsx`. Currently using:
-- **Headings**: Outfit
-- **Body**: Inter
-
-### Components
-
-All components are in `components/` and can be customized as needed.
-
-## Contact Form
-
-The contact form (`/contact`) requires email service configuration:
-
-1. Sign up for [Resend](https://resend.com) (or another email service)
-2. Add `RESEND_API_KEY` to `.env.local`
-3. Uncomment email code in `app/api/contact/route.ts`
-
-## Framework Documentation
-
-### Planning Documents
-- [CODA Plan](.ai/CODA-WEBSITE.md) - Complete planning framework
-- [Domain Knowledge](.ai/DOMAIN-KNOWLEDGE.md) - Business context and positioning
-- [Quality Checklist](.ai/PRE-DESIGN-CHECKLIST.md) - Customized scoring system
-- [Quality Scores](.ai/QUALITY-SCORES.md) - All variation scores
-- [Design Decisions](.ai/DESIGN-DECISIONS.md) - Rationale and trade-offs
-
-### Design Variations
-- [Demo Index](/demo) - View all design variations
-- [Hero Variations](/demo/hero) - 5 hero section options
-- [Layout Variations](/demo/layout) - 5 layout/color scheme options
-- [Comparison Page](/demo/comparison) - Side-by-side comparison with scores
-
-## License
-
-Proprietary - Lost Monster Development Agency
+| Folder | Purpose | Start Here |
+|--------|---------|------------|
+| `website/` | Lost Monster marketing site | [website/CLAUDE.md](./website/CLAUDE.md) |
+| `framework/` | 20 reusable frameworks + templates | [framework/START-HERE.md](./framework/START-HERE.md) |
 
 ---
 
-**Built with Lost Monster frameworks and best practices. This website demonstrates our methodology in action.**
+**License:** Proprietary - Lost Monster

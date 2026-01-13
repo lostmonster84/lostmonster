@@ -1,0 +1,396 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project Spin-Up Agent Context Schema",
+  "description": "Complete context state for project setup sessions",
+  "type": "object",
+  "required": ["session_id", "created_at", "phase", "answers"],
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique session identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["discovery", "architecture", "confirmation", "generation", "completed"],
+      "description": "Current phase of setup process"
+    },
+    "project": {
+      "type": "object",
+      "description": "Project metadata",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Project description"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["saas", "ecommerce", "content", "marketplace", "internal", "api", "portfolio"],
+          "description": "Project category"
+        }
+      }
+    },
+    "user_profile": {
+      "type": "object",
+      "description": "User/team information",
+      "properties": {
+        "technical_level": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "expert"],
+          "description": "Technical expertise level"
+        },
+        "team_size": {
+          "type": "string",
+          "enum": ["solo", "small", "medium", "large"],
+          "description": "Team size category"
+        },
+        "timeline": {
+          "type": "string",
+          "enum": ["fast", "moderate", "comprehensive", "flexible"],
+          "description": "Desired timeline to MVP"
+        },
+        "budget_sensitivity": {
+          "type": "boolean",
+          "description": "Whether user is cost-conscious"
+        }
+      }
+    },
+    "answers": {
+      "type": "object",
+      "description": "Question ID to answer mapping",
+      "additionalProperties": true,
+      "examples": [
+        {
+          "Q1.1": "saas",
+          "Q1.2": "b2b",
+          "Q1.3": "yes",
+          "Q2.1": "email+social"
+        }
+      ]
+    },
+    "feature_flags": {
+      "type": "object",
+      "description": "Derived feature requirements",
+      "properties": {
+        "needs_auth": {
+          "type": "boolean",
+          "default": false
+        },
+        "needs_multi_tenancy": {
+          "type": "boolean",
+          "default": false
+        },
+        "needs_payments": {
+          "type": "boolean",
+          "default": false
+        },
+        "needs_storage": {
+          "type": "boolean",
+          "default": false
+        },
+        "needs_realtime": {
+          "type": "boolean",
+          "default": false
+        },
+        "needs_search": {
+          "type": "boolean",
+          "default": false
+        },
+        "needs_email": {
+          "type": "boolean",
+          "default": true
+        },
+        "needs_analytics": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "description": "Chosen architecture and tech stack",
+      "properties": {
+        "pattern_id": {
+          "type": "string",
+          "description": "Selected architecture pattern"
+        },
+        "pattern_name": {
+          "type": "string",
+          "description": "Human-readable pattern name"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Recommendation confidence"
+        },
+        "customizations": {
+          "type": "array",
+          "description": "User-requested changes to default pattern",
+          "items": {
+            "type": "object",
+            "properties": {
+              "component": {
+                "type": "string",
+                "description": "What was changed"
+              },
+              "from": {
+                "type": "string",
+                "description": "Original choice"
+              },
+              "to": {
+                "type": "string",
+                "description": "User's choice"
+              },
+              "reason": {
+                "type": "string",
+                "description": "Why they changed it"
+              }
+            }
+          }
+        },
+        "tech_stack": {
+          "type": "object",
+          "description": "Complete tech stack",
+          "properties": {
+            "frontend": {
+              "type": "string",
+              "examples": ["nextjs", "react-vite", "vue-nuxt"]
+            },
+            "language": {
+              "type": "string",
+              "examples": ["typescript", "javascript"]
+            },
+            "styling": {
+              "type": "string",
+              "examples": ["tailwind", "css-modules", "styled-components"]
+            },
+            "component_library": {
+              "type": "string",
+              "examples": ["shadcn", "mui", "chakra", "none"]
+            },
+            "database": {
+              "type": "string",
+              "examples": ["postgres", "mysql", "mongodb"]
+            },
+            "database_host": {
+              "type": "string",
+              "examples": ["supabase", "planetscale", "neon", "railway"]
+            },
+            "orm": {
+              "type": "string",
+              "examples": ["drizzle", "prisma"]
+            },
+            "auth_provider": {
+              "type": "string",
+              "examples": ["clerk", "supabase", "nextauth"]
+            },
+            "storage_provider": {
+              "type": "string",
+              "examples": ["supabase", "cloudflare-r2", "s3"]
+            },
+            "payment_provider": {
+              "type": "string",
+              "examples": ["stripe", "none"]
+            },
+            "email_provider": {
+              "type": "string",
+              "examples": ["resend", "sendgrid", "postmark"]
+            },
+            "hosting": {
+              "type": "string",
+              "examples": ["vercel", "netlify", "railway", "aws"]
+            },
+            "analytics": {
+              "type": "string",
+              "examples": ["posthog", "plausible", "mixpanel"]
+            },
+            "error_tracking": {
+              "type": "string",
+              "examples": ["sentry", "logrocket", "none"]
+            }
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "object",
+      "description": "Decision log with reasoning",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "decision_point": {
+            "type": "string",
+            "description": "What decision was made"
+          },
+          "chosen_option": {
+            "type": "string",
+            "description": "Selected choice"
+          },
+          "reasoning": {
+            "type": "string",
+            "description": "Why this was chosen"
+          },
+          "alternatives": {
+            "type": "array",
+            "description": "Other options considered",
+            "items": {
+              "type": "string"
+            }
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "description": "Progress tracking",
+      "properties": {
+        "questions_asked": {
+          "type": "number",
+          "description": "Total questions asked"
+        },
+        "questions_remaining": {
+          "type": "number",
+          "description": "Estimated questions left"
+        },
+        "percentage_complete": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Progress percentage"
+        },
+        "current_milestone": {
+          "type": "string",
+          "description": "Current phase/milestone"
+        },
+        "completed_steps": {
+          "type": "array",
+          "description": "Steps completed so far",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_steps": {
+          "type": "array",
+          "description": "Upcoming steps",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "description": "File generation state",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["not_started", "in_progress", "completed", "failed"],
+          "description": "Generation status"
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "files_generated": {
+          "type": "array",
+          "description": "List of generated files",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "File path"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["config", "schema", "component", "api", "documentation"],
+                "description": "File category"
+              },
+              "size_bytes": {
+                "type": "number",
+                "description": "File size"
+              },
+              "generated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "errors": {
+          "type": "array",
+          "description": "Generation errors",
+          "items": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "File that failed"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "agent_version": {
+          "type": "string",
+          "description": "Agent version used"
+        },
+        "estimated_cost_monthly": {
+          "type": "number",
+          "description": "Estimated monthly cost (USD)"
+        },
+        "estimated_time_to_mvp": {
+          "type": "number",
+          "description": "Estimated weeks to MVP"
+        },
+        "complexity_score": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Architecture complexity rating"
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
