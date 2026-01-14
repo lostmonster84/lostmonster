@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import {
   LayoutDashboard,
   Calculator,
@@ -11,8 +12,6 @@ import {
   LogOut,
 } from 'lucide-react';
 import { cn } from '@lostmonster/ui';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -27,12 +26,9 @@ const bottomNavigation = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const router = useRouter();
 
-  const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push('/login');
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/login' });
   };
 
   return (

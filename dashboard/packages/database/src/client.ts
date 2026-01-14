@@ -1,29 +1,14 @@
-import { createClient as createSupabaseClient } from '@supabase/supabase-js';
-import type { Database } from './types';
+import { neon } from '@neondatabase/serverless';
 
 export function createClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const databaseUrl = process.env.DATABASE_URL;
 
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables');
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL environment variable is not set');
   }
 
-  return createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey);
+  return neon(databaseUrl);
 }
 
-export function createServiceClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !serviceRoleKey) {
-    throw new Error('Missing Supabase service role environment variables');
-  }
-
-  return createSupabaseClient<Database>(supabaseUrl, serviceRoleKey, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  });
-}
+// Helper for typed queries
+export type SQL = ReturnType<typeof createClient>;

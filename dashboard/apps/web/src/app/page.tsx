@@ -1,14 +1,13 @@
+import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
 import { DashboardLayout } from '@/components/layout';
 import { Card, CardHeader, CardTitle, CardContent } from '@lostmonster/ui';
 import { Calculator, TrendingUp, CheckSquare, Clock } from 'lucide-react';
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const session = await auth();
 
-  if (!user) {
+  if (!session?.user) {
     redirect('/login');
   }
 
@@ -44,7 +43,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <DashboardLayout title="Dashboard" description="Welcome back!">
+    <DashboardLayout title="Dashboard" description={`Welcome back, ${session.user.name || 'User'}!`}>
       {/* Stats Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (

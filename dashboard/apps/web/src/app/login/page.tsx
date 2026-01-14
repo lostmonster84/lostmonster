@@ -1,35 +1,35 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { Button, Input, Card, CardHeader, CardTitle, CardDescription, CardContent } from '@lostmonster/ui';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage(null);
+    setError(null);
 
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signInWithOtp({
+    const result = await signIn('credentials', {
       email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
+      password,
+      redirect: false,
     });
 
-    if (error) {
-      setMessage({ type: 'error', text: error.message });
+    if (result?.error) {
+      setError('Invalid email or password');
+      setLoading(false);
     } else {
-      setMessage({ type: 'success', text: 'Check your email for the magic link!' });
+      router.push('/');
+      router.refresh();
     }
-
-    setLoading(false);
   };
 
   return (
@@ -53,7 +53,7 @@ export default function LoginPage() {
           </div>
           <CardTitle className="text-2xl">Lost Monster Dashboard</CardTitle>
           <CardDescription>
-            Sign in with your email to access internal tools
+            Sign in to access internal tools
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -72,20 +72,28 @@ export default function LoginPage() {
               />
             </div>
 
-            {message && (
-              <div
-                className={`p-3 rounded-lg text-sm ${
-                  message.type === 'success'
-                    ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-                    : 'bg-red-500/10 text-red-400 border border-red-500/20'
-                }`}
-              >
-                {message.text}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium mb-2">
+                Password
+              </label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            {error && (
+              <div className="p-3 rounded-lg text-sm bg-red-500/10 text-red-400 border border-red-500/20">
+                {error}
               </div>
             )}
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Sending magic link...' : 'Send magic link'}
+              {loading ? 'Signing in...' : 'Sign in'}
             </Button>
           </form>
 
