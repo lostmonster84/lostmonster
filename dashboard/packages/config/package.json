@@ -1,0 +1,10 @@
+{
+  "name": "@lostmonster/config",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./eslint/next": "./eslint/next.js",
+    "./typescript/base": "./typescript/base.json",
+    "./typescript/next": "./typescript/next.json"
+  }
+}

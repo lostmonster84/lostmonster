@@ -26,11 +26,11 @@
   }
 
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth bg-neutral-950;
   }
 
   body {
-    @apply bg-transparent font-body text-base text-neutral-900 antialiased;
+    @apply bg-neutral-950 font-body text-base text-neutral-900 antialiased;
   }
 
   /* Typography base styles - Responsive sizing */

@@ -74,15 +74,19 @@ export function ColorProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('lostmonster-color', color);
   };
 
+  // Use default color during SSR to prevent white flash
   const color = colors[selectedColor];
 
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return null;
-  }
+  // During SSR/initial render, use default values but still render children
+  const contextValue = {
+    selectedColor: mounted ? selectedColor : 'teal',
+    setSelectedColor,
+    color: mounted ? color : colors.teal,
+    colors,
+  };
 
   return (
-    <ColorContext.Provider value={{ selectedColor, setSelectedColor, color, colors }}>
+    <ColorContext.Provider value={contextValue}>
       {children}
     </ColorContext.Provider>
   );
