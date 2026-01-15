@@ -55,12 +55,29 @@ export async function loadAIContext(userId: string): Promise<AIContext> {
     ORDER BY lodge_id, category
   `;
 
+  // Load wizard responses (for personalization)
+  let wizardData = null;
+  try {
+    const wizardResult = await sql`
+      SELECT * FROM ancarraig_ai_wizard_responses
+      WHERE user_id = ${userId}
+      LIMIT 1
+    `;
+    if (wizardResult.length > 0) {
+      wizardData = wizardResult[0];
+    }
+  } catch (error) {
+    // Table might not exist yet
+    console.log('Wizard table not found');
+  }
+
   return {
     conversationHistory,
     knowledgeBase,
     lodgeData,
     channelData,
     costData,
+    wizardData,
   };
 }
 
