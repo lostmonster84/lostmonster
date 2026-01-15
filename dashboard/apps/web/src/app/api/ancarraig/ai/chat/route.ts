@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   try {
     // For demo purposes, use a demo user ID
     // In production, this would come from authentication
-    const userId = 'demo-user-ancarraig';
+    const userId = '00000000-0000-0000-0000-000000000001';
 
     // Parse request
     const body = await req.json();

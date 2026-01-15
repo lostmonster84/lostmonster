@@ -8,7 +8,7 @@ export default async function AncarraigAIKnowledgePage() {
 
   // For demo purposes, use a demo user ID
   // In production, this would come from authentication
-  const demoUserId = 'demo-user-ancarraig';
+  const demoUserId = '00000000-0000-0000-0000-000000000001';
 
   // Fetch all knowledge for user
   const knowledge = await sql<AncarraigAIKnowledge[]>`

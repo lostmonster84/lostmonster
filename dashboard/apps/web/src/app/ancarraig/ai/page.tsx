@@ -8,7 +8,7 @@ export default async function AncarraigAIPage() {
 
   // For demo purposes, use a demo user ID
   // In production, this would come from authentication
-  const demoUserId = 'demo-user-ancarraig';
+  const demoUserId = '00000000-0000-0000-0000-000000000001';
 
   // Fetch recent conversation history (last 50 messages)
   const conversationHistory = await sql<AncarraigAIConversation[]>`
