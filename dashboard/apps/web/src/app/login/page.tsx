@@ -33,12 +33,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+          <div className="mx-auto mb-4 w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
             <svg
-              className="w-6 h-6 text-black"
+              className="w-6 h-6 text-primary-foreground"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
+              <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
                 Email address
               </label>
               <Input
@@ -73,7 +73,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
+              <label htmlFor="password" className="block text-sm font-medium mb-2 text-foreground">
                 Password
               </label>
               <Input
@@ -87,7 +87,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div className="p-3 rounded-lg text-sm bg-red-500/10 text-red-400 border border-red-500/20">
+              <div className="p-3 rounded-lg text-sm bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800">
                 {error}
               </div>
             )}
@@ -97,7 +97,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-white/40">
+          <p className="mt-6 text-center text-sm text-muted-foreground">
             Only authorized team members can access this dashboard.
           </p>
         </CardContent>

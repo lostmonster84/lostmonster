@@ -98,7 +98,7 @@ export default function PricingPage() {
             {quotes.map((quote) => (
               <div
                 key={quote.id}
-                className="flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors cursor-pointer"
+                className="flex items-center justify-between p-4 hover:bg-card transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5">
@@ -109,14 +109,14 @@ export default function PricingPage() {
                       <span className="font-medium">{quote.number}</span>
                       {getStatusBadge(quote.status)}
                     </div>
-                    <p className="text-sm text-white/60">{quote.client}</p>
+                    <p className="text-sm text-muted-foreground">{quote.client}</p>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="font-medium">
                     £{quote.total.toLocaleString()}
                   </div>
-                  <p className="text-sm text-white/60">{quote.date}</p>
+                  <p className="text-sm text-muted-foreground">{quote.date}</p>
                 </div>
               </div>
             ))}

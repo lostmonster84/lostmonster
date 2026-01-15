@@ -55,7 +55,7 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-medium">Email Notifications</p>
-                <p className="text-sm text-white/60">
+                <p className="text-sm text-muted-foreground">
                   Receive email updates about your quotes
                 </p>
               </div>
@@ -64,7 +64,7 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-medium">Task Reminders</p>
-                <p className="text-sm text-white/60">
+                <p className="text-sm text-muted-foreground">
                   Get reminded about upcoming due dates
                 </p>
               </div>

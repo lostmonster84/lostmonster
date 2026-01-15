@@ -9,7 +9,7 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children, title, description }: DashboardLayoutProps) {
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="min-h-screen bg-background">
       <Sidebar />
       <div className="pl-64">
         <Header title={title} description={description} />

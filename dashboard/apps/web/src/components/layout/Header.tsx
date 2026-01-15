@@ -10,18 +10,18 @@ interface HeaderProps {
 
 export function Header({ title, description }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-white/5 bg-neutral-950/80 backdrop-blur-sm px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/80 backdrop-blur-sm px-6">
       <div>
-        <h1 className="text-xl font-semibold">{title}</h1>
+        <h1 className="text-xl font-semibold text-foreground">{title}</h1>
         {description && (
-          <p className="text-sm text-white/60">{description}</p>
+          <p className="text-sm text-muted-foreground">{description}</p>
         )}
       </div>
 
       <div className="flex items-center gap-4">
         {/* Search */}
         <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search..."
@@ -32,11 +32,11 @@ export function Header({ title, description }: HeaderProps) {
         {/* Notifications */}
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />
-          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-accent" />
+          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-primary" />
         </Button>
 
         {/* User Avatar */}
-        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-black font-medium">
+        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground font-medium">
           J
         </button>
       </div>

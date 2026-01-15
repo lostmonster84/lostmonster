@@ -96,7 +96,7 @@ export default function TasksPage() {
                 style={{ backgroundColor: column.color }}
               />
               <h3 className="font-medium">{column.name}</h3>
-              <span className="text-sm text-white/40">
+              <span className="text-sm text-muted-foreground">
                 {column.tasks.length}
               </span>
             </div>
@@ -106,7 +106,7 @@ export default function TasksPage() {
               {column.tasks.map((task) => (
                 <Card
                   key={task.id}
-                  className="cursor-pointer hover:border-white/10 transition-colors"
+                  className="cursor-pointer hover:border-border-hover transition-colors"
                 >
                   <CardContent className="p-3">
                     <div className="flex items-start gap-2">
@@ -116,7 +116,7 @@ export default function TasksPage() {
                         <div className="flex items-center gap-2 mt-2">
                           {getPriorityBadge(task.priority)}
                           {task.dueDate && (
-                            <span className="text-xs text-white/40">
+                            <span className="text-xs text-muted-foreground">
                               Due: {task.dueDate}
                             </span>
                           )}
@@ -128,7 +128,7 @@ export default function TasksPage() {
               ))}
 
               {/* Add Task Button */}
-              <button className="w-full p-2 text-sm text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-colors flex items-center justify-center gap-1">
+              <button className="w-full p-2 text-sm text-muted-foreground hover:text-white hover:bg-white/5 rounded-lg transition-colors flex items-center justify-center gap-1">
                 <Plus className="h-4 w-4" />
                 Add task
               </button>

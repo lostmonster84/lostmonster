@@ -84,7 +84,7 @@ export default function InvestmentsPage() {
       <div className="grid gap-6 md:grid-cols-3 mb-6">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/60">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Value
             </CardTitle>
           </CardHeader>
@@ -97,7 +97,7 @@ export default function InvestmentsPage() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/60">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Total Gain/Loss
             </CardTitle>
           </CardHeader>
@@ -113,7 +113,7 @@ export default function InvestmentsPage() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/60">
+            <CardTitle className="text-sm font-medium text-muted-foreground">
               Return Rate
             </CardTitle>
           </CardHeader>
@@ -149,7 +149,7 @@ export default function InvestmentsPage() {
             {investments.map((investment) => (
               <div
                 key={investment.id}
-                className="flex items-center justify-between p-4 hover:bg-white/[0.02] transition-colors cursor-pointer"
+                className="flex items-center justify-between p-4 hover:bg-card transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 font-bold text-sm">
@@ -160,7 +160,7 @@ export default function InvestmentsPage() {
                       <span className="font-medium">{investment.name}</span>
                       {getTypeBadge(investment.type)}
                     </div>
-                    <p className="text-sm text-white/60">
+                    <p className="text-sm text-muted-foreground">
                       {investment.quantity} @ £{investment.avgCost.toFixed(2)}
                     </p>
                   </div>
