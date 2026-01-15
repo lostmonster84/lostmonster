@@ -26,6 +26,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
   const [isCalculating, setIsCalculating] = useState<boolean>(false);
   const [result, setResult] = useState<ReverseCalculatorResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showDetailedWorkings, setShowDetailedWorkings] = useState<boolean>(false);
 
   const handleCalculate = async () => {
     setIsCalculating(true);
@@ -285,16 +286,77 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
             </CardContent>
           </Card>
 
-          {/* Step-by-Step Calculation Workings */}
+          {/* Quick Summary Card */}
           <Card className="bg-card/50 backdrop-blur-sm border-border/50">
             <CardHeader>
-              <CardTitle>Step-by-Step Calculation</CardTitle>
-              <CardDescription>
-                Follow the math: how we got from your target net to the listing price
-              </CardDescription>
+              <CardTitle>Calculation Summary</CardTitle>
+              <CardDescription>Key numbers at a glance</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Step 1: Starting Point */}
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="p-4 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Total Stay</p>
+                  <p className="text-2xl font-bold">£{(result.listingPricePerNight * stayLength).toFixed(2)}</p>
+                  <p className="text-xs text-muted-foreground">{stayLength} nights</p>
+                </div>
+                <div className="p-4 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Channel Takes</p>
+                  <p className="text-2xl font-bold text-red-600">
+                    {result.effectiveCommissionPercent.toFixed(1)}%
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    £{((result.listingPricePerNight - result.netReceivedPerNight) * stayLength).toFixed(2)} total
+                  </p>
+                </div>
+                <div className="p-4 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Your Net/Night</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    £{(result.netReceivedPerNight - result.dailyCosts - result.cleaningFeePerNight).toFixed(2)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">After all costs</p>
+                </div>
+                <div className="p-4 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">vs Target</p>
+                  <p className={`text-2xl font-bold ${result.isAccurate ? 'text-green-600' : 'text-orange-600'}`}>
+                    {result.netVsTarget >= 0 ? '+' : ''}£{result.netVsTarget.toFixed(2)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {result.isAccurate ? '✓ On target' : 'Close'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Toggle Button */}
+              <button
+                onClick={() => setShowDetailedWorkings(!showDetailedWorkings)}
+                className="w-full mt-4 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                {showDetailedWorkings ? (
+                  <>
+                    <span>Hide detailed workings</span>
+                    <span>↑</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Show detailed workings</span>
+                    <span>↓</span>
+                  </>
+                )}
+              </button>
+            </CardContent>
+          </Card>
+
+          {/* Detailed Step-by-Step (Collapsible) */}
+          {showDetailedWorkings && (
+            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+              <CardHeader>
+                <CardTitle>Detailed Step-by-Step Calculation</CardTitle>
+                <CardDescription>
+                  Follow the math: how we got from your target net to the listing price
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Step 1: Starting Point */}
               <div className="p-4 bg-muted/50 rounded-lg border-l-4 border-primary">
                 <div className="flex items-start gap-3">
                   <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">
@@ -542,7 +604,8 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
                 </div>
               </div>
             </CardContent>
-          </Card>
+            </Card>
+          )}
 
           {/* Price Leakage Waterfall */}
           <PriceLeakageWaterfall
