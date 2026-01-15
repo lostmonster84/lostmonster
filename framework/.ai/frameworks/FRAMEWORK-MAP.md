@@ -62,6 +62,8 @@ Examples:
 | **MAPX** | Complete application mapping (routes, flows, connections) | `MAPX` | Full system map |
 | **PIXLX** | Pixel-perfect bug hunting (UI/UX issues, QA audit) | `PIXLX` | 90+ / 100 |
 | **DESKX** | Desktop experience optimization (large screen, 1024px+) | `DESKX` | 85+ / 100 |
+| **ADMINX** | Super-admin system with user management, RBAC, and audit logging | `ADMINX` | Complete system |
+| **PRDX** | PRD validation through 9-round Q&A (validates assumptions, defines success) | `PRDX: [feature]` | Validated PRD |
 
 ---
 
@@ -442,6 +444,134 @@ Skip CRUDX when:
 
 ---
 
+### ADMINX - Super-Admin System Framework
+**When:** Building super-admin systems with user management, RBAC, and audit logging
+**Not for:** Simple authentication, hardcoded admin emails, single-user systems
+
+```
+Use ADMINX when:
+✅ Building super-admin dashboards (user management)
+✅ Need role-based access control (RBAC)
+✅ Multi-user SaaS applications
+✅ Compliance requirements (audit trails)
+✅ Need 3-tier role hierarchy (Super Admin → Admin → User)
+✅ Managing WHO can access the system
+✅ User says "we need to manage users"
+✅ User says "add admin dashboard for users"
+
+Skip ADMINX when:
+❌ Simple login/logout only (just use NextAuth)
+❌ Hardcoded admin emails
+❌ Single-user applications
+❌ No user management needed
+❌ Static role assignments
+❌ Managing WHAT exists (use CRUDX instead)
+```
+
+**The ADMINX Stack:**
+1. **Database Schema** - users table with role enum + audit_logs table
+2. **Authentication** - NextAuth.js with JWT + role in token
+3. **Permission Middleware** - hasRole, requireRole, canManageUser helpers
+4. **User CRUD** - API routes with RBAC checks
+5. **Audit Logging** - Comprehensive trail with IP/user agent
+6. **Admin UI** - Users list, create/edit/delete modals, role assignment
+7. **Security Patterns** - Last admin protection, soft deletes, server-side validation
+
+**Role Hierarchy:**
+```typescript
+const roleHierarchy = {
+  super_admin: 3,  // Can manage ALL users
+  admin: 2,        // Can manage regular users only
+  user: 1          // Can only manage own profile
+};
+
+// Permission rule: Can only manage users with LOWER hierarchy
+function canManageUser(actorRole: Role, targetRole: Role): boolean {
+  return roleHierarchy[actorRole] > roleHierarchy[targetRole];
+}
+```
+
+**Security Patterns:**
+- Server-side permission validation (never trust client)
+- Last Super Admin Protection (prevents system lockout)
+- Soft deletes (status='inactive')
+- Comprehensive audit logging
+- Bcrypt password hashing (cost factor 12)
+
+**MVP Features (All 9 Required):**
+1. Dashboard home (user stats)
+2. Users list page (search, filter)
+3. Create user form
+4. Edit user form
+5. Delete user (with confirmation + last admin check)
+6. Assign/change roles (with RBAC)
+7. Audit logs page
+8. User profile page
+9. Settings page
+
+**Trigger:**
+```
+ADMINX
+```
+
+**Framework Files:**
+- Definition: `/framework/.ai/frameworks/builders/ADMINX.md`
+- Template: `/framework/templates/builders/ADMINX-TEMPLATE.md` (2,500+ lines)
+- PLANX: `/framework/templates/builders/ADMINX-PLANX.md` (10 milestones, 5-7 days)
+
+**Extends:** ADMIN-MASTER-REFERENCE.md (universal admin patterns)
+
+---
+
+### PRDX - PRD Validation Framework
+**When:** Validating product requirements, planning new features, stress-testing assumptions
+**Not for:** Simple bug fixes, already-validated features
+
+```
+Use PRDX when:
+✅ Planning new product features (need clarity on target market, value prop)
+✅ Stress-testing assumptions before building
+✅ Defining success metrics and North Star
+✅ Validating pricing model and competitive positioning
+✅ Want to avoid building the wrong thing
+✅ Need stakeholder alignment on product direction
+✅ Creating product documentation (PRD, North Star, GTM)
+✅ Annual product health checks
+
+Skip PRDX when:
+❌ Simple bug fixes or UI updates
+❌ Feature requirements already validated
+❌ Quick prototypes or experiments
+❌ Internal tools with no market validation needed
+```
+
+**The 9 Validation Rounds:**
+1. **Target Market** - Who are you building for? (Be specific)
+2. **Problem/Solution Fit** - Is the problem real and urgent?
+3. **Value Proposition** - What's the hero feature?
+4. **Feature Prioritization** - MVP vs Phase 2 vs Can Cut
+5. **Pricing** - How do you make money?
+6. **Competitive Positioning** - What's your wedge?
+7. **Technical Validation** - Tech stack and risks
+8. **Go-to-Market** - How do you get first 100 customers?
+9. **Success Metrics** - What's the North Star?
+
+**Output Documents:**
+- Validated PRD
+- North Star (one-page manifesto)
+- Competitive analysis
+- Pricing rationale
+- GTM playbook
+
+**Time:** 60-90 minutes of focused Q&A
+
+**Trigger:**
+```
+PRDX: [feature or product description]
+```
+
+---
+
 ### DEMX - Rapid Design Variation System
 **Trigger:** `DEMX: [target element]`
 **When:** Exploring visual approaches, redesigning components, design decisions
@@ -686,6 +816,38 @@ Skip Content Formula when:
 │ SOPHIA: Deep audit of chosen variation (85+ target)             │
 │ Result: Rapid exploration + quality verification                │
 └─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ADMINX + CRUDX (Most Common)                                     │
+├─────────────────────────────────────────────────────────────────┤
+│ ADMINX: Manages WHO can access (users, roles, permissions)      │
+│ CRUDX: Manages WHAT exists (content, data)                      │
+│ Result: Complete SaaS with user AND content management          │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ADMINX + PLANX                                                   │
+├─────────────────────────────────────────────────────────────────┤
+│ ADMINX: Defines WHAT to build (super-admin system)              │
+│ PLANX: Defines HOW to build it (10 milestones, 5-7 days)        │
+│ Result: Systematic implementation with no missed steps           │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ADMINX + DARKX                                                   │
+├─────────────────────────────────────────────────────────────────┤
+│ ADMINX: User management system                                  │
+│ DARKX: Dark mode theming                                        │
+│ Result: Admin system with dark mode support                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ADMINX + SOPHIA                                                  │
+├─────────────────────────────────────────────────────────────────┤
+│ ADMINX: Build admin dashboard                                   │
+│ SOPHIA: Audit admin UX quality (85+ target)                     │
+│ Result: High-quality admin interface                            │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -865,7 +1027,8 @@ Build complete system?
 Plan a feature?
 ├─ Simple (1-2 files) ──────────────────────> Just do it
 ├─ Complex (3+ files) ──────────────────────> Use CODA
-└─ Need exhaustive execution breakdown? ────> Use PLANX (after CODA)
+├─ Need exhaustive execution breakdown? ────> Use PLANX (after CODA)
+└─ Need to validate product requirements? ──> Use PRDX (before CODA)
 
 Create content?
 ├─ Marketing/conversion ────────────────────> Use AIDA
@@ -886,6 +1049,14 @@ Build content management?
 ├─ Dynamic collections (routes, offers) ────> Use CRUDX
 ├─ User says "add [content] to page" ───────> Use CRUDX
 └─ Hardcoded/one-time content ──────────────> Just code it
+
+Build user management?
+├─ Need super-admin dashboard ─────────────> Use ADMINX
+├─ Multi-user SaaS application ────────────> Use ADMINX
+├─ Need role-based access control ─────────> Use ADMINX
+├─ Compliance/audit requirements ──────────> Use ADMINX
+├─ User says "manage users" ───────────────> Use ADMINX
+└─ Simple login/logout only ───────────────> Just use NextAuth
 
 Redesign existing?
 ├─ Bug fix or small update ─────────────────> Just do it
@@ -915,6 +1086,7 @@ Plan layout?
 
 - [ ] Is this a complex feature? → Consider CODA
 - [ ] Does this content need management? → Consider CRUDX
+- [ ] Does this need user management? → Consider ADMINX
 - [ ] Does this need conversion optimization? → Consider AIDA
 - [ ] Am I redesigning something approved? → Use Design Variations
 - [ ] Is this mobile-focused? → Consider TOUCH
@@ -927,6 +1099,7 @@ Plan layout?
 - [ ] If UI-heavy: Run SOPHIA score (target 85+)
 - [ ] If mobile-native: Verify TOUCH patterns implemented
 - [ ] If content system: Verify all 6 CRUDX layers complete
+- [ ] If user management: Verify RBAC + audit logs + last admin protection
 - [ ] If redesign: Created 5 variations and got user approval?
 
 ---
@@ -936,14 +1109,19 @@ Plan layout?
 ### Meta-Framework
 - **APEX:** [docs/frameworks/APEX.md](./APEX.md) ⭐ **START HERE FOR MAJOR FEATURES**
 
+### Builder Frameworks (System Generators)
+- **ADMINX:** [builders/ADMINX.md](./builders/ADMINX.md) - Super-admin system with user management, RBAC, audit logging
+- **CRUDX:** [builders/CRUDX.md](./builders/CRUDX.md) - Full-stack content management (6 layers: DB → API → UI)
+- **[Builder Frameworks Overview](./builders/README.md)** - What builders are and when to use them
+
 ### Universal Frameworks
 - **CODA:** [docs/frameworks/coda.md](./coda.md) - Strategic planning (What are we building?)
 - **PLANX:** [docs/frameworks/PLANX.md](./PLANX.md) - Execution blueprint (How do we build it step-by-step?)
+- **PRDX:** [PRDX.md](./PRDX.md) - PRD validation through 9-round Q&A
 - **AIDA:** [docs/frameworks/aida.md](./aida.md) - Content & conversion structure
 - **SOPHIA:** [docs/frameworks/sophia.md](./sophia.md) - Design & UX assessment
 - **TOUCH:** [docs/frameworks/touch.md](./touch.md) - Mobile-native transformation
 - **RAPID:** [docs/frameworks/rapid.md](./rapid.md) - Prompt engineering from vague input
-- **CRUDX:** [docs/frameworks/CRUDX.md](./CRUDX.md) - Full-stack content management
 - **Z-Pattern:** [docs/frameworks/z-pattern.md](./z-pattern.md) - Layout framework
 - **DEMX:** [docs/frameworks/DEMX.md](./DEMX.md) - Rapid design variation system
 
@@ -965,12 +1143,13 @@ Plan layout?
 8. **Be rapid with RAPID** - Low-effort input → high-quality output
 9. **Protect approved designs** - Use `DEMX: [target]` for redesigns
 10. **CRUDX for content** - If content needs management, build the full 6-layer system
-11. **Explore with DEMX** - One word → 5 variations → AIDA scores → pick winner
+11. **ADMINX for users** - If user management needed, build complete RBAC + audit system
+12. **Explore with DEMX** - One word → 5 variations → AIDA scores → pick winner
 
 ---
 
-**Last Updated:** 2025-01-05
-**Framework Count:** 10 universal (including APEX + PLANX) + project-specific
+**Last Updated:** 2026-01-15
+**Framework Count:** 18 universal (including APEX, PLANX, ADMINX, PRDX) + project-specific
 **Status:** Production-tested and proven across multiple projects
 
 **Pro Tip:** For any major feature, start with `APEX: [feature description]` and let the meta-framework orchestrate everything.

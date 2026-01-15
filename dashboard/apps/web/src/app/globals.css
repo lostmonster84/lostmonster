@@ -41,6 +41,16 @@
   --warning-bg: 38 92% 96%;
   --error: 0 84% 60%;
   --error-bg: 0 84% 96%;
+
+  /* Chart colors - Light mode */
+  --chart-gain: 142 71% 45%;     /* green-500 */
+  --chart-loss: 0 84% 60%;        /* red-500 */
+  --chart-revenue: 217 91% 60%;   /* blue-500 */
+  --chart-profit: 142 71% 45%;    /* green-500 (same as gain) */
+  --chart-drawing: 258 90% 66%;   /* purple-500 */
+  --chart-grid: 0 0% 90%;         /* gray-200 */
+  --chart-text: 0 0% 42%;         /* gray-600 */
+  --chart-label: 0 0% 12%;        /* gray-900 */
 }
 
 .dark {
@@ -78,6 +88,16 @@
   --success-bg: 142 50% 15%;
   --warning-bg: 38 50% 15%;
   --error-bg: 0 50% 15%;
+
+  /* Chart colors - Dark mode */
+  --chart-gain: 142 71% 55%;      /* green-400 brighter for dark bg */
+  --chart-loss: 0 84% 65%;         /* red-400 brighter for dark bg */
+  --chart-revenue: 217 91% 65%;    /* blue-400 brighter for dark bg */
+  --chart-profit: 142 71% 55%;     /* green-400 (same as gain) */
+  --chart-drawing: 258 90% 70%;    /* purple-400 brighter for dark bg */
+  --chart-grid: 0 0% 30%;          /* gray-700 */
+  --chart-text: 0 0% 64%;          /* gray-400 */
+  --chart-label: 0 0% 95%;         /* gray-100 */
 }
 
 html {

@@ -61,3 +61,19 @@ npm run dev
 **If using framework templates:** Read [framework/CLAUDE.md](./framework/CLAUDE.md) first.
 
 **Key principle:** Website-specific vs. universal content are now clearly separated.
+
+### Database Migrations
+
+**You CAN and SHOULD run database migrations directly** when working on the dashboard:
+
+```bash
+# Run migrations
+cd dashboard
+DATABASE_URL="<neon-connection-string>" node scripts/run-migration.js
+
+# Seed sample data
+DATABASE_URL="<neon-connection-string>" node scripts/run-seed.js
+```
+
+The DATABASE_URL is available in `dashboard/apps/web/.env.local`.
+Do not ask permission to run migrations - just run them as part of the development workflow.

@@ -38,6 +38,15 @@ export function PriceLeakageWaterfall({
   waterfallSteps,
   channelName,
 }: PriceLeakageWaterfallProps) {
+  // Chart colors from CSS variables (theme-aware)
+  const colors = {
+    gain: 'hsl(var(--chart-gain))',
+    loss: 'hsl(var(--chart-loss))',
+    grid: 'hsl(var(--chart-grid))',
+    text: 'hsl(var(--chart-text))',
+    label: 'hsl(var(--chart-label))',
+  };
+
   // Transform waterfall steps into chart data
   const chartData = waterfallSteps.map((step, index) => {
     const isFirst = index === 0;
@@ -68,10 +77,10 @@ export function PriceLeakageWaterfall({
       isLast,
       // Color: green for gains, red for deductions
       color: step.isDeduction
-        ? '#ef4444' // red-500 for deductions
+        ? colors.loss
         : step.runningTotal < 0
-          ? '#ef4444' // red-500 for negative net
-          : '#22c55e', // green-500 for positive values
+          ? colors.loss
+          : colors.gain,
     };
   });
 
@@ -92,16 +101,16 @@ export function PriceLeakageWaterfall({
               data={chartData}
               margin={{ top: 40, right: 30, left: 20, bottom: 100 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
+              <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} opacity={0.3} />
               <XAxis
                 dataKey="label"
                 angle={-45}
                 textAnchor="end"
                 height={120}
-                tick={{ fill: '#6b7280', fontSize: 12 }}
+                tick={{ fill: colors.text, fontSize: 12 }}
               />
               <YAxis
-                tick={{ fill: '#6b7280', fontSize: 12 }}
+                tick={{ fill: colors.text, fontSize: 12 }}
                 domain={[0, maxValue]}
                 tickFormatter={(value) => `£${Math.round(value)}`}
               />
@@ -136,7 +145,7 @@ export function PriceLeakageWaterfall({
                   dataKey="runningTotal"
                   position="top"
                   formatter={(value: number) => `£${value.toFixed(2)}`}
-                  style={{ fill: '#1f2937', fontSize: 12, fontWeight: 600 }}
+                  style={{ fill: colors.label, fontSize: 12, fontWeight: 600 }}
                 />
               </Bar>
             </BarChart>

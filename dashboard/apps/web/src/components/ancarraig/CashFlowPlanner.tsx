@@ -36,6 +36,16 @@ export function CashFlowPlanner({ lodges }: CashFlowPlannerProps) {
   const [projection, setProjection] = useState<CashFlowProjection | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Chart colors from CSS variables (theme-aware)
+  const colors = {
+    revenue: 'hsl(var(--chart-revenue))',
+    loss: 'hsl(var(--chart-loss))',
+    profit: 'hsl(var(--chart-profit))',
+    drawing: 'hsl(var(--chart-drawing))',
+    grid: 'hsl(var(--chart-grid))',
+    text: 'hsl(var(--chart-text))',
+  };
+
   const handleCalculate = async () => {
     setIsCalculating(true);
     setError(null);
@@ -295,13 +305,13 @@ export function CashFlowPlanner({ lodges }: CashFlowPlannerProps) {
               <div className="h-[400px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" opacity={0.3} />
+                    <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} opacity={0.3} />
                     <XAxis
                       dataKey="quarter"
-                      tick={{ fill: '#6b7280', fontSize: 12 }}
+                      tick={{ fill: colors.text, fontSize: 12 }}
                     />
                     <YAxis
-                      tick={{ fill: '#6b7280', fontSize: 12 }}
+                      tick={{ fill: colors.text, fontSize: 12 }}
                       tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
                     />
                     <Tooltip
@@ -313,13 +323,13 @@ export function CashFlowPlanner({ lodges }: CashFlowPlannerProps) {
                       }}
                     />
                     <Legend />
-                    <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" />
-                    <Bar dataKey="costs" fill="#ef4444" name="Costs" />
-                    <Bar dataKey="profit" fill="#22c55e" name="Profit" />
+                    <Bar dataKey="revenue" fill={colors.revenue} name="Revenue" />
+                    <Bar dataKey="costs" fill={colors.loss} name="Costs" />
+                    <Bar dataKey="profit" fill={colors.profit} name="Profit" />
                     <Line
                       type="monotone"
                       dataKey="drawings"
-                      stroke="#8b5cf6"
+                      stroke={colors.drawing}
                       strokeWidth={3}
                       name="Recommended Drawings"
                     />

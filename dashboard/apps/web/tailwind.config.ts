@@ -63,6 +63,18 @@ const config: Config = {
           bg: 'hsl(var(--error-bg))',
         },
 
+        // Chart colors (theme-aware)
+        chart: {
+          gain: 'hsl(var(--chart-gain))',
+          loss: 'hsl(var(--chart-loss))',
+          revenue: 'hsl(var(--chart-revenue))',
+          profit: 'hsl(var(--chart-profit))',
+          drawing: 'hsl(var(--chart-drawing))',
+          grid: 'hsl(var(--chart-grid))',
+          text: 'hsl(var(--chart-text))',
+          label: 'hsl(var(--chart-label))',
+        },
+
         // Lost Monster brand colors (from homepage teal theme)
         'brand-cyan': {
           DEFAULT: '#06B6D4',

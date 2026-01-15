@@ -5,9 +5,6 @@ import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import {
   LayoutDashboard,
-  Calculator,
-  TrendingUp,
-  CheckSquare,
   Settings,
   LogOut,
 } from 'lucide-react';
@@ -16,9 +13,6 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Pricing', href: '/pricing', icon: Calculator },
-  { name: 'Investments', href: '/investments', icon: TrendingUp },
-  { name: 'Tasks', href: '/tasks', icon: CheckSquare },
 ];
 
 const bottomNavigation = [
@@ -58,8 +52,7 @@ export function Sidebar() {
         {/* Main Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-4">
           {navigation.map((item) => {
-            const isActive = pathname === item.href ||
-              (item.href !== '/' && pathname.startsWith(item.href));
+            const isActive = pathname === item.href;
 
             return (
               <Link
@@ -82,9 +75,7 @@ export function Sidebar() {
         {/* Bottom Navigation */}
         <div className="border-t border-border px-3 py-4 space-y-3">
           {/* Theme Toggle */}
-          <div className="px-3">
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
 
           {bottomNavigation.map((item) => {
             const isActive = pathname === item.href;
