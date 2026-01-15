@@ -20,7 +20,7 @@ const categoryIcons = {
 };
 
 const categoryColors = {
-  preference: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20',
+  preference: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
   rule: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
   insight: 'bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20',
   competitor: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',

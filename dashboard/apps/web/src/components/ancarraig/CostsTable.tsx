@@ -92,7 +92,7 @@ export function CostsTable({ costs, lodges, onUpdate, onDelete }: CostsTableProp
             return (
               <tr
                 key={cost.id}
-                className={isEditing ? 'bg-cyan-500/5' : 'hover:bg-muted/50'}
+                className={isEditing ? 'bg-purple-500/5' : 'hover:bg-muted/50'}
               >
                 {/* Name */}
                 <td className="px-4 py-3">
@@ -106,7 +106,7 @@ export function CostsTable({ costs, lodges, onUpdate, onDelete }: CostsTableProp
                   ) : (
                     <button
                       onClick={() => startEdit(cost)}
-                      className="text-sm font-medium text-foreground hover:text-cyan-500 text-left w-full"
+                      className="text-sm font-medium text-foreground hover:text-purple-500 text-left w-full"
                     >
                       {cost.name}
                     </button>
@@ -128,7 +128,7 @@ export function CostsTable({ costs, lodges, onUpdate, onDelete }: CostsTableProp
                   ) : (
                     <button
                       onClick={() => startEdit(cost)}
-                      className="text-sm text-muted-foreground hover:text-cyan-500 capitalize text-left w-full"
+                      className="text-sm text-muted-foreground hover:text-purple-500 capitalize text-left w-full"
                     >
                       {cost.category.replace('_', ' ')}
                     </button>
@@ -149,7 +149,7 @@ export function CostsTable({ costs, lodges, onUpdate, onDelete }: CostsTableProp
                   ) : (
                     <button
                       onClick={() => startEdit(cost)}
-                      className="text-sm font-medium text-foreground hover:text-cyan-500 text-right w-full"
+                      className="text-sm font-medium text-foreground hover:text-purple-500 text-right w-full"
                     >
                       £{Number(cost.amount).toLocaleString()}
                     </button>
@@ -172,7 +172,7 @@ export function CostsTable({ costs, lodges, onUpdate, onDelete }: CostsTableProp
                   ) : (
                     <button
                       onClick={() => startEdit(cost)}
-                      className="text-sm text-muted-foreground hover:text-cyan-500 capitalize text-left w-full"
+                      className="text-sm text-muted-foreground hover:text-purple-500 capitalize text-left w-full"
                     >
                       {cost.period.replace('_', ' ')}
                     </button>

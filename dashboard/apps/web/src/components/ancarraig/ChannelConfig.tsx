@@ -100,7 +100,7 @@ export function ChannelConfig({ initialChannels }: ChannelConfigProps) {
           checked={Boolean(value)}
           disabled={!isEditing}
           onChange={(e) => setEditData({ ...editData, [field]: e.target.checked })}
-          className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500 disabled:opacity-50"
+          className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500 disabled:opacity-50"
         />
       );
     }
@@ -204,7 +204,7 @@ export function ChannelConfig({ initialChannels }: ChannelConfigProps) {
                     type="checkbox"
                     checked={Boolean(editData.charges_cleaning_commission)}
                     onChange={(e) => setEditData({ ...editData, charges_cleaning_commission: e.target.checked })}
-                    className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
+                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                   />
                   Charges commission on cleaning fee
                 </label>
@@ -213,7 +213,7 @@ export function ChannelConfig({ initialChannels }: ChannelConfigProps) {
                     type="checkbox"
                     checked={Boolean(editData.supports_genius)}
                     onChange={(e) => setEditData({ ...editData, supports_genius: e.target.checked })}
-                    className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
+                    className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                   />
                   Supports Genius program
                 </label>
@@ -307,7 +307,7 @@ export function ChannelConfig({ initialChannels }: ChannelConfigProps) {
                           <>
                             <button
                               onClick={() => handleEdit(channel)}
-                              className="text-cyan-600 hover:text-cyan-700"
+                              className="text-purple-600 hover:text-purple-700"
                               title="Edit"
                             >
                               <Edit2 className="h-4 w-4" />
@@ -354,7 +354,7 @@ export function ChannelConfig({ initialChannels }: ChannelConfigProps) {
                 - 15% commission: £30 → £170<br />
                 - Genius 10%: £17 → £153<br />
                 - Non-refundable 10%: £15.30 → £137.70<br />
-                <span className="text-cyan-500 font-bold">You receive: £137.70</span>
+                <span className="text-purple-500 font-bold">You receive: £137.70</span>
               </div>
             </div>
 

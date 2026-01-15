@@ -177,8 +177,8 @@ export function PriceLeakageWaterfall({
 
         {/* Insight Message */}
         {waterfallSteps.length > 0 && (
-          <div className="mt-4 p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-lg">
-            <p className="text-sm text-cyan-700 dark:text-cyan-400">
+          <div className="mt-4 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+            <p className="text-sm text-purple-700 dark:text-purple-400">
               <strong>Insight:</strong>{' '}
               {waterfallSteps[waterfallSteps.length - 1]?.runningTotal >= 0
                 ? `You're netting £${waterfallSteps[waterfallSteps.length - 1]?.runningTotal.toFixed(2)} per night after all deductions. This is profitable!`

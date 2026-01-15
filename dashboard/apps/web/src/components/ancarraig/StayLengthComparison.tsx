@@ -72,7 +72,7 @@ export function StayLengthComparison({ lodges, channels }: StayLengthComparisonP
       case 'excellent':
         return <CheckCircle className="h-5 w-5 text-green-500" />;
       default:
-        return <TrendingUp className="h-5 w-5 text-cyan-500" />;
+        return <TrendingUp className="h-5 w-5 text-purple-500" />;
     }
   };
 
@@ -85,7 +85,7 @@ export function StayLengthComparison({ lodges, channels }: StayLengthComparisonP
       case 'excellent':
         return 'bg-green-500/10 border-green-500/20';
       default:
-        return 'bg-cyan-500/10 border-cyan-500/20';
+        return 'bg-purple-500/10 border-purple-500/20';
     }
   };
 
@@ -107,7 +107,7 @@ export function StayLengthComparison({ lodges, channels }: StayLengthComparisonP
               <select
                 value={selectedLodge}
                 onChange={(e) => setSelectedLodge(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 {lodges.map((lodge) => (
                   <option key={lodge.id} value={lodge.id}>
@@ -121,7 +121,7 @@ export function StayLengthComparison({ lodges, channels }: StayLengthComparisonP
               <select
                 value={selectedChannel}
                 onChange={(e) => setSelectedChannel(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 {channels.map((channel) => (
                   <option key={channel.id} value={channel.id}>
@@ -247,7 +247,7 @@ export function StayLengthComparison({ lodges, channels }: StayLengthComparisonP
                             row.marginPercent >= 30
                               ? 'text-green-600 dark:text-green-400'
                               : row.marginPercent >= 15
-                                ? 'text-cyan-600 dark:text-cyan-400'
+                                ? 'text-purple-600 dark:text-purple-400'
                                 : 'text-red-600 dark:text-red-400'
                           }`}
                         >
@@ -264,13 +264,13 @@ export function StayLengthComparison({ lodges, channels }: StayLengthComparisonP
 
               {/* Key Insights */}
               <div className="mt-6 space-y-3">
-                <div className="flex items-start gap-3 p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-lg">
-                  <AlertCircle className="h-5 w-5 text-cyan-500 mt-0.5 shrink-0" />
+                <div className="flex items-start gap-3 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                  <AlertCircle className="h-5 w-5 text-purple-500 mt-0.5 shrink-0" />
                   <div className="space-y-1">
-                    <p className="text-sm font-medium text-cyan-700 dark:text-cyan-400">
+                    <p className="text-sm font-medium text-purple-700 dark:text-purple-400">
                       Cleaning Cost Impact
                     </p>
-                    <p className="text-sm text-cyan-600 dark:text-cyan-400">
+                    <p className="text-sm text-purple-600 dark:text-purple-400">
                       1-night: £{result.comparison[0]?.cleaningFeePerNight.toFixed(2)}/night •
                       3-night: £{result.comparison[2]?.cleaningFeePerNight.toFixed(2)}/night •
                       7-night: £{result.comparison[3]?.cleaningFeePerNight.toFixed(2)}/night

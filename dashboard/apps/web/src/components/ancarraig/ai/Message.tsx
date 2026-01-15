@@ -42,7 +42,7 @@ export function Message({ role, content, timestamp }: MessageProps) {
         className={cn(
           'flex-shrink-0 h-8 w-8 rounded-lg flex items-center justify-center shadow-sm',
           isUser
-            ? 'bg-gradient-to-br from-cyan-500 to-cyan-600'
+            ? 'bg-gradient-to-br from-purple-500 to-purple-600'
             : 'bg-gradient-to-br from-slate-700 to-slate-800 dark:from-slate-800 dark:to-slate-900'
         )}
       >
@@ -58,7 +58,7 @@ export function Message({ role, content, timestamp }: MessageProps) {
         className={cn(
           'flex-1 max-w-[80%] rounded-lg px-4 py-3 shadow-sm',
           isUser
-            ? 'bg-gradient-to-br from-cyan-500/10 to-cyan-600/10 dark:from-cyan-500/20 dark:to-cyan-600/20 border border-cyan-500/20'
+            ? 'bg-gradient-to-br from-purple-500/10 to-purple-600/10 dark:from-purple-500/20 dark:to-purple-600/20 border border-purple-500/20'
             : 'bg-card border border-border'
         )}
       >
@@ -112,7 +112,7 @@ export function Message({ role, content, timestamp }: MessageProps) {
 
         {/* Copied feedback */}
         {copied && (
-          <div className="mt-2 text-xs text-cyan-600 dark:text-cyan-400">Copied!</div>
+          <div className="mt-2 text-xs text-purple-600 dark:text-purple-400">Copied!</div>
         )}
       </div>
     </div>

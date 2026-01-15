@@ -25,7 +25,7 @@ export function SeasonalCalendar({ initialLodges, initialSeasons }: SeasonalCale
   const getMultiplierColor = (multiplier: number): string => {
     if (multiplier >= 1.5) return 'bg-red-500 text-white'; // Peak (>150%)
     if (multiplier >= 1.2) return 'bg-orange-500 text-white'; // High (120-149%)
-    if (multiplier >= 1.0) return 'bg-cyan-500 text-white'; // Standard (100-119%)
+    if (multiplier >= 1.0) return 'bg-purple-500 text-white'; // Standard (100-119%)
     if (multiplier >= 0.8) return 'bg-green-500 text-white'; // Low (80-99%)
     return 'bg-gray-500 text-white'; // Off-peak (<80%)
   };
@@ -82,7 +82,7 @@ export function SeasonalCalendar({ initialLodges, initialSeasons }: SeasonalCale
               <select
                 value={selectedLodge}
                 onChange={(e) => setSelectedLodge(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 {lodges.map((lodge) => (
                   <option key={lodge.id} value={lodge.id}>
@@ -177,7 +177,7 @@ export function SeasonalCalendar({ initialLodges, initialSeasons }: SeasonalCale
                   <span className="text-xs text-muted-foreground">80-99% Low</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded bg-cyan-500"></div>
+                  <div className="w-4 h-4 rounded bg-purple-500"></div>
                   <span className="text-xs text-muted-foreground">100-119% Standard</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -237,7 +237,7 @@ export function SeasonalCalendar({ initialLodges, initialSeasons }: SeasonalCale
                       </div>
                       <div className="flex gap-2">
                         <button
-                          className="text-cyan-600 hover:text-cyan-700"
+                          className="text-purple-600 hover:text-purple-700"
                           title="Edit"
                         >
                           <Edit2 className="h-4 w-4" />

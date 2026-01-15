@@ -153,7 +153,7 @@ export function CompetitorPricing({ initialCompetitors }: CompetitorPricingProps
   const getCompetitorTypeColor = (type: string | null) => {
     switch (type) {
       case 'direct':
-        return 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400';
+        return 'bg-purple-500/10 text-purple-700 dark:text-purple-400';
       case 'aspirational':
         return 'bg-purple-500/10 text-purple-700 dark:text-purple-400';
       case 'market':
@@ -201,7 +201,7 @@ export function CompetitorPricing({ initialCompetitors }: CompetitorPricingProps
                 <select
                   value={newCompetitor.type}
                   onChange={(e) => setNewCompetitor({ ...newCompetitor, type: e.target.value })}
-                  className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="direct">Direct Competitor</option>
                   <option value="aspirational">Aspirational</option>
@@ -353,7 +353,7 @@ export function CompetitorPricing({ initialCompetitors }: CompetitorPricingProps
                             <select
                               value={newRate.available ? 'true' : 'false'}
                               onChange={(e) => setNewRate({ ...newRate, available: e.target.value === 'true' })}
-                              className="w-full px-2 py-1 text-sm bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                              className="w-full px-2 py-1 text-sm bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                             >
                               <option value="true">Yes</option>
                               <option value="false">No</option>
@@ -378,7 +378,7 @@ export function CompetitorPricing({ initialCompetitors }: CompetitorPricingProps
                           href={competitor.booking_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
+                          className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1"
                         >
                           Booking.com <ExternalLink className="h-3 w-3" />
                         </a>
@@ -388,7 +388,7 @@ export function CompetitorPricing({ initialCompetitors }: CompetitorPricingProps
                           href={competitor.airbnb_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
+                          className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1"
                         >
                           Airbnb <ExternalLink className="h-3 w-3" />
                         </a>

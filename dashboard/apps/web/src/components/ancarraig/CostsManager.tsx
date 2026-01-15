@@ -150,7 +150,7 @@ export function CostsManager({
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Target (30% margin)</span>
-                    <span className="font-medium text-cyan-500">£{target}</span>
+                    <span className="font-medium text-purple-500">£{target}</span>
                   </div>
                   <div className="flex items-center justify-between border-t pt-2">
                     <span className="text-muted-foreground">Daily costs</span>

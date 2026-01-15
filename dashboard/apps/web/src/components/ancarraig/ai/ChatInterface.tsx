@@ -131,7 +131,7 @@ export function ChatInterface({ initialMessages, userId }: ChatInterfaceProps) {
       >
         {showWelcome && (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-lg mb-6">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg mb-6">
               <Sparkles className="h-8 w-8 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-3">

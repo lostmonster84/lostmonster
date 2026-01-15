@@ -71,7 +71,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
       <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-lg">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-md">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-md">
               <Calculator className="h-5 w-5 text-white" />
             </div>
             <div>
@@ -90,7 +90,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
               <select
                 value={selectedLodge}
                 onChange={(e) => setSelectedLodge(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 {lodges.map((lodge) => (
                   <option key={lodge.id} value={lodge.id}>
@@ -104,7 +104,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
               <select
                 value={selectedChannel}
                 onChange={(e) => setSelectedChannel(e.target.value)}
-                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 {channels.map((channel) => (
                   <option key={channel.id} value={channel.id}>
@@ -162,7 +162,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
                     onClick={() => setStayLength(nights)}
                     className={`flex-1 px-3 py-2 rounded-lg font-medium transition-colors ${
                       stayLength === nights
-                        ? 'bg-cyan-500 text-white'
+                        ? 'bg-purple-500 text-white'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                     }`}
                   >
@@ -195,7 +195,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
               id="include-margin"
               checked={includeMargin}
               onChange={(e) => setIncludeMargin(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
+              className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
             />
             <label htmlFor="include-margin" className="text-sm font-medium flex-1">
               Add profit margin on top of target net
@@ -245,7 +245,7 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
       {/* Result Card - BIG PROMINENT OUTPUT */}
       {result && (
         <>
-          <Card className="bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-xl">
+          <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-xl">
             <CardContent className="p-8">
               <div className="text-center space-y-4">
                 <div className="flex justify-center">
@@ -523,9 +523,9 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
 
               {/* Step 6: Stay Length Uplift */}
               {result.stayLengthUplift > 0 && (
-                <div className="p-4 bg-muted/50 rounded-lg border-l-4 border-cyan-500">
+                <div className="p-4 bg-muted/50 rounded-lg border-l-4 border-purple-500">
                   <div className="flex items-start gap-3">
-                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-500 text-white text-xs font-bold">
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-500 text-white text-xs font-bold">
                       {result.seasonalMultiplier !== 1 ? '6' : '5'}
                     </div>
                     <div className="flex-1">
@@ -540,12 +540,12 @@ export function ReverseCalculator({ lodges, channels }: ReverseCalculatorProps) 
                           <span>Base Listing Price:</span>
                           <span className="font-mono">£{(result.listingPricePerNight / (1 + result.stayLengthUplift / 100)).toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-between text-sm text-cyan-600">
+                        <div className="flex justify-between text-sm text-purple-600">
                           <span>+ {result.stayLengthUplift}% uplift:</span>
                           <span className="font-mono">£{result.stayLengthUpliftAmount.toFixed(2)}</span>
                         </div>
                         <div className="h-px bg-border my-1" />
-                        <div className="flex justify-between font-mono font-bold text-lg text-cyan-600">
+                        <div className="flex justify-between font-mono font-bold text-lg text-purple-600">
                           <span>Final Listing Price:</span>
                           <span>£{result.listingPricePerNight.toFixed(2)}</span>
                         </div>

@@ -156,11 +156,11 @@ export function AIGuidancePanel({ existingCosts, onAddSuggestedCost }: AIGuidanc
 
   if (!showSuggestions) {
     return (
-      <Card className="border-cyan-500/20 bg-cyan-500/5">
+      <Card className="border-purple-500/20 bg-purple-500/5">
         <CardContent className="p-6">
           <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10">
-              <Sparkles className="h-5 w-5 text-cyan-500" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/10">
+              <Sparkles className="h-5 w-5 text-purple-500" />
             </div>
             <div className="flex-1 space-y-3">
               <div>
@@ -174,7 +174,7 @@ export function AIGuidancePanel({ existingCosts, onAddSuggestedCost }: AIGuidanc
                 onClick={handleAnalyze}
                 disabled={isAnalyzing}
                 size="sm"
-                className="bg-cyan-500 hover:bg-cyan-600"
+                className="bg-purple-500 hover:bg-purple-600"
               >
                 <Sparkles className="h-4 w-4 mr-2" />
                 {isAnalyzing ? 'Analyzing...' : 'Analyze My Costs'}
@@ -187,11 +187,11 @@ export function AIGuidancePanel({ existingCosts, onAddSuggestedCost }: AIGuidanc
   }
 
   return (
-    <Card className="border-cyan-500/20 bg-cyan-500/5">
+    <Card className="border-purple-500/20 bg-purple-500/5">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-cyan-500" />
+            <Sparkles className="h-5 w-5 text-purple-500" />
             <CardTitle>Suggested Costs</CardTitle>
           </div>
           <Button
