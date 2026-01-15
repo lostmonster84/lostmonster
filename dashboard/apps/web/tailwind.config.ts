@@ -18,6 +18,11 @@ const config: Config = {
           foreground: 'hsl(var(--primary-foreground))',
         },
 
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
@@ -56,6 +61,33 @@ const config: Config = {
         error: {
           DEFAULT: 'hsl(var(--error))',
           bg: 'hsl(var(--error-bg))',
+        },
+
+        // Lost Monster brand colors (from homepage teal theme)
+        'brand-cyan': {
+          DEFAULT: '#06B6D4',
+          light: '#22D3EE',
+          dark: '#0891B2',
+        },
+        'brand-navy': {
+          DEFAULT: '#1E3A8A',
+          light: '#1E40AF',
+          dark: '#1E293B',
+        },
+
+        // Override Tailwind's cyan to use toned-down version
+        cyan: {
+          50: '#ecfeff',
+          100: '#cffafe',
+          200: '#a5f3fc',
+          300: '#67e8f9',
+          400: '#22d3ee',
+          500: '#148a9e',  // Toned down from #06b6d4 - matches --primary
+          600: '#0e7490',
+          700: '#0e7490',
+          800: '#155e75',
+          900: '#164e63',
+          950: '#083344',
         },
       },
       fontFamily: {
