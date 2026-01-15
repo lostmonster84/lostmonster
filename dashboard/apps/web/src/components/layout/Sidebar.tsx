@@ -12,6 +12,7 @@ import {
   LogOut,
 } from 'lucide-react';
 import { cn } from '@lostmonster/ui';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -32,13 +33,13 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-white/5 bg-neutral-950">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-card">
       <div className="flex h-full flex-col">
         {/* Logo */}
-        <div className="flex h-16 items-center gap-2 border-b border-white/5 px-6">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
+        <div className="flex h-16 items-center gap-2 border-b border-border px-6">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <svg
-              className="h-4 w-4 text-black"
+              className="h-4 w-4 text-primary-foreground"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -51,7 +52,7 @@ export function Sidebar() {
               />
             </svg>
           </div>
-          <span className="text-lg font-bold">Lost Monster</span>
+          <span className="text-lg font-bold text-foreground">Lost Monster</span>
         </div>
 
         {/* Main Navigation */}
@@ -67,8 +68,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-accent text-black'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 <item.icon className="h-5 w-5" />
@@ -79,7 +80,12 @@ export function Sidebar() {
         </nav>
 
         {/* Bottom Navigation */}
-        <div className="border-t border-white/5 px-3 py-4 space-y-1">
+        <div className="border-t border-border px-3 py-4 space-y-3">
+          {/* Theme Toggle */}
+          <div className="px-3">
+            <ThemeToggle />
+          </div>
+
           {bottomNavigation.map((item) => {
             const isActive = pathname === item.href;
 
@@ -90,8 +96,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-accent text-black'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 <item.icon className="h-5 w-5" />
@@ -102,7 +108,7 @@ export function Sidebar() {
 
           <button
             onClick={handleSignOut}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/60 hover:bg-white/5 hover:text-white transition-colors"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           >
             <LogOut className="h-5 w-5" />
             Sign out

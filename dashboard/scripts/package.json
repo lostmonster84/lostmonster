@@ -1,0 +1,13 @@
+{
+  "name": "@lostmonster/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "setup": "node setup-db.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.6.1"
+  }
+}

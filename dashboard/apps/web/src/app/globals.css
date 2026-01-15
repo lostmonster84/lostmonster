@@ -2,28 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+/* DARKX Color System */
 :root {
-  /* Dark theme */
-  --color-background: #0a0a0a;
-  --color-foreground: rgba(255, 255, 255, 0.9);
-  --color-card: #0f1115;
-  --color-muted: rgba(255, 255, 255, 0.6);
-  --color-meta: rgba(255, 255, 255, 0.4);
-  --color-border: rgba(255, 255, 255, 0.05);
-  --color-input-bg: rgba(255, 255, 255, 0.03);
-  --color-hover: rgba(255, 255, 255, 0.05);
+  /* Light mode (default) */
+  --background: 0 0% 100%;
+  --background-secondary: 0 0% 98%;
+  --background-tertiary: 0 0% 96%;
+  --foreground: 0 0% 9%;
+  --foreground-muted: 0 0% 45%;
 
-  /* Teal accent matching website */
-  --color-accent: #06B6D4;
-  --color-accent-hover: #08D4F0;
+  --border: 0 0% 90%;
+  --border-hover: 0 0% 80%;
+
+  --primary: 189 94% 43%;  /* Cyan-500 matching website */
+  --primary-foreground: 0 0% 100%;
+
+  --accent: 0 0% 96%;
+  --accent-foreground: 0 0% 9%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 9%;
+
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+
+  --input: 0 0% 90%;
+  --ring: 189 94% 43%;
+
+  --success: 142 76% 36%;
+  --success-bg: 142 76% 96%;
+  --warning: 38 92% 50%;
+  --warning-bg: 38 92% 96%;
+  --error: 0 84% 60%;
+  --error-bg: 0 84% 96%;
+}
+
+.dark {
+  /* Dark mode overrides */
+  --background: 0 0% 7%;
+  --background-secondary: 0 0% 10%;
+  --background-tertiary: 0 0% 13%;
+  --foreground: 0 0% 95%;
+  --foreground-muted: 0 0% 65%;
+
+  --border: 0 0% 20%;
+  --border-hover: 0 0% 30%;
+
+  --primary: 189 94% 50%;
+  --primary-foreground: 0 0% 100%;
+
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 95%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 95%;
+
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 65%;
+
+  --input: 0 0% 20%;
+  --ring: 189 94% 50%;
+
+  --success-bg: 142 50% 15%;
+  --warning-bg: 38 50% 15%;
+  --error-bg: 0 50% 15%;
 }
 
 html {
-  @apply scroll-smooth bg-neutral-950;
+  @apply scroll-smooth;
 }
 
 body {
-  @apply bg-neutral-950 text-white antialiased;
+  @apply bg-background text-foreground antialiased;
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
