@@ -18,7 +18,7 @@ export default async function DashboardPage() {
       description: 'Pricing intelligence for your lodges',
       icon: Building2,
       href: '/ancarraig',
-      color: 'bg-cyan-500',
+      color: 'bg-purple-500',
     },
   ];
 
