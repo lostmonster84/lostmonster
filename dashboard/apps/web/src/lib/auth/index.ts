@@ -1,9 +1,35 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import { createClient } from '@lostmonster/database';
 import type { User } from '@lostmonster/database/types';
 import { authConfig } from './config';
+
+// Helper to validate cross-origin auth token
+function validateCrossOriginToken(token: string): { userId: string; email: string; name: string } | null {
+  try {
+    const [payloadB64, signature] = token.split('.');
+    if (!payloadB64 || !signature) return null;
+
+    const secret = process.env.AUTH_SECRET || '';
+    const expectedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(payloadB64)
+      .digest('base64url');
+
+    if (signature !== expectedSignature) return null;
+
+    const payload = JSON.parse(Buffer.from(payloadB64, 'base64url').toString());
+
+    // Check expiry (1 minute)
+    if (payload.exp < Date.now()) return null;
+
+    return { userId: payload.userId, email: payload.email, name: payload.name };
+  } catch {
+    return null;
+  }
+}
 
 // Full auth config with providers (runs in Node.js runtime only)
 const nextAuth = NextAuth({
@@ -14,8 +40,30 @@ const nextAuth = NextAuth({
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
+        crossOriginToken: { label: 'Cross-Origin Token', type: 'text' },
       },
       async authorize(credentials) {
+        // Check for cross-origin token first (from website /apps login)
+        if (credentials?.crossOriginToken) {
+          const tokenData = validateCrossOriginToken(credentials.crossOriginToken as string);
+          if (!tokenData) return null;
+
+          // Verify user exists in database
+          const sql = createClient();
+          const users = await sql`SELECT * FROM users WHERE id = ${tokenData.userId}`;
+          const user = users[0] as User | undefined;
+
+          if (!user) return null;
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.full_name,
+            image: user.avatar_url,
+          };
+        }
+
+        // Normal email/password flow
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
