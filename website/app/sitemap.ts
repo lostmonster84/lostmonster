@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getServiceSlugs, getCaseStudySlugs } from '@/lib/content';
+import { labProducts } from '@/lib/labs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://lostmonster.com';
@@ -63,6 +64,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...servicePages, ...caseStudyPages];
+  const labPages = [
+    {
+      url: `${baseUrl}/labs`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    ...labProducts
+      .filter((p) => p.status !== 'coming-soon')
+      .map((p) => ({
+        url: `${baseUrl}/labs/${p.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      })),
+  ];
+
+  return [...staticPages, ...servicePages, ...caseStudyPages, ...labPages];
 }
 

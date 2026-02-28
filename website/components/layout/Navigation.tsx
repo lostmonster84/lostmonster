@@ -15,6 +15,7 @@ const navItems = [
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/process', label: 'Process' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/labs', label: 'Labs' },
 ];
 
 export default function Navigation({ className, onLinkClick }: NavigationProps) {

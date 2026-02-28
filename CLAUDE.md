@@ -54,6 +54,45 @@ npm run dev
 
 ---
 
+## Labs (`website/app/labs/`)
+
+Showcase section for small beta products/tools under the Lost Monster brand. Lives as routes on the website at `/labs`.
+
+### Structure
+```
+website/app/labs/
+├── page.tsx              ← Showcase index (auto-renders grid of all products)
+├── layout.tsx            ← Shared metadata template
+└── [product-slug]/       ← Each product gets its own folder
+    └── page.tsx
+```
+
+### Current Products
+| Product | Slug | Status | Route |
+|---------|------|--------|-------|
+| BulletProof | `bulletproof` | coming-soon | `/labs/bulletproof` |
+
+### Adding a New Product
+1. Create folder: `website/app/labs/my-tool/page.tsx`
+2. Add entry to `labProducts` array in `website/lib/labs.ts`
+3. Add the Lucide icon to `iconMap` in `website/app/labs/page.tsx`
+4. Done. Index page auto-renders it.
+
+### Config (`website/lib/labs.ts`)
+- `LabProduct` interface: `slug`, `name`, `description`, `status` (beta/live/coming-soon), `icon`, `tags`
+- `labProducts` array — single source of truth
+- `getStatusConfig()` — returns badge styling per status
+- `getLabProduct()` — lookup by slug
+
+### Design Notes
+- Dark gradient background + grid pattern (matches homepage)
+- Glassmorphism cards with dynamic theming via `useColor()`
+- "Coming Soon" products are muted + not clickable
+- Framer Motion staggered entrance animations
+- See `website/app/labs/bulletproof/page.tsx` as a template for new product pages
+
+---
+
 ## For AI Assistants
 
 **If working on the website:** Read [website/CLAUDE.md](./website/CLAUDE.md) first.
