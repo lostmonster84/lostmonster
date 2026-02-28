@@ -1,17 +1,16 @@
-# GAFFER — Quality Orchestration System
+# THE FIRM — Quality Orchestration System
 
-> **The complete AI development quality framework.**
-> 20 workers. 1 director. Automated quality gates.
+> **The Firm.** 24 workers. 1 Gaffer. Automated quality gates.
 > Drop into any project's `.ai/` directory and go.
 
 ---
 
 ## What Is This?
 
-The GAFFER system is a quality orchestration framework for AI-assisted development. It provides:
+The Firm is a quality orchestration framework managed by The Gaffer for AI-assisted development. It provides:
 
 - **The Gaffer** — Chief Performance Director who manages all workers
-- **20 specialised workers** across planning, building, review, and sign-off phases
+- **24 specialised workers** across planning, building, review, and sign-off phases
 - **Smart Routing Algorithm** — automatically assigns the right workers for each task
 - **6 automatic triggers** — runs at session start, job assignment, pre-review, post-ship, bug fixes, uptraining
 - **BULLETPROOF pipeline** — automated quality gates before any work reaches the user
@@ -26,11 +25,11 @@ The GAFFER system is a quality orchestration framework for AI-assisted developme
 
 ```bash
 # From your project root
-bash /path/to/lostmonster/framework/templates/gaffer/setup.sh
+bash /path/to/lostmonster/framework/templates/the-firm/setup.sh
 ```
 
 This automatically:
-- Copies all 20 workers, GAFFER, PROTOCOL into `.ai/`
+- Copies all 24 workers, GAFFER, PROTOCOL into `.ai/`
 - Places `CLAUDE.md` at your project root (from the template)
 - Places `CLAUDE-SUPPLEMENT.md` inside `.ai/` (from the template)
 - Sets up `gaffer/` state directory (session-log, debts, calibration, evolution, inspections)
@@ -45,27 +44,33 @@ your-project/
     ├── crew/
     │   ├── GAFFER.md                      # The Gaffer's playbook
     │   ├── planners/
-    │   │   ├── CODAX.md
-    │   │   ├── PLANX.md
-    │   │   ├── PLANX-SEO-GEO.md
-    │   │   └── PRDX.md
+    │   │   ├── CODAX-cody-cross.md
+    │   │   ├── PLANX-archie-scaffold.md
+    │   │   ├── PLANX-SEO-GEO-archie-scaffold.md
+    │   │   ├── PRDX-prue-gauntlet.md
+    │   │   └── PETRAX-petra-stone.md
     │   ├── builders/
-    │   │   ├── APEX.md
-    │   │   ├── CRUDX.md
-    │   │   ├── DEMX.md
-    │   │   ├── MAPX.md
-    │   │   └── UXPATX.md
+    │   │   ├── APEX-max-pinnacle.md
+    │   │   ├── CRUDX-mason-forklift.md
+    │   │   ├── DEMX-dex-carousel.md
+    │   │   ├── MAPX-marco-compass.md
+    │   │   ├── UXPATX-pat-stencil.md
+    │   │   └── RIGX-rigby-crane.md
     │   ├── reviewers/
-    │   │   ├── SOFAX.md
-    │   │   ├── AIDAX.md
-    │   │   ├── CONSX.md
-    │   │   └── PIXLX.md
+    │   │   ├── SOFAX-sophia-kerr.md
+    │   │   ├── AIDAX-aida-sterling.md
+    │   │   ├── CONSX-connie-mirror.md
+    │   │   ├── PIXLX-pixie-edge.md
+    │   │   ├── NIGELX-nigel-mullins.md
+    │   │   └── ALLYX-ally-ramp.md
     │   └── checkers/
-    │       ├── TERRX.md
-    │       ├── AUDIX.md
-    │       ├── CONEX.md
-    │       ├── HARDX.md
-    │       └── INSPX.md
+    │       ├── TERRX-terry-stone.md
+    │       ├── AUDIX-audrey-pulse.md
+    │       ├── CONEX-connor-ethernet.md
+    │       ├── HARDX-hardy-anvil.md
+    │       ├── INSPX-iris-loupe.md
+    │       ├── STANX-stan-padlock.md
+    │       └── BLAZX-blaze-throttle.md
     └── gaffer/
         ├── session-log.md                 # Work history
         ├── debts.md                       # Open quality issues
@@ -117,7 +122,7 @@ Every template file uses `[BRACKETED]` placeholders. Find and replace these in `
 
 ### Step 3: Create your design docs
 
-The Gaffer references two project docs:
+The Firm references two project docs:
 1. **Design Guide** — your approved colours, backgrounds, page rhythm, card treatments
 2. **Slop Test** — your provenance rules and red flags for AI-generated patterns
 
@@ -131,7 +136,7 @@ Write your PRD, then tell Claude:
 Gaffer: onboard
 ```
 
-The Gaffer reads your PRD and rewrites all 20 worker context sections automatically. Worker names, identities, and methodologies stay the same — only project-specific context gets rewritten.
+The Gaffer reads your PRD and rewrites all 24 worker context sections automatically. Worker names, identities, and methodologies stay the same — only project-specific context gets rewritten.
 
 ### Step 5: Create inspection specs (optional)
 
@@ -147,12 +152,12 @@ Copy `gaffer/inspections/example-spec.md` for each key page you want to inspect 
                     THE GAFFER (manages all)
                          |
     Planning ──> Building ──> Review ──> Sign-off ──> Present
-    CODAX        CRUDX       SOFAX      Gaffer        User
-    PLANX        DEMX        AIDAX      approval
-    PRDX         APEX        PIXLX
-    PETRAX       MAPX        CONSX
-                 UXPATX      NIGELX
-                             TERRX
+    CODAX        APEX         SOFAX      TERRX         User
+    PLANX        CRUDX        AIDAX      AUDIX         approval
+    PRDX         DEMX         PIXLX      STANX
+    PETRAX       MAPX         CONSX      BLAZX
+    RAPIX        UXPATX       NIGELX     HARDX
+                 RIGX         ALLYX      INSPX (pipeline)
 ```
 
 ### 6 Automatic Triggers
@@ -161,7 +166,7 @@ Copy `gaffer/inspections/example-spec.md` for each key page you want to inspect 
 |---|---------|------|--------------|
 | 1 | Session Start | New conversation | Read session-log + debts, surface flags |
 | 2 | Job Assignment | Task described | Smart Route the task, present crew sheet |
-| 3 | Pre-BULLETPROOF | Before quality review | Run INSPX pipeline (screenshots + worker evaluation) |
+| 3 | Pre-BULLETPROOF | Before quality review | Run INSPX pipeline (screenshots + worker evaluation, includes ALLYX accessibility) |
 | 4 | Post-Ship | Work approved | Log to session-log, update debts |
 | 5 | Bug Fix | Fixing a bug | Check if bug was missed by a worker, log to calibration |
 | 6 | Uptraining | Worker underperforms | Edit the worker's .md file to fix gaps |
@@ -185,44 +190,48 @@ The Gaffer analyses every task and assigns the right workers automatically:
 
 ---
 
-## The 20 Workers
+## The 24 Workers
 
 ### Planners (6)
 | Worker | Identity | Role |
 |--------|----------|------|
 | **CODAX** | Cody Cross | Context-Objective-Details-Acceptance planning |
-| **PLANX** | — | Milestone-based execution blueprints |
-| **PRDX** | — | PRD validation (9-round Q&A) |
-| **PLANX-SEO-GEO** | — | SEO + AI search optimisation planning |
+| **PLANX** | Archie Scaffold | Milestone-based execution blueprints |
+| **PRDX** | Prue Gauntlet | PRD validation (9-round Q&A) |
+| **PLANX-SEO-GEO** | Archie Scaffold (SEO) | SEO + AI search optimisation planning |
 | **PETRAX** | Petra Stone | Execution validation (are todos atomic?) |
-| **RAPIX** | — | Rapid iteration planning |
+| **RAPIX** | Rafi Blurt | Rapid requirements interpretation |
 
-### Builders (5)
+### Builders (6)
 | Worker | Identity | Role |
 |--------|----------|------|
-| **APEX** | — | All-Protocol EXecution (meta-framework) |
-| **CRUDX** | — | Full-stack CRUD (6-layer stack) |
-| **DEMX** | — | Design variations (5 options + AIDA scoring) |
-| **MAPX** | — | Application mapping + living audit |
-| **UXPATX** | — | UX patterns reference (consulted, not invoked) |
+| **APEX** | Max Pinnacle | All-Protocol EXecution (meta-framework) |
+| **CRUDX** | Mason Forklift | Full-stack CRUD (6-layer stack) |
+| **DEMX** | Dex Carousel | Design variations (5 options + AIDA scoring) |
+| **MAPX** | Marco Compass | Application mapping + living audit |
+| **UXPATX** | Pat Stencil | UX patterns reference (consulted, not invoked) |
+| **RIGX** | Rigby Crane | Infrastructure setup (6-layer foundation) |
 
-### Reviewers (5)
+### Reviewers (6)
 | Worker | Identity | Role |
 |--------|----------|------|
 | **SOFAX** | Sophia Kerr | Design audit (11 dimensions, 110 points) |
 | **AIDAX** | Aida Sterling | Conversion audit (AIDA, 100 points) |
 | **PIXLX** | Pixie Edge | Edge case audit (deduction-based, 100 points) |
-| **CONSX** | — | Consistency scanner (10 dimensions) |
-| **NIGELX** | [TEST-PERSONA] | Simplicity/usability check |
+| **CONSX** | Connie Mirror | Consistency scanner (10 dimensions) |
+| **NIGELX** | Nigel Mullins | Simplicity/usability check (7 dimensions, 100 points) |
+| **ALLYX** | Ally Ramp | Accessibility audit (WCAG 2.1, 100 points) |
 
-### Checkers (4) + Orchestrator (1)
+### Checkers (6) + Orchestrator (1)
 | Worker | Identity | Role |
 |--------|----------|------|
 | **TERRX** | Terry Stone | Automated test execution (real pass/fail) |
-| **AUDIX** | — | System health audit (5 phases) |
-| **CONEX** | — | Database connection framework (5 layers) |
-| **HARDX** | — | Hardcoded value detection |
-| **INSPX** | — | Inspection pipeline orchestrator |
+| **AUDIX** | Audrey Pulse | System health audit (5 phases) |
+| **CONEX** | Connor Ethernet | Database connection framework (5 layers) |
+| **HARDX** | Hardy Anvil | Hardcoded value detection |
+| **INSPX** | Iris Loupe | Inspection pipeline orchestrator |
+| **STANX** | Stan Padlock | Security audit (OWASP, auth, injection) |
+| **BLAZX** | Blaze Throttle | Performance audit (Core Web Vitals, bundle analysis) |
 
 ---
 
@@ -235,6 +244,9 @@ The Gaffer analyses every task and assigns the right workers automatically:
 | AIDAX | 80+ / 100 | Conversion effectiveness |
 | PIXLX | 85+ / 100 | Edge case coverage |
 | NIGELX | 85+ / 100 | Usability |
+| ALLYX | 85+ / 100 | Accessibility compliance |
+| STANX | 90+ / 100 | Security (0 critical/major issues) |
+| BLAZX | 85+ / 100 | Performance (Core Web Vitals) |
 
 ---
 
@@ -257,6 +269,10 @@ The Gaffer analyses every task and assigns the right workers automatically:
 | `run PIXELX` | Edge case audit (PIXLX) |
 | `run CONSTX on [page]` | Consistency scan (CONSX) |
 | `run INSPX on [page]` | Automated inspection pipeline |
+| `run ALLYX on [page]` | Accessibility audit |
+| `run STANX` | Security audit |
+| `run BLAZX on [page]` | Performance audit |
+| `RIGX: [service]` | Infrastructure setup |
 | `run BULLETPROOF` | Full quality gate |
 | `run Terry` | Automated tests (types + lint + E2E) |
 
@@ -295,8 +311,8 @@ See PROTOCOL.md "Portability" section for the complete onboarding guide.
 
 ## Origin
 
-Developed for the DOMA platform (Montenegro real estate portal) by James Munday. Battle-tested across 20+ features, 3 QA stress tests, and 4 system evolution cycles. Extracted as a universal template in the Lost Monster framework.
+Originally developed as The Gaffer system for the DOMA platform (Montenegro real estate portal) by James Munday. Battle-tested across 20+ features, 3 QA stress tests, and 4 system evolution cycles. Extracted as The Firm -- a universal quality orchestration template in the Lost Monster framework.
 
 **Version:** 1.3.0 (template)
-**Workers:** 20
+**Workers:** 24
 **Last Updated:** February 2026
