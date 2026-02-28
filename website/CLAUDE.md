@@ -375,6 +375,73 @@ Hosting:    Vercel
 
 ---
 
+## The GAFFER System
+
+> Quality orchestration framework managing 19 workers across planning, building, review, and sign-off.
+> **Full protocol:** [.ai/PROTOCOL.md](./.ai/PROTOCOL.md)
+> **Deep reference:** [.ai/CLAUDE-SUPPLEMENT.md](./.ai/CLAUDE-SUPPLEMENT.md)
+
+### Quick Reference
+
+| Worker | Command |
+|--------|---------|
+| **GAFFER** | Runs automatically. Manual: `run Gaffer` / `full Gaffer build` |
+| **PLANX** | `PLANX: [feature]` |
+| **CRUDX** | `CRUDX: [entity]` |
+| **APEX** | `APEX: [feature]` |
+| **DEMX** | `DEMX: [element]` |
+| **MAPX** | `MAPX` or `MAPX: [page]` |
+| **SOFAX** | `run SOPHIA on [page]` |
+| **PIXLX** | `run PIXELX` |
+| **CONSX** | `run CONSTX on [page]` |
+| **INSPX** | `run INSPX on [page]` |
+| **TERRX** | `run Terry` |
+| **BULLETPROOF** | `run BULLETPROOF` (auto after every feature/fix) |
+
+### The Gaffer
+
+Chief Performance Director. Manages all workers, assigns crews via Smart Routing, tracks scores between sessions, signs off work before presenting to James. Runs automatically at:
+- Session start (reads session-log + debts)
+- Job assignment (presents crew sheet)
+- Pre-BULLETPROOF (runs inspection pipeline)
+- Post-ship (logs to session-log)
+
+State: `.ai/gaffer/` (session-log, debts, calibration, evolution)
+Playbooks: `.ai/crew/` (planners/, builders/, reviewers/, checkers/)
+
+### Pre-Present Gate (MANDATORY)
+
+No visual work shown to James without a **Review Card**:
+- Scores from every assigned worker
+- CONSX adjacent-section check
+- SOFAX brand compliance (Dimension 11)
+- Gaffer verdict: APPROVED / FIX FIRST / NOT READY
+
+### The Dave Test (UI/UX Golden Rule)
+
+> Before writing ANY UI text — BE DAVE.
+
+Dave: 42, small business owner, not technical, wants proof you can deliver, not jargon. If it's not obvious, he closes the tab.
+
+| Fails Dave | Passes Dave |
+|------------|-------------|
+| "Portfolio" | "See my work" |
+| "Consultation" | "Let's talk" |
+| "Solutions" | "What I build" |
+| "Leverage synergies" | "Save you money" |
+
+### Brand Compliance
+
+Every UI worker enforces the Bold Personal Brand rules:
+- Dark gradient backgrounds ONLY
+- Glassmorphism cards (`bg-white/5 backdrop-blur-md`)
+- Dynamic colour system (never hardcoded colours)
+- Personal "I" voice (never corporate "we")
+- Massive typography (text-6xl+ for section headlines)
+- Reference: [.ai/slop-test.md](./.ai/slop-test.md) (10 Red Flags)
+
+---
+
 ## 📋 Standard Workflow
 
 ### When Adding New Pages
@@ -432,6 +499,9 @@ const metrics = [
 - [Quality Checklist](./.ai/PRE-DESIGN-CHECKLIST-BOLD-PERSONAL-BRAND.md) - Scoring
 - [Business Context](./.ai/DOMAIN-KNOWLEDGE.md) - Goals and audience
 - [Design Decisions](./.ai/DESIGN-DECISIONS.md) - Why we chose this
+- [GAFFER Protocol](./.ai/PROTOCOL.md) - Quality orchestration system
+- [GAFFER Deep Reference](./.ai/CLAUDE-SUPPLEMENT.md) - Workers, patterns, infrastructure
+- [Slop Test](./.ai/slop-test.md) - AI pattern red flags
 
 **Universal Framework (Templates):**
 - [CODA Planning](.ai-framework/.ai/frameworks/coda.md) - Planning methodology
