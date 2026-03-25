@@ -19,7 +19,7 @@ export default async function CaseStudiesPage() {
             Case Studies
           </h1>
           <p className="text-lg text-neutral-700 max-w-2xl mx-auto">
-            Real results from real projects. See how our framework-driven approach delivers measurable outcomes.
+            Real results from real projects. See how my framework-driven approach delivers measurable outcomes.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">

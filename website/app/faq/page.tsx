@@ -8,30 +8,27 @@ export const metadata = {
 
 // Parse FAQ content into accordion items
 function parseFAQContent(contentHtml: string) {
-  // This is a simple parser - in production you might want more robust parsing
   const items: Array<{ id: string; question: string; answer: string }> = [];
-  
-  // Split by h2 or h3 headings (questions)
-  const sections = contentHtml.split(/<h[23][^>]*>/);
-  
-  sections.forEach((section, index) => {
-    if (index === 0) return; // Skip first empty section
-    
-    const lines = section.split('</h[23]>');
-    if (lines.length >= 2) {
-      const question = lines[0].replace(/<[^>]*>/g, '').trim();
-      const answer = lines.slice(1).join('').trim();
-      
-      if (question && answer) {
-        items.push({
-          id: `faq-${index}`,
-          question,
-          answer,
-        });
-      }
+
+  // Match h3 headings (individual questions) with their content
+  const regex = /<h3[^>]*>(.*?)<\/h3>([\s\S]*?)(?=<h[23][^>]*>|$)/g;
+  let match;
+  let index = 0;
+
+  while ((match = regex.exec(contentHtml)) !== null) {
+    const question = match[1].replace(/<[^>]*>/g, '').trim();
+    const answer = match[2].trim();
+
+    if (question && answer) {
+      items.push({
+        id: `faq-${index}`,
+        question,
+        answer,
+      });
+      index++;
     }
-  });
-  
+  }
+
   // Fallback: if parsing fails, show raw content
   if (items.length === 0) {
     return [{
@@ -40,7 +37,7 @@ function parseFAQContent(contentHtml: string) {
       answer: contentHtml,
     }];
   }
-  
+
   return items;
 }
 

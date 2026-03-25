@@ -1,0 +1,262 @@
+{
+  "brand": {
+    "name": "Lost Monster",
+    "tagline": "Built by someone who runs businesses, not just codes for them.",
+    "description": "Personal expertise brand — bold, dark, dramatic. Framework-driven development with 50+ projects, 70% cost savings, and 2-4 week delivery.",
+    "version": "2.0",
+    "date": "2026-03-25"
+  },
+  "philosophy": {
+    "headline": "Bold Personal Brand",
+    "description": "Dark, dramatic, personal. Not corporate. Not safe. Not a template. This is a personal expertise brand that commands attention with massive typography, dynamic colour theming, and an honest first-person voice.",
+    "credo": "Systems over heroics. Business results over technical elegance. Honesty over optimism.",
+    "traits": [
+      { "name": "Dark & Dramatic", "description": "Dark gradient backgrounds create depth and focus. Never light, never corporate." },
+      { "name": "Massive Typography", "description": "Hero headlines at 128px. Section headings at 60px. Bold, not timid." },
+      { "name": "Dynamic Colour", "description": "5 user-selectable accent colours. The site adapts to the visitor's preference." },
+      { "name": "Personal Voice", "description": "First-person 'I' voice throughout. Direct, honest, metrics-driven." },
+      { "name": "Glassmorphism", "description": "Translucent cards with backdrop blur on dark surfaces. Technical but premium." }
+    ]
+  },
+  "colours": {
+    "description": "Dynamic 5-colour theming system. Accent colours are controlled via JavaScript state, not Tailwind classes. Backgrounds use gradient combinations per colour.",
+    "brand": [
+      { "name": "Blue", "hex": "#60A5FA", "bg": "from-[#1E3A8A] via-[#1E40AF] to-[#1E3A8A]", "usage": "Cool, professional, trustworthy" },
+      { "name": "Teal", "hex": "#06B6D4", "bg": "from-slate-900 via-slate-800 to-slate-900", "usage": "Default theme — fresh, modern, tech-forward" },
+      { "name": "Orange", "hex": "#F59E0B", "bg": "from-neutral-900 via-stone-900 to-neutral-900", "usage": "Warm, energetic, creative" },
+      { "name": "Purple", "hex": "#A855F7", "bg": "from-black via-purple-950 to-black", "usage": "Premium, bold, distinctive" },
+      { "name": "Green", "hex": "#10B981", "bg": "from-neutral-950 via-emerald-950 to-neutral-950", "usage": "Growth, success, natural" }
+    ],
+    "semantic": [
+      { "name": "Success", "hex": "#10B981", "usage": "Positive metrics, confirmations" },
+      { "name": "Warning", "hex": "#F59E0B", "usage": "Caution, attention needed" },
+      { "name": "Error", "hex": "#EF4444", "usage": "Errors, destructive actions" },
+      { "name": "Neutral 50", "hex": "#F8FAFC", "usage": "Light surface (content pages)" },
+      { "name": "Neutral 900", "hex": "#0F172A", "usage": "Dark text" },
+      { "name": "Neutral 950", "hex": "#020617", "usage": "Darkest background" }
+    ],
+    "doRules": [
+      "Use dynamic colour system — style={{ color: color.accent }}",
+      "Backgrounds use gradient classes — bg-gradient-to-br ${color.bg}",
+      "Borders at 20% opacity — style={{ borderColor: color.accent + '20' }}",
+      "Glassmorphism cards — bg-white/5 backdrop-blur-md"
+    ],
+    "dontRules": [
+      "Never hardcode accent colours — always read from state",
+      "Never use light page backgrounds on the homepage or hero sections",
+      "Never use bg-white as a full-page background (except content-heavy prose pages)"
+    ]
+  },
+  "typography": {
+    "description": "Bold scale designed for maximum impact. Hero headlines reach 128px. Body text stays readable at 20-24px. Two font families: Outfit for headings, Inter for body.",
+    "fonts": {
+      "heading": { "family": "Outfit", "weight": "700-900", "variable": "--font-heading", "usage": "All headings, hero text, section titles" },
+      "body": { "family": "Inter", "weight": "400-600", "variable": "--font-body", "usage": "Body text, labels, descriptions, UI elements" }
+    },
+    "scale": [
+      { "name": "Hero", "class": "text-6xl md:text-8xl lg:text-9xl", "px": "60 → 96 → 128", "usage": "Main hero headline ONLY" },
+      { "name": "Section", "class": "text-4xl md:text-6xl", "px": "36 → 60", "usage": "Section headings" },
+      { "name": "Subsection", "class": "text-2xl md:text-3xl", "px": "24 → 30", "usage": "Card titles, subsection headings" },
+      { "name": "Body Large", "class": "text-xl md:text-2xl", "px": "20 → 24", "usage": "Lead paragraphs, subheadlines" },
+      { "name": "Body", "class": "text-base", "px": "16", "usage": "Standard body text" },
+      { "name": "Small", "class": "text-sm", "px": "14", "usage": "Labels, metadata, secondary text" },
+      { "name": "Tiny", "class": "text-xs", "px": "12", "usage": "Captions, fine print" }
+    ],
+    "doRules": [
+      "Hero text must be text-6xl md:text-8xl lg:text-9xl — never smaller",
+      "Use font-heading for all headings, font-body for everything else",
+      "Responsive typography — always include mobile and desktop sizes",
+      "tracking-tighter on hero and section headings for impact"
+    ],
+    "dontRules": [
+      "Never use text-4xl or smaller for hero headlines — too timid",
+      "Never use font-body for headings or font-heading for body text",
+      "Never skip responsive sizing — text-6xl alone is wrong, needs md: and lg: variants"
+    ]
+  },
+  "layout": {
+    "modes": [
+      { "name": "Container", "class": "container-custom", "spec": "max-w-7xl, px-4 sm:px-6 lg:px-8" },
+      { "name": "Section Padding", "class": "section-padding", "spec": "py-12 md:py-20 lg:py-24" },
+      { "name": "Max Content Width", "class": "max-w-4xl", "spec": "For prose/content pages" }
+    ],
+    "breakpoints": [
+      { "name": "sm", "px": "640px" },
+      { "name": "md", "px": "768px" },
+      { "name": "lg", "px": "1024px" },
+      { "name": "xl", "px": "1280px" },
+      { "name": "2xl", "px": "1536px" }
+    ]
+  },
+  "components": {
+    "buttons": {
+      "variants": [
+        { "name": "Primary", "spec": "Dynamic accent bg, white text, rounded-xl, px-8 py-4" },
+        { "name": "Secondary", "spec": "Transparent bg, accent border, accent text" },
+        { "name": "Ghost", "spec": "No bg, no border, accent text with hover underline" }
+      ],
+      "sizes": [
+        { "name": "sm", "spec": "px-4 py-2 text-sm", "height": "36px" },
+        { "name": "md", "spec": "px-6 py-3 text-base", "height": "44px" },
+        { "name": "lg", "spec": "px-8 py-4 text-lg", "height": "52px" }
+      ]
+    },
+    "cards": {
+      "variants": [
+        { "name": "Glass (dark bg)", "class": "bg-white/5 backdrop-blur-md border border-white/10 rounded-xl", "usage": "Metric cards, feature cards on dark backgrounds" },
+        { "name": "Elevated (light bg)", "class": "bg-white shadow-md rounded-xl border border-neutral-200", "usage": "Service cards, case study cards on light backgrounds" },
+        { "name": "Premium Glass", "class": "bg-neutral-950/90 backdrop-blur-2xl border border-white/5 rounded-xl", "usage": "Premium sections, overlays, hero elements" }
+      ]
+    },
+    "shadows": [
+      { "name": "sm", "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)", "usage": "Subtle depth, input fields" },
+      { "name": "md", "value": "0 4px 6px -1px rgb(0 0 0 / 0.1)", "usage": "Cards at rest" },
+      { "name": "lg", "value": "0 10px 15px -3px rgb(0 0 0 / 0.1)", "usage": "Cards on hover, modals" },
+      { "name": "xl", "value": "0 20px 25px -5px rgb(0 0 0 / 0.1)", "usage": "Elevated panels, dropdowns" },
+      { "name": "2xl", "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)", "usage": "Hero elements, maximum depth" }
+    ],
+    "glassmorphism": [
+      { "name": "glass-light", "class": "bg-white/80 backdrop-blur-xl border border-white/60", "usage": "Light overlays" },
+      { "name": "glass-dark", "class": "bg-neutral-900/95 backdrop-blur-xl border border-white/10", "usage": "Dark overlays, modals" },
+      { "name": "glass-premium", "class": "bg-neutral-950/90 backdrop-blur-2xl border border-white/5", "usage": "Premium hero elements" }
+    ]
+  },
+  "backgrounds": {
+    "description": "Dark gradient backgrounds are the foundation. The SVG grid pattern adds technical texture. Glassmorphism cards float on top.",
+    "gradients": [
+      { "name": "Blue", "from": "#1E3A8A", "via": "#1E40AF", "to": "#1E3A8A" },
+      { "name": "Teal", "from": "#0F172A", "via": "#1E293B", "to": "#0F172A" },
+      { "name": "Orange", "from": "#171717", "via": "#1C1917", "to": "#171717" },
+      { "name": "Purple", "from": "#000000", "via": "#2E1065", "to": "#000000" },
+      { "name": "Green", "from": "#0A0A0A", "via": "#022C22", "to": "#0A0A0A" }
+    ],
+    "gridPattern": {
+      "size": "60x60",
+      "stroke": "rgba(255,255,255,0.02)",
+      "opacity": "0.30",
+      "description": "SVG grid overlay at very low opacity for technical texture. Applied with fixed positioning and pointer-events-none."
+    },
+    "rules": [
+      "Always apply grid pattern on dark pages",
+      "Grid opacity 0.30 on the container (stroke itself is 0.02 opacity)",
+      "Never stack multiple texture patterns",
+      "Gradient direction: bg-gradient-to-br (bottom-right)"
+    ]
+  },
+  "icons": {
+    "library": "Lucide React",
+    "sizes": [
+      { "name": "Inline (buttons)", "size": "16px", "class": "w-4 h-4" },
+      { "name": "Navigation", "size": "20px", "class": "w-5 h-5" },
+      { "name": "Standalone", "size": "24px", "class": "w-6 h-6" },
+      { "name": "Feature", "size": "32px", "class": "w-8 h-8" }
+    ],
+    "rules": [
+      "Always inherit text colour — never hardcode icon colours",
+      "Use dynamic accent colour for feature icons: style={{ color: color.accent }}",
+      "2px stroke weight (Lucide default)",
+      "No emoji — ever. Lucide icons only."
+    ]
+  },
+  "motion": {
+    "easings": [
+      { "name": "Natural", "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)", "usage": "Default for most transitions" },
+      { "name": "Mechanical", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "usage": "UI state changes" },
+      { "name": "Entrance", "value": "cubic-bezier(0, 0, 0.2, 1)", "usage": "Elements entering viewport" },
+      { "name": "Exit", "value": "cubic-bezier(0.4, 0, 1, 1)", "usage": "Elements leaving viewport" }
+    ],
+    "durations": [
+      { "name": "Fast", "ms": "200ms", "usage": "Hover states, button feedback" },
+      { "name": "Base", "ms": "300ms", "usage": "Standard transitions" },
+      { "name": "Slow", "ms": "600ms", "usage": "Page transitions, reveal animations" },
+      { "name": "Slower", "ms": "1000ms", "usage": "Hero animations, colour transitions" },
+      { "name": "Colour Switch", "ms": "700ms", "usage": "Dynamic colour theme transitions" }
+    ],
+    "animations": [
+      { "name": "fade-in", "spec": "fadeIn 0.6s ease-out forwards" },
+      { "name": "slide-up", "spec": "slideUp 0.6s ease-out forwards" },
+      { "name": "scale-in", "spec": "scaleIn 0.6s ease-out forwards" },
+      { "name": "float", "spec": "float 6s ease-in-out infinite" },
+      { "name": "glow", "spec": "glow 4s ease-in-out infinite" }
+    ],
+    "hoverEffects": [
+      { "name": "hover-lift", "class": "hover-lift", "spec": "-translate-y-2 + shadow-2xl on hover" },
+      { "name": "hover-scale", "class": "hover-scale", "spec": "scale(1.05) on hover" },
+      { "name": "hover-glow", "class": "hover-glow", "spec": "shadow-lg with primary-600/20 glow on hover" },
+      { "name": "btn-shine", "class": "btn-shine", "spec": "Gradient sweep across button on hover" }
+    ]
+  },
+  "photography": {
+    "doRules": [
+      "Use real photography — never stock photos",
+      "60-70% imagery on sales/conversion pages",
+      "Full-bleed photography with subtle parallax where appropriate",
+      "Progressive image loading with blur-up placeholders"
+    ],
+    "dontRules": [
+      "No stock photography — ever",
+      "No AI-generated images without clear context",
+      "No generic unsplash hero images",
+      "No images without alt text"
+    ],
+    "priority": [
+      "Real project screenshots (case studies, portfolio)",
+      "Code editor / terminal screenshots (technical credibility)",
+      "Abstract geometric patterns (background texture)",
+      "SVG grid patterns at very low opacity (technical feel)"
+    ]
+  },
+  "voice": {
+    "persona": {
+      "name": "Graduate Grace",
+      "age": 21,
+      "role": "Hospitality management grad, first full-time job",
+      "trait": "Not technical. Never read a tooltip. Calls everything 'the website'. If it's not obvious, she closes the tab."
+    },
+    "rule": "If you have to explain what a button does, the button text is wrong.",
+    "doExamples": [
+      { "label": "Send my message", "context": "Contact form submit" },
+      { "label": "See my work", "context": "Portfolio CTA" },
+      { "label": "Start your project", "context": "Primary CTA" },
+      { "label": "Get started", "context": "Signup CTA" }
+    ],
+    "dontExamples": [
+      { "label": "Submit", "context": "Too vague" },
+      { "label": "View our portfolio", "context": "Corporate 'our' voice" },
+      { "label": "Pipeline", "context": "Jargon" },
+      { "label": "CTA", "context": "Developer speak leaking through" }
+    ],
+    "traits": [
+      { "name": "Personal", "description": "'I build' not 'we build'. 'I understand' not 'our team provides'." },
+      { "name": "Direct", "description": "Lead with the answer. Skip preamble. No filler words." },
+      { "name": "Specific", "description": "'2-4 weeks' not 'fast'. '70% savings' not 'affordable'. '50+ projects' not 'experienced'." },
+      { "name": "Honest", "description": "If I can't help, I say so. No overselling. No buzzwords." }
+    ]
+  },
+  "antiPatterns": [
+    { "name": "Light backgrounds on hero", "description": "Homepage and hero sections must always be dark gradient. Never bg-white." },
+    { "name": "Corporate 'we' voice", "description": "This is a personal brand. Always 'I', never 'we' or 'our team'." },
+    { "name": "Timid typography", "description": "Hero headlines must be text-6xl md:text-8xl lg:text-9xl. Anything smaller is wrong." },
+    { "name": "Hardcoded accent colours", "description": "Accent colours must come from dynamic state, not Tailwind classes." },
+    { "name": "Stock photography", "description": "Every image must be real — project screenshots, code, or abstract patterns." },
+    { "name": "Generic button labels", "description": "'Submit', 'Click here', 'Learn more' — these all fail the Grace test." },
+    { "name": "Missing metrics", "description": "Every key page must show: 50+ projects, 70% savings, 4.9/5 rating, 2-4 wks." },
+    { "name": "Emoji usage", "description": "No emoji anywhere. Lucide icons only." }
+  ],
+  "files": [
+    { "path": "tailwind.config.ts", "purpose": "Colour tokens, typography scale, animations, shadows" },
+    { "path": "styles/globals.css", "purpose": "CSS variables, component classes, hover effects, glassmorphism" },
+    { "path": "app/layout.tsx", "purpose": "Font imports (Outfit + Inter)" },
+    { "path": "app/page.tsx", "purpose": "Reference implementation — homepage with full Bold Personal Brand" },
+    { "path": ".ai/LOST-MONSTER-DESIGN-SYSTEM.md", "purpose": "Complete design system documentation (576 lines)" },
+    { "path": ".ai/brand/MESSAGING-GUIDE.md", "purpose": "Voice, tone, audience-specific messaging" },
+    { "path": ".ai/brand/BRAND-IDENTITY.md", "purpose": "Core identity, values, personality" },
+    { "path": "docs/design-config.json", "purpose": "This file — machine-readable design tokens" }
+  ],
+  "metrics": [
+    { "value": "50+", "label": "Projects Built", "subtext": "Delivered on time" },
+    { "value": "70%", "label": "Cost Savings", "subtext": "vs agencies" },
+    { "value": "4.9/5", "label": "Client Rating", "subtext": "Real reviews" },
+    { "value": "2-4 wks", "label": "Typical Build", "subtext": "Not months" }
+  ]
+}
