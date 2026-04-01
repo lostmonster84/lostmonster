@@ -1,0 +1,78 @@
+{
+  "$schema": "https://raw.githubusercontent.com/lostmonster84/thefirm/main/schemas/project.schema.json",
+  "firmVersion": "3.13",
+  "project": {
+    "name": "Lost Monster",
+    "domain": "Framework-driven development that actually works",
+    "url": "https://lostmonster.io",
+    "repoUrl": "https://github.com/lostmonster84/lostmonster"
+  },
+  "industry": {
+    "type": "agency",
+    "subtype": "web-development-studio",
+    "entityModel": "project-centric",
+    "compliance": []
+  },
+  "entities": {
+    "primary": "Projects",
+    "secondary": "Case Studies",
+    "users": "Clients",
+    "additional": {
+      "services": "services",
+      "labs": "lab products"
+    }
+  },
+  "products": [
+    { "key": "A", "name": "Website (Next.js marketing site, port 3000)", "description": "Lost Monster marketing site" },
+    { "key": "B", "name": "Dashboard (Turborepo admin app, port 3001)", "description": "Admin dashboard with Ancarraig module" },
+    { "key": "C", "name": "Framework (templates + docs)", "description": "Universal dev framework" }
+  ],
+  "brand": {
+    "primary": "#06B6D4 (teal)",
+    "bg": "Dark/black backgrounds",
+    "dark": "Dark theme with glassmorphism",
+    "secondary": "#60A5FA (blue)",
+    "muted": "Muted grays/slate",
+    "accentA": "#A855F7 (purple)",
+    "fontBody": "N/A",
+    "fontDisplay": "N/A"
+  },
+  "infrastructure": {
+    "database": "Neon PostgreSQL",
+    "dbDriver": "@neondatabase/serverless",
+    "hosting": "Vercel",
+    "cms": "N/A",
+    "auth": "NextAuth v5 (Credentials + JWT)",
+    "storage": "N/A",
+    "email": "Resend",
+    "payments": "N/A",
+    "maps": "N/A",
+    "testFramework": "N/A",
+    "cdn": "N/A",
+    "uploadService": "N/A",
+    "issueTracker": "Linear"
+  },
+  "paths": {
+    "appPublic": "website/app/",
+    "appAdmin": "dashboard/apps/web/src/app/",
+    "appApi": "website/app/api/ + dashboard/apps/web/src/app/api/",
+    "appSuperadmin": "N/A",
+    "designGuide": "website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md",
+    "slopTest": "N/A",
+    "prd": "N/A"
+  },
+  "ux": {
+    "testPersona": "Graduate Grace",
+    "testPersonaDescription": "21, hospitality management grad, first full-time job, not super technical",
+    "targetUserA": "Graduate Grace (21, hospitality grad, non-technical)",
+    "targetUserB": "SMB owners and startup founders seeking web development"
+  },
+  "business": {
+    "cycleDays": "N/A",
+    "logicKey": "N/A"
+  },
+  "design": {
+    "system": "Bold Personal Brand — dark backgrounds, massive typography, dynamic 5-colour theming, glassmorphism",
+    "description": "Dark backgrounds, massive typography (60-128px), dynamic 5-colour theming, glassmorphism + grid patterns, personal voice, metrics-driven credibility"
+  }
+}
