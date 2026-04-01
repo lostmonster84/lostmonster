@@ -92,6 +92,42 @@ What triggered this change. Bug? Gap? Uptrain? New capability?
 
 ---
 
+## v3.16 — Evidence Gate + Worker Hardening + Setup Flow (2026-04-01)
+
+**Category:** Major — systemic quality enforcement + first-time setup
+
+**What changed:**
+- **Evidence Gate** in PROTOCOL.md — screenshots required before any score. NULL scores block pipeline
+- **CRITICAL enforcement** — CRITICAL findings halt pipeline. Gaffer cannot override. Fix → re-run → clear
+- **Anti-pattern sections** for 7 workers (APEX, CRUDX, DOCKX, AIDAX, SOFAX, NIGELX, DEMX)
+- **Score anchors** for AIDAX (4 dims), SOFAX (3 dims), NIGELX (3 dims) — concrete "what does 8/10 look like"
+- **Foreman score sanity thresholds** — uniformity trigger, inflation trigger, NULL check
+- **DEMX execution protocol** rewritten — 9-step render-before-score + design guide feedback loop (Step 0 loads preferences, Step 8 updates design guide)
+
+**Why:** Workers could score without evidence. CRITICAL was advisory not blocking. Everything drifted to 7-8 without anchors. DEMX wrote fiction scores before rendering.
+
+---
+
+## v3.15 — Universal Industry Support + project.json (2026-04-01)
+
+**Category:** Major — framework now works across any industry
+
+**What changed:**
+- **project.json manifest** — machine-readable project identity. One file per project, never pushed upstream
+- **update.sh/setup.sh** — `fill_tokens_from_json()` auto-fills ALL tokens from project.json after every overwrite
+- **N/A token convention** — unused tokens silently skipped, not reported as gaps
+- **Mandatory builder-reviewer pairings** — DEMX→AIDAX, CRUDX→NIGELX, APEX→ALLYX (structural, not score-based)
+- **ONBOARDING.md** expanded — project.json section, 11 new tokens, industry N/A table
+- **GAFFER.md Smart Routing** step 10 (mandatory pairings)
+- **SETUP-TODO** checklist + PRD/Design Guide/Slop Test templates scaffolded by setup.sh and update.sh
+- **Gaffer Step 0** — detects SETUP-TODO, auto-fills from codebase on pre-existing projects
+- **Session context bridge** — /wrap writes session-context.md, /go reads it. Full session continuity
+- **11 skill evolution.md files** bootstrapped (self-learning enabled across entire Stack)
+
+**Why:** Token filling broke on every update.sh run. No project manifest. Workers had no mandatory pairings. Setup was 70% incomplete — templates missing, no guided checklist.
+
+---
+
 ## v3.13 — Worker Onboarding System + Full Repo Generalisation (2026-03-22)
 
 **Category:** Major — automated multi-project worker customisation

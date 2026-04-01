@@ -1,5 +1,25 @@
 # Sync — Evolution Log
 
+## 2026-04-01c — Third sync (verification after all upgrades)
+
+**What happened:**
+- Both repos already up to date
+- update.sh v3.16: Filled 7 tokens from project.json, stamped v3.16 in CLAUDE.md
+- **All clear on health checks** — no more [DESIGN-GUIDE-PATH] warning (FIXED)
+- Templates all present (SETUP-TODO, Design Guide, PRD, Slop Test)
+- 9/11 skills in sync with Stack. 2 local-ahead (firm, gaffer — expected)
+- evolution.md synced from master (now shows v3.16)
+
+**Caught:**
+- The [DESIGN-GUIDE-PATH] recurring issue is RESOLVED. update.sh now reads project.json and fills all tokens including design guide path after every overwrite
+
+**Learned rules (UPDATED):**
+- The old rule "re-check gaffer SKILL.md for [DESIGN-GUIDE-PATH] after update.sh" is NOW OBSOLETE — update.sh handles it via project.json
+- project.json is the fix. If a project has project.json, all token fills are automatic
+- If project.json doesn't exist, update.sh auto-generates it from CLAUDE.md + codebase scan (new in v3.16)
+
+---
+
 ## 2026-04-01 — Second sync (same session)
 
 **What happened:**

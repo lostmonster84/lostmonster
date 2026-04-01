@@ -97,12 +97,37 @@ The Gaffer runs at six trigger points. No manual invocation needed.
 
 **What The Gaffer does:**
 
-0. **Setup check** — if `SETUP-TODO.md` exists at the project root, the project is not fully set up. Read it, find the first item with status `TODO` or `IN PROGRESS`, and surface it:
+0. **Setup check** — if `SETUP-TODO.md` exists at the project root, the project is not fully set up.
+
+   **Step 0a: Assess real status.** Don't trust the `TODO`/`DONE` markers in the file — verify each step against the actual project state:
+   - Step 1 (project.json): `test -f project.json` — does it exist with non-empty required fields?
+   - Step 2 (CLAUDE.md): `grep '\[.*\]' CLAUDE.md` — any bracketed placeholders remaining?
+   - Step 3 (CLAUDE-SUPPLEMENT.md): does it exist with project-specific content (not just the template)?
+   - Step 4 (PRD): does `docs/PRD.md` exist? Is it filled in (not just template placeholders)?
+   - Step 5 (Design Guide): does `docs/DESIGN-GUIDE.md` exist? Is it filled (not template)?
+   - Step 6 (design-config.json): does `docs/design-config.json` exist?
+   - Step 7 (Slop Test): does `docs/slop-test.md` exist? Is it customised (not template)?
+   - Step 8 (Worker Onboarding): `grep -r '\[PROJECT\]' .ai/thefirm/crew/` — any unresolved body tokens?
+   
+   Update SETUP-TODO.md with the real statuses.
+
+   **Step 0b: Pre-existing project mode.** If the project already has code, CLAUDE.md is filled, and workers are onboarded, this is NOT a fresh setup — it's a backfill. For any step still at `TODO`:
+   
+   **Auto-fill what you can from the existing codebase:**
+   - **PRD** (Step 4): Scan CLAUDE.md, CLAUDE-SUPPLEMENT.md, routes, entities, and tech stack. Draft a complete PRD from what already exists. Present to James for review
+   - **Design Guide** (Step 5): Scan tailwind.config, CSS variables, existing components, the design system doc in `.ai/`. Draft a filled Design Guide from what's already built. Present to James for review
+   - **design-config.json** (Step 6): Run the `/design` skill scaffold flow — it scans the codebase automatically
+   - **Slop Test** (Step 7): Start from the template, add project-specific red flags based on the industry and brand voice from CLAUDE.md. Present to James for review
+
+   **Don't just say "Step 4 is TODO" — DO the work.** Scan the codebase, draft the document, present it for approval. The user shouldn't have to write these from scratch when the information already exists in the project.
+
    ```
-   GAFFER: Project setup 3/8 complete. Next: Step 4 — PRD.
-   Run PRDX to validate your product requirements, or tell me about the project and I'll help write it.
+   GAFFER: Project setup 5/8 complete. 3 templates need filling.
+   I can see this is a pre-existing project — I'll draft these from your codebase.
+   Starting with the PRD... [drafts it, presents for review]
    ```
-   The Gaffer guides through each setup step interactively. When an item completes, update its status to `DONE` in SETUP-TODO.md. When all 8 are DONE, archive the file to `.ai/thefirm/SETUP-COMPLETE.md` and congratulate: "Project fully set up. Every worker is onboarded. Let's build."
+
+   When an item completes, update its status to `DONE` in SETUP-TODO.md. When all 8 are DONE, archive the file to `.ai/thefirm/SETUP-COMPLETE.md` and confirm: "Project fully set up. Every worker is onboarded. Let's build."
 
 1. Read `.ai/thefirm/gaffer/session-log.md` — what happened last session
 2. Read `.ai/thefirm/gaffer/debts.md` — any open quality debts

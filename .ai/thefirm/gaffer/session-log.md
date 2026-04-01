@@ -18,6 +18,19 @@
 
 -->
 
+## 2026-04-01c — Final sync verification + update.sh project.json generator
+
+- **Built:** update.sh auto-generates project.json from CLAUDE.md + codebase scan. Aggressive design guide detection (10+ paths + recursive glob). /sync Step 4a rewritten to generate project.json automatically. Verified clean sync on lostmonster (v3.16, all tokens filled, all health checks clear). Tested WildTrax in parallel — identified and fixed gaps.
+- **Work done:** 3 commits to thefirm (update.sh generator, design guide detection, evolution bump). 1 commit to thestack (sync SKILL.md). Local sync verified clean.
+- **Workers:** Infrastructure session — no Firm workers assigned
+- **Foreman:** N/A
+- **Protocol:** FULL
+- **Skipped:** All workers (framework session)
+- **Issues found:** WildTrax sync showed project.json not being generated — fixed in update.sh
+- **Shipped:** Pushed to thefirm + thestack. Verified locally.
+
+---
+
 ## 2026-04-01b — Cleanup + Setup Scaffolding
 
 - **Built:** SETUP-TODO.md (8-step checklist). PRD, Design Guide, Slop Test templates scaffolded. Gaffer Step 0 (setup check). Deleted 3 stale branches. Updated SETUP-TODO statuses (4/8 done).

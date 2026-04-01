@@ -68,17 +68,30 @@ Note what changed in the output (new workers, protocol updates, version bumps).
 `project.json` is the machine-readable manifest that drives token replacement. It lives at the project root and is never pushed to thefirm.
 
 1. Check if `project.json` exists in the project root
-2. **If it does NOT exist:**
-   a. Read CLAUDE.md to extract all token values (project name, brand colours, products, tech stack, entities, paths, etc.)
-   b. Generate a `project.json` following the schema at `~/Projects/thefirm/schemas/project.schema.json`
-   c. Map CLAUDE.md values to the JSON structure (see `.ai/thefirm/ONBOARDING.md` Token Catalogue for the mapping)
-   d. For fields not found in CLAUDE.md, set to `"N/A"`
-   e. Present the generated project.json to James for review before saving
-   f. After approval, save to project root
+2. **If it does NOT exist — GENERATE IT:**
+   This is NOT optional. `project.json` is what makes token filling, worker onboarding, and design guide detection work. Without it, every sync leaves unfilled placeholders.
+   
+   a. Read CLAUDE.md + CLAUDE-SUPPLEMENT.md to extract all token values (project name, brand colours, products, tech stack, entities, paths, etc.)
+   b. Read the schema at `~/Projects/thefirm/schemas/project.schema.json` to understand the structure
+   c. Read `.ai/thefirm/ONBOARDING.md` Token Catalogue for the token-to-JSON-path mapping
+   d. **Scan the codebase** for values CLAUDE.md might not have:
+      - `tailwind.config.*` → brand colours, fonts
+      - `package.json` → project name, dependencies (database drivers, auth libraries)
+      - `.env.example` or `.env.local` → hosting, database, API keys (names only, not values)
+      - `app/` or `src/app/` directory structure → app paths
+      - Find design guide: `find docs/ .ai/ -iname "*design*" -name "*.md"` → design guide path
+   e. Generate a complete `project.json` with all fields filled from the above sources
+   f. For fields genuinely not findable, set to `"N/A"`
+   g. **Write the file** to the project root
+   h. Present a summary: "Generated project.json with X/Y fields filled. N/A: [list]"
+   i. **Re-run update.sh** after generating — so tokens get filled immediately in this sync
+   
+   **Do NOT just offer to generate — DO IT.** The user shouldn't have to create this manually. The information already exists in the project.
+
 3. **If it exists:**
    a. Validate that required fields are present (`project.name`, `project.domain`, `entities.primary`)
    b. Check for new tokens added to the catalogue that aren't in project.json yet
-   c. If new tokens found, ask James to fill them or mark as N/A
+   c. If new tokens found, fill them from CLAUDE.md/codebase or mark as N/A
    d. Update the `firmVersion` field to match the current Firm version
 
 ## Step 4b: Auto-Onboard Workers
