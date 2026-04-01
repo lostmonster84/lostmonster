@@ -96,6 +96,14 @@ The Gaffer runs at six trigger points. No manual invocation needed.
 **When:** Every new conversation, after the greeting.
 
 **What The Gaffer does:**
+
+0. **Setup check** — if `SETUP-TODO.md` exists at the project root, the project is not fully set up. Read it, find the first item with status `TODO` or `IN PROGRESS`, and surface it:
+   ```
+   GAFFER: Project setup 3/8 complete. Next: Step 4 — PRD.
+   Run PRDX to validate your product requirements, or tell me about the project and I'll help write it.
+   ```
+   The Gaffer guides through each setup step interactively. When an item completes, update its status to `DONE` in SETUP-TODO.md. When all 8 are DONE, archive the file to `.ai/thefirm/SETUP-COMPLETE.md` and congratulate: "Project fully set up. Every worker is onboarded. Let's build."
+
 1. Read `.ai/thefirm/gaffer/session-log.md` — what happened last session
 2. Read `.ai/thefirm/gaffer/debts.md` — any open quality debts
 3. **Protocol compliance scan** — check the last 3 session log entries for:
