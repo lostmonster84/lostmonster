@@ -1,31 +1,30 @@
-# Session Context — 2026-04-01
+# Session Context — 2026-04-01 (continued)
 
 ## What Shipped
-- The Firm v3.15-3.16: project.json manifest, Evidence Gate, mandatory pairings, CRITICAL enforcement, anti-patterns, score anchors
-- DEMX execution protocol rewrite (9-step render-before-score + design guide feedback loop)
-- 11 skill evolution.md files bootstrapped (self-learning enabled across entire Stack)
-- Session context bridge: /wrap writes session-context.md, /go reads it
-- Setup checklist (SETUP-TODO) + PRD/Design Guide/Slop Test templates in thefirm repo
-- Skill hardening: /canary pre-flight checks, /dayclose project-aware deploy URL, /go sync recommendation
+- The Firm v3.15-3.16: project.json, Evidence Gate, mandatory pairings, DEMX overhaul, anti-patterns, score anchors, CRITICAL enforcement
+- Stack upgrades: design feedback loop, session context bridge, skill hardening, 11 evolution.md files
+- Setup flow: SETUP-TODO checklist + PRD/Design Guide/Slop Test templates, scaffolded by both setup.sh and update.sh
+- Gaffer auto-fills SETUP-TODO from codebase on pre-existing projects (doesn't just report — does the work)
 
 ## Design Decisions Made
-- None — this was a framework/infrastructure session. No UI work
+- None — framework/infrastructure session
+- Decided to keep thefirm and thestack as separate repos (different evolution speeds, different purposes)
 
 ## Rejected Alternatives
-- Considered merging thefirm and thestack into one repo — rejected. They evolve at different speeds, serve different purposes (quality vs tooling). Separation keeps pulls fast
+- Merging thefirm + thestack into one repo — rejected for speed and separation of concerns
 
 ## In-Progress Work
-- /design skill has new sections (socials, logos, decisions, preferences) but no project has tested them yet
-- design-config.json schema expanded but Lost Monster's config hasn't been updated with the new sections
-- SETUP-TODO template created but not tested end-to-end on a fresh project
+- SETUP-TODO for Lost Monster: 4/8 done (project.json, CLAUDE.md, CLAUDE-SUPPLEMENT.md, Worker Onboarding)
+- 4 templates still need filling: PRD, Design Guide, design-config.json, Slop Test
+- The Gaffer should auto-draft these from the codebase next session (new pre-existing project mode)
 
 ## Deferred to Next Session
-- Test SETUP-TODO flow on a fresh project (create a test project, run setup.sh, work through all 8 steps)
-- Update Lost Monster's design-config.json with socials, logos, decisions, preferences sections
-- Run /design on Lost Monster to verify the new sections render correctly
-- The 3 open debts from 2026-03-25 are still open (content pages don't match bold brand, no CTAs, raw HTML in previews)
+- Run /go and let the Gaffer auto-fill the 4 remaining SETUP-TODO items from the codebase
+- Update Lost Monster's design-config.json with new sections (socials, logos, decisions, preferences)
+- Run /design to verify the new sections render correctly
+- 3 open debts from 2026-03-25 (content pages brand mismatch, no CTAs, raw HTML in previews)
 
 ## Pick Up From Here
-1. Test the full setup flow on a fresh project — verify setup.sh scaffolds everything and SETUP-TODO guides through completion
-2. Update Lost Monster's design-config.json with new sections and run /design
-3. Address the 3 open debts from the content sweep session
+1. Run /go — Gaffer should detect SETUP-TODO and auto-fill PRD, Design Guide, Slop Test from codebase
+2. Run /design to generate design-config.json with new sections
+3. Address the 3 open content debts
