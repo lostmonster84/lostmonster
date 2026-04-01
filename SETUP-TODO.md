@@ -10,14 +10,14 @@
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 1 | Project Identity (project.json) | `TODO` | Industry, entities, colours, stack |
-| 2 | CLAUDE.md | `TODO` | Fill all [BRACKETED] placeholders |
-| 3 | CLAUDE-SUPPLEMENT.md | `TODO` | Routes, APIs, patterns, deep reference |
-| 4 | PRD | `TODO` | Product requirements — run PRDX 9-round validation |
-| 5 | Design Guide | `TODO` | Brand colours, typography, cards, CTAs, spacing, anti-patterns |
-| 6 | design-config.json | `TODO` | Config-driven design page — run /design |
-| 7 | Slop Test | `TODO` | AI slop detection rules — Provenance Rule + 10 red flags |
-| 8 | Worker Onboarding | `TODO` | Run Gaffer: onboard — rewrites all 31 workers from PRD + project.json |
+| 1 | Project Identity (project.json) | `DONE` | Filled by setup.sh + update.sh |
+| 2 | CLAUDE.md | `DONE` | No bracketed placeholders remaining |
+| 3 | CLAUDE-SUPPLEMENT.md | `DONE` | Exists with project context |
+| 4 | PRD | `TODO` | Template only — needs PRDX 9-round validation |
+| 5 | Design Guide | `TODO` | Template only — needs brand-specific content |
+| 6 | design-config.json | `TODO` | Missing — run /design to generate |
+| 7 | Slop Test | `TODO` | Template only — needs project-specific red flags |
+| 8 | Worker Onboarding | `DONE` | 31 workers onboarded via /sync |
 
 **Status values:** `TODO` → `IN PROGRESS` → `DONE`
 
