@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-04-01 — Cleanup + Setup Scaffolding
+
+### Housekeeping
+- Deleted 3 stale branches (prepod, preprod, updateddesign) — all merged
+- Committed Gaffer Step 0 (setup check in session-start protocol)
+- Ran /sync — Firm + Stack confirmed up to date
+
+### Setup Framework
+- Scaffolded SETUP-TODO.md (8-step guided checklist for project onboarding)
+- Scaffolded docs/PRD.md, docs/DESIGN-GUIDE.md, docs/slop-test.md templates
+- Updated SETUP-TODO statuses: 4/8 done (project.json, CLAUDE.md, CLAUDE-SUPPLEMENT.md, worker onboarding), 4 templates need filling (PRD, Design Guide, design-config.json, Slop Test)
+
 ## 2026-03-25 — Studio Pivot + Content Sweep
 
 ### Major

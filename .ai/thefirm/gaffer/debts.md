@@ -24,6 +24,10 @@
   `substring(0, 300)` on `contentHtml` truncates mid-tag. Should strip HTML tags before truncating for cleaner card previews.
   Affected: `/case-studies` (listing page)
 
+- **/go doesn't surface SETUP-TODO.md** (flagged 2026-04-01)
+  The Gaffer's Step 0 checks for SETUP-TODO.md, but /go skill doesn't read it during orientation. Need to add a learned rule to /go evolution.md so it surfaces the next incomplete setup step.
+  Affected: `.claude/skills/go/evolution.md`
+
 ## Resolved
 
 <!-- Move items here when addressed. Keep for calibration reference.

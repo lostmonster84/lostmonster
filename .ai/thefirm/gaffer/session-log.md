@@ -18,6 +18,19 @@
 
 -->
 
+## 2026-04-01b — Cleanup + Setup Scaffolding
+
+- **Built:** SETUP-TODO.md (8-step checklist). PRD, Design Guide, Slop Test templates scaffolded. Gaffer Step 0 (setup check). Deleted 3 stale branches. Updated SETUP-TODO statuses (4/8 done).
+- **Work done:** 6 files changed, +712 lines. 4 commits.
+- **Workers:** Infrastructure session — no Firm workers assigned
+- **Foreman:** N/A (housekeeping session)
+- **Protocol:** FULL
+- **Skipped:** All workers (no feature build)
+- **Issues found:** /go doesn't check SETUP-TODO.md — needs learned rule added
+- **Shipped:** Committed locally, pushing with dayclose
+
+---
+
 ## 2026-04-01 — The Firm v3.15-3.16 + Stack Overhaul
 
 - **Built:** project.json universal manifest + schema. Evidence Gate in PROTOCOL.md. Mandatory builder-reviewer pairings (DEMX→AIDAX, CRUDX→NIGELX, APEX→ALLYX). CRITICAL enforcement (wall, not warning). Anti-patterns for 7 workers. Score anchors for AIDAX/SOFAX/NIGELX. DEMX 9-step execution protocol with design guide feedback loop. update.sh/setup.sh token fill functions. SETUP-TODO checklist + PRD/Design Guide/Slop Test templates. Session context bridge (/wrap→/go). 11 skill evolution.md files. Skill hardening across 5 skills.
