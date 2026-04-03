@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-04-03 — Supplement System (The Firm v3.17)
+
+### Major
+- Built complete supplement system — universal domain knowledge layer for workers
+- 45+ job type taxonomy (pages, components, flows, content types)
+- Supplement template with 12 sections (patterns, benchmarks, mobile/a11y/perf, planning)
+- SCOUTX Mode 5: research-to-supplement pipeline with refresh protocol
+- TRAINX Trigger D: feedback loop with correction classification (craft/project/preference)
+- Smart Routing expanded to 9 steps (job type classification + supplement loading)
+- Build Gate Check #7: two-way supplement verification
+- Supplement lifecycle: provisional → validated → stale → retired
+- Learning loop: corrections → Evolution table → SCOUTX refresh → better supplements
+
+### Improvements
+- /go skill: auto-syncs when framework drift detected (was just a warning)
+- /go skill: surfaces SETUP-TODO.md during orientation
+- Resolved debt: /go SETUP-TODO surfacing
+- Pushed v3.17 upstream to thefirm repo
+
 ## 2026-04-01 — Cleanup + Setup Scaffolding
 
 ### Housekeeping

@@ -18,6 +18,19 @@
 
 -->
 
+## 2026-04-03 — Supplement System (The Firm v3.17)
+
+- **Built:** Complete supplement system — domain knowledge layer for workers. SUPPLEMENTS.md (45+ job type taxonomy, lifecycle, conflict hierarchy). Supplement template (12 sections). SCOUTX Mode 5 (research-to-supplement pipeline). TRAINX Trigger D (feedback loop with correction classification). Smart Routing expanded to 9 steps. Build Gate Check #7. Supplement directories in all 5 departments. update.sh supplement sync pipeline. 31 worker playbooks updated with ## Supplements sections. /go auto-sync + SETUP-TODO surfacing.
+- **Work done:** 39 files changed in lostmonster (+1048 lines). 9 files changed in thefirm (+651 lines). Pushed v3.17 upstream.
+- **Workers:** Infrastructure session — framework-level changes
+- **Foreman:** N/A (framework session)
+- **Protocol:** FULL
+- **Skipped:** All UI workers (no feature build)
+- **Issues found:** 50 edge cases stress-tested, 8 critical fixed. 10 learning loop stress tests, 5 systemic gaps fixed.
+- **Shipped:** Committed locally + pushed to thefirm repo
+
+---
+
 ## 2026-04-01c — Final sync verification + update.sh project.json generator
 
 - **Built:** update.sh auto-generates project.json from CLAUDE.md + codebase scan. Aggressive design guide detection (10+ paths + recursive glob). /sync Step 4a rewritten to generate project.json automatically. Verified clean sync on lostmonster (v3.16, all tokens filled, all health checks clear). Tested WildTrax in parallel — identified and fixed gaps.

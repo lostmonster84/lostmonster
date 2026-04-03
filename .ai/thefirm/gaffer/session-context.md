@@ -1,38 +1,40 @@
-# Session Context — 2026-04-01 (final)
+# Session Context — 2026-04-03
 
 ## What Shipped
-- The Firm v3.15-3.16 pushed to GitHub (project.json, Evidence Gate, mandatory pairings, DEMX overhaul, anti-patterns, score anchors, CRITICAL enforcement)
-- Stack upgrades pushed (design feedback loop, session context bridge, skill hardening, /sync auto-generate project.json)
-- Setup flow: SETUP-TODO + templates scaffolded by both setup.sh and update.sh
-- update.sh now auto-generates project.json from CLAUDE.md + codebase scan when missing
-- Gaffer auto-fills SETUP-TODO from codebase on pre-existing projects
-- /sync verified clean on lostmonster: v3.16 stamped, all tokens filled, all health checks clear
-- Tested on WildTrax in parallel — identified and fixed missing project.json generation + aggressive design guide detection
+- Complete supplement system built and pushed upstream as The Firm v3.17
+- /go skill enhanced: auto-sync on drift + SETUP-TODO surfacing
+- 50 edge cases stress-tested, 8 critical fixed
+- 10 learning loop stress tests, 5 systemic gaps fixed (correction classification, quality gate, attribution guard, pattern preservation, auto-escalation)
 
 ## Design Decisions Made
-- thefirm and thestack stay as separate repos (different evolution speeds)
-- project.json is the single source of truth for all token values per project
-- update.sh generates project.json if missing (shell script, not AI-dependent)
-- Evidence Gate uses NULL scores (not zero) to block pipeline
+- Supplements are "the craft" — universal domain knowledge, never project-specific
+- Two-layer separation: supplement = craft, design guide = brand (suit). Never mixed
+- Worker-specific supplements (same research, different lens per worker) — no master supplements
+- SCOUTX is the sole author. Workers don't write their own supplements
+- Conflict hierarchy: project design guide > project context > supplement > worker methodology
+- Supplements sync upstream via /firm, downstream via /sync — universal knowledge shared across all projects
+- Job type taxonomy is canonical — 45+ types. Don't invent new names, add to the taxonomy
 
 ## Rejected Alternatives
-- Merging thefirm + thestack — rejected for separation of concerns
-- Requiring manual project.json creation — rejected, now auto-generated
+- "LANDX" dedicated landing page worker — rejected, supplements solve the domain knowledge gap without a new worker
+- Master supplements per job type (one file all workers read) — rejected, creates God files. Same research, different lens per worker is correct
+- Merging supplements into worker playbooks directly — rejected, supplements are universal and sync separately from project-specific playbook content
 
 ## In-Progress Work
-- SETUP-TODO for Lost Monster: 4/8 done. Steps 4-7 (PRD, Design Guide, design-config.json, Slop Test) are templates that need filling
-- WildTrax needs /sync re-run to get the project.json auto-generator
-- /go skill needs a learned rule to surface SETUP-TODO.md (logged as debt)
-- 3 local-ahead skills (firm, gaffer, sync) — project-specific fills, expected
+- Taxonomy additions discussed but not added (comparison pages, changelog pages, listing pages, etc. — 16 proposed additions)
+- Library/pattern browser product scoped but not built — browsable visual system on lostmonster.io showing all components, pages, patterns across projects
 
 ## Deferred to Next Session
-- Work through SETUP-TODO Steps 4-7 with the Gaffer (PRD, Design Guide, design-config, Slop Test)
-- Gaffer should auto-draft these from the codebase (pre-existing project mode)
-- 3 open debts from 2026-03-25 (content pages brand mismatch, no CTAs, raw HTML in previews)
-- /go learned rule for SETUP-TODO.md detection (debt logged)
+- SCOUTX Mode 5 research mission: `homepage` + `landing-pages` — first real supplements
+- Study TalentLyft + 15 more sites per job type
+- Produce supplement files for DEMX, AIDAX, SOFAX, WORDX, CODAX
+- Add 16 missing taxonomy entries to SUPPLEMENTS.md
+- Library product: scope as next major build (PRD, design, /gaffer pipeline)
+- Push /go and /firm skill changes to thestack via /stack
 
 ## Pick Up From Here
-1. Run /go — Gaffer detects SETUP-TODO, auto-fills Steps 4-7 from codebase
-2. Run /design to generate design-config.json
-3. Address 3 open content debts from 2026-03-25
-4. Run /sync on WildTrax to test project.json auto-generation
+1. Run SCOUTX Mode 5: research `homepage` (TalentLyft + 15 sites) and `landing-pages` (15 sites) — create the first real supplements
+2. Add missing taxonomy entries (comparison pages, listing pages, changelog, etc.)
+3. Push skill changes upstream via /stack (/go SKILL.md, /firm SKILL.md are local-ahead)
+4. Scope the Library product — browsable pattern library on lostmonster.io
+5. Work through SETUP-TODO Steps 4-7 (PRD, Design Guide, design-config, Slop Test)
