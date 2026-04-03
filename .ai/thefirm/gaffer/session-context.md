@@ -5,6 +5,7 @@
 - /go skill enhanced: auto-sync on drift + SETUP-TODO surfacing
 - 50 edge cases stress-tested, 8 critical fixed
 - 10 learning loop stress tests, 5 systemic gaps fixed (correction classification, quality gate, attribution guard, pattern preservation, auto-escalation)
+- DEMX v3.4: DEMX no longer self-scores. AIDAX scores all 5 variations (full 0-100). Iterative loop — James picks winner or pushes further
 
 ## Design Decisions Made
 - Supplements are "the craft" — universal domain knowledge, never project-specific
@@ -33,8 +34,8 @@
 - Push /go and /firm skill changes to thestack via /stack
 
 ## Pick Up From Here
-1. Run SCOUTX Mode 5: research `homepage` (TalentLyft + 15 sites) and `landing-pages` (15 sites) — create the first real supplements
-2. Add missing taxonomy entries (comparison pages, listing pages, changelog, etc.)
-3. Push skill changes upstream via /stack (/go SKILL.md, /firm SKILL.md are local-ahead)
-4. Scope the Library product — browsable pattern library on lostmonster.io
-5. Work through SETUP-TODO Steps 4-7 (PRD, Design Guide, design-config, Slop Test)
+1. `/gaffer DEMX: homepage hero` — test the new DEMX v3.4 flow (DEMX builds 5, AIDAX scores all 5, James picks)
+2. Run SCOUTX Mode 5: research `homepage` (TalentLyft + 15 sites) and `landing-pages` (15 sites) — create the first real supplements
+3. Add missing taxonomy entries (comparison pages, listing pages, changelog, etc.)
+4. Push skill changes upstream via /stack (/go SKILL.md, /firm SKILL.md are local-ahead)
+5. Scope the Library product — browsable pattern library on lostmonster.io
