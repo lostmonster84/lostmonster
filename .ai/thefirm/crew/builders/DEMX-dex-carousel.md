@@ -109,24 +109,23 @@ DEMX: product type selector
 
 ---
 
-## AIDAX Scoring
+## Scoring — AIDAX Does This, Not DEMX
 
-Score each variation using AIDAX (0-10 per dimension, 40 total).
+**DEMX does NOT score its own variations.** DEMX builds. AIDAX scores. Always.
 
-| Dimension | What It Measures |
-|-----------|-----------------|
-| **Attention** | Does it grab the target audience immediately? Photography impact, entity prominence, atmosphere |
-| **Interest** | Does it communicate the value? Specs, context, product type clarity, key info visible |
-| **Desire** | Does it create "I need this"? Lifestyle imagery, setting, social proof, trust |
-| **Action** | Is the next step clear? CTA visibility (#06B6D4 (teal)), form accessibility, friction reduction |
+After DEMX builds all 5 variations and takes Playwright screenshots, **AIDAX runs the full 0-100 audit on every variation** (not simplified 0-40). DEMX never assigns AIDA scores — not even provisional ones.
 
-**Scoring Scale:**
-| Score | Rating | Meaning |
-|-------|--------|---------|
-| 36-40 | Exceptional | Premium quality, ship immediately |
-| 30-35 | Sophisticated | Minor refinements before launch |
-| 24-29 | Acceptable | MVP quality, iterate post-launch |
-| <24 | Needs Work | Reconsider approach |
+The flow:
+1. DEMX builds 5 variations on the demo page (NO scores anywhere)
+2. Playwright screenshots of all 5
+3. AIDAX scores all 5 (full 0-100: Attention 25, Interest 25, Desire 25, Action 25)
+4. Scores written to `scores.json`
+5. Presented to James with all 5 scored
+6. James picks a winner — or says "variant 3 but push it further"
+7. If pushing further → back to step 1 with the chosen variant as the base for 5 new variations
+8. Repeat until James is happy
+
+**DEMX self-scoring is a protocol violation.** If you see DEMX writing `AIDAX: A8 I6 D7 A7 = 28` — that's wrong. AIDAX scores. DEMX builds.
 
 ---
 
@@ -220,69 +219,34 @@ DEMX: entity card
 "Creating 5 variations of the entity card component for the listing page — exploring photo treatment, spec prominence, product type display, and CTA placement. All variations use square edges, no gradients, #06B6D4 (teal) CTA, and must work on mobile."
 
 ### 2. Brand Compliance Gate (runs first)
-Each variation checked against gate rules before AIDA scoring.
+Each variation checked against design guide rules before building.
 
-### 3. Generate 5 Variations
+### 3. Build 5 Variations (NO scores)
 
-**Variation 1: Compact**
-- Photography 65% of card, square crop
-- Entity name + model on two lines below
-- Product type badge (top-left)
-- "Book" link — entire card is clickable
-- AIDAX: A8 I6 D7 A7 = 28/40
+DEMX builds all 5 on the demo page. No scores assigned — AIDAX does that.
 
-**Variation 2: Info-Rich**
-- Photography 50% of card
-- Entity name + model prominent below photo
-- Specs row: key details, price/day
-- Product types as chips
-- Primary CTA (bg-#06B6D4 (teal))
-- AIDAX: A7 I9 D7 A8 = 31/40
+**Variation 1: Compact** — Photography 65% of card, square crop, entity name + model below, product type badge top-left, entire card clickable
 
-**Variation 3: Landscape**
-- Horizontal layout (photo left 40%, info right 60%)
-- Entity name very prominent
-- Specs + product types on right
-- CTA on right edge (bg-#06B6D4 (teal))
-- AIDAX: A7 I8 D8 A9 = 32/40
+**Variation 2: Info-Rich** — Photography 50%, entity name prominent, specs row (key details, price/day), product types as chips, primary CTA
 
-**Variation 4: Immersive Dark**
-- Full-bleed photography with dark overlay (Dark theme with glassmorphism/60)
-- Entity name in Dark/black backgrounds over photo
-- Minimal info — model + price/day only
-- CTA appears on hover/focus
-- AIDAX: A9 I6 D9 A7 = 31/40
+**Variation 3: Landscape** — Horizontal layout (photo left 40%, info right 60%), entity name prominent, CTA on right edge
 
-**Variation 5: Featured (Recommended)**
-- Large photography, square crop, full-width
-- Entity name + model below photo in Dark theme with glassmorphism on Dark/black backgrounds
-- Product type badge (#60A5FA (blue) background)
-- Specs row: key details, price/day
-- Full-width CTA (bg-#06B6D4 (teal))
-- AIDAX: A9 I8 D9 A8 = 34/40
+**Variation 4: Immersive Dark** — Full-bleed photography with dark overlay, entity name over photo, minimal info, CTA on hover/focus
 
-### 4. Demo Page
+**Variation 5: Featured** — Large photography full-width, entity name + model below, product type badge, specs row, full-width CTA
+
+### 4. Demo Page + Screenshots
 "Demo page ready at `/demo/entity-card-variations/`"
+Playwright screenshots taken of all 5 variations.
 
-### 5. Recommendation
-```
-Recommendation: Variation 5 (Featured)
-Score: 34/40
+### 5. AIDAX Scores All 5
+AIDAX runs full 0-100 audit on each variation from the screenshots. Scores written to `scores.json`. Demo page re-renders with real scores.
 
-Why this wins:
-- Attention (9): Large photography with clear entity identity
-- Interest (8): Specs visible, product types clear, price shown
-- Desire (9): Lifestyle imagery does the work
-- Action (8): Full-width primary CTA is impossible to miss
-
-Trade-offs:
-- Requires high-quality photography
-- Takes more screen space than Compact
-- Consider Compact for secondary listing, Featured for primary grid
-
-Best for: Main listing page grid, product landing pages
-Use Compact for: Comparison rows, featured section inserts
-```
+### 6. Presented to James
+All 5 variations with AIDAX scores. James picks:
+- **"Ship variant 5"** → done
+- **"Variant 3 but make it more immersive"** → DEMX builds 5 new variations based on variant 3 → AIDAX scores → present again
+- **"None of these work"** → DEMX rethinks approach, builds 5 fresh variations
 
 ---
 
@@ -317,15 +281,19 @@ CODAX: Define WHAT to build (Context, Objective, Details, Acceptance)
 DEMX: Explore HOW it should look (5 variations)
 ```
 
+### DEMX + AIDAX (MANDATORY PAIRING)
+```
+DEMX: Build 5 variations (no scores)
+AIDAX: Score all 5 (full 0-100 audit)
+James: Pick winner or request further variants
+```
+AIDAX is the ONLY scorer. DEMX never scores its own work.
+
 ### DEMX + SOFAX
 ```
-DEMX: Generate 5 variations with AIDAX scores
-SOFAX: Deep audit of chosen variation (93+/110 target)
+SOFAX: Deep audit of the final chosen variation (93+/110 target)
 ```
-
-### DEMX + AIDAX
-DEMX uses simplified AIDAX (0-40 scale) for quick comparison.
-For deeper conversion analysis, run full AIDAX audit on winner.
+SOFAX runs AFTER James picks the winner, not during variation exploration.
 
 ---
 
@@ -357,12 +325,12 @@ DEMX: product type selector
 **When the user says "DEMX", the Gaffer enforces this exact sequence. No shortcuts, no intermediate questions.**
 
 ```
-1. BUILD all variations silently on demo page (NO pre-assigned scores — use placeholders or omit)
+1. BUILD all 5 variations on demo page (NO scores — DEMX does not score)
 2. PLAYWRIGHT screenshot every variation at correct viewport(s)
-3. VISUALLY INSPECT each screenshot — does it actually work at rendered dimensions?
-4. SCORE each variation based on what you SEE in the screenshots (not what you imagined)
-5. UPDATE the demo page with real post-render scores
-6. PRESENT with screenshots, scores, and a clear recommendation
+3. AIDAX scores all 5 variations from the screenshots (full 0-100 audit)
+4. AIDAX writes scores to scores.json — demo page re-renders with real scores
+5. PRESENT all 5 with screenshots + AIDAX scores to James
+6. James picks winner — or says "push variant N further" → loop back to step 1
 ```
 
 **Rules:**
@@ -387,7 +355,7 @@ Pre-rendering scores are fiction. A concept that sounds good ("hover preview ima
 
 ## Summary
 
-**DEMX = One word → 5 variations → Brand Compliance Gate → AIDAX scores → Live demo → Pick winner**
+**DEMX = One word → 5 variations → Screenshots → AIDAX scores all 5 → Present to James → Pick winner or push further**
 
 Use DEMX to:
 - Rapidly explore entity card layouts
@@ -419,4 +387,4 @@ If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may n
 
 **Framework Status:** Generic with Brand Compliance Gate
 **Last Updated:** March 2026
-**Version:** 3.3 (Score-after-render gate added)
+**Version:** 3.4 (DEMX never scores — AIDAX scores all variations. Iterative loop added)
