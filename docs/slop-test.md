@@ -95,15 +95,20 @@ Score each element. If ANY red flag is present, the element fails and must be fi
 
 ---
 
-## Project-Specific Red Flags
+### 11. Em Dashes
+- Any use of — (em dash) in shipped content
+- "Built by a studio that runs its own products — not just client work"
+- "Platforms, marketplaces, and tools — built to last"
 
-_Add red flags specific to your industry and project:_
+**Test:** Search the page for —. If found, it's slop. Rewrite with commas, full stops, or colons.
+
+---
+
+## Project-Specific Red Flags
 
 | Red Flag | Why It's Slop | Industry |
 |----------|--------------|----------|
-| _e.g. "Book your dream holiday"_ | _Generic travel copy_ | _Hospitality_ |
-| _e.g. "Find your perfect home"_ | _Every real estate site says this_ | _Real estate_ |
-| _e.g. "Streamline your workflow"_ | _SaaS buzzword bingo_ | _SaaS_ |
+| Em dashes (—) in any copy | AI-flavoured punctuation. Rewrite the sentence. | Universal |
 
 ---
 

@@ -100,4 +100,12 @@ The four proof points (50+ projects, 70% cost savings, 4.9/5 rating, 2-4 wks bui
 
 ---
 
-**Last Updated:** February 2026
+## Red Flag 11: Em Dashes
+
+Any use of — (em dash) in shipped content is a red flag. Em dashes are AI-flavoured punctuation. Rewrite with commas, full stops, or colons.
+
+**Test:** Search the page for —. If found, rewrite the sentence.
+
+---
+
+**Last Updated:** April 2026

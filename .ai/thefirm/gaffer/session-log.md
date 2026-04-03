@@ -18,6 +18,19 @@
 
 -->
 
+## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
+
+- **Built:** DemxScaffold component (reusable DEMX demo shell). Homepage hero exploration (5 rounds, 25 total variations). Universal Copy Rules (no em dashes in PROTOCOL.md, WORDX, slop test). Removed "2-4 weeks" timeline claims site-wide. Replaced with verifiable metrics.
+- **Work done:** 9 files changed/created. DemxScaffold.tsx, demo page, scores.json, PROTOCOL.md, WORDX, 2x slop-test.md, page.tsx, design/page.tsx.
+- **Workers:** DEMX (5 rounds), AIDAX (3 scoring rounds), CONSX (brand compliance)
+- **Foreman:** N/A (exploration session, no final ship to production)
+- **Protocol:** FULL (DEMX v3.4 flow tested end-to-end)
+- **Skipped:** TERRX (no tests needed), SOFAX (design review deferred to final pick)
+- **Issues found:** "2-4 weeks" timeline claim flagged as dishonest. "Real users/revenue" claims flagged as not in our control. Em dashes pervasive across site copy. All fixed.
+- **Shipped:** Committed locally. Hero choice still in progress (Round 5 started, not scored).
+
+---
+
 ## 2026-04-03 — Supplement System (The Firm v3.17)
 
 - **Built:** Complete supplement system — domain knowledge layer for workers. SUPPLEMENTS.md (45+ job type taxonomy, lifecycle, conflict hierarchy). Supplement template (12 sections). SCOUTX Mode 5 (research-to-supplement pipeline). TRAINX Trigger D (feedback loop with correction classification). Smart Routing expanded to 9 steps. Build Gate Check #7. Supplement directories in all 5 departments. update.sh supplement sync pipeline. 31 worker playbooks updated with ## Supplements sections. /go auto-sync + SETUP-TODO surfacing.

@@ -626,10 +626,10 @@ export default function DesignGuidePage() {
             <table className="w-full">
               <thead><Row cells={['Value', 'Label', 'Subtext', 'Why']} header /></thead>
               <tbody>
-                <Row cells={['50+', 'Projects Built', 'Delivered on time', 'Proven experience — not new']} />
+                <Row cells={['50+', 'Projects Built', 'Delivered on time', 'Proven experience, not new']} />
                 <Row cells={['70%', 'Cost Savings', 'vs agencies', 'Concrete value proposition']} />
                 <Row cells={['4.9/5', 'Client Rating', 'Real reviews', 'Real reviews (not suspicious 5.0)']} />
-                <Row cells={['2-4 wks', 'Typical Build', 'Not months', 'Realistic (not vague "fast")']} />
+                <Row cells={['80/100', 'Quality Floor', 'Nothing ships below', 'Verifiable, not aspirational']} />
               </tbody>
             </table>
           </div>

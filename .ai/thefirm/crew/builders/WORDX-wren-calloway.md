@@ -141,6 +141,12 @@ Present all options with a recommendation. User picks. Never ship copy without a
   - Empty state: "Nothing here yet. [Encourage the next action]."
   - Loading: "[Describe what's happening]..." (not "Loading...")
 
+### Punctuation Rules (Universal)
+- **Never use em dashes (—).** Use commas, full stops, colons, or rewrite the sentence. Em dashes are AI-flavoured punctuation and make copy feel generated. This applies to all shipped content: headlines, subtitles, descriptions, CTAs, microcopy, meta descriptions, and page body text.
+- Semicolons: avoid in user-facing copy. Fine in code and docs.
+- Exclamation marks: one per page maximum.
+- Ellipsis: only in loading states and trailing-off microcopy.
+
 ---
 
 ## Scoring

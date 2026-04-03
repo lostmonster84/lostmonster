@@ -1091,6 +1091,17 @@ TRAINX reads this at Trigger D and SKIPS Evolution logging for overridden patter
 
 ---
 
+## Universal Copy Rules
+
+Rules that apply to ALL shipped content across ALL projects. Every worker that produces text must follow these.
+
+| Rule | Detail |
+|------|--------|
+| **No em dashes (—)** | Never. Use commas, full stops, colons, or rewrite. Em dashes are AI-flavoured punctuation. |
+| **No semicolons in UI** | Fine in code and docs, never in user-facing copy. |
+
+---
+
 ## Brand Compliance Chain
 
 Every worker that touches UI is connected to the Design Guide and AI Slop Test.

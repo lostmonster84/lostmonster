@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
+
+### Features
+- DemxScaffold component: reusable dark-theme variation browser with AIDAX score bars, tab navigation, quick comparison grid
+- Homepage hero DEMX exploration: 5 rounds of variations testing messaging angles, copy honesty, and dev studio voice
+- Demo page at /demo/homepage-hero-variations with live rendering and scores.json sidecar
+
+### Improvements
+- Universal Copy Rules added to PROTOCOL.md: no em dashes, no semicolons in UI copy
+- WORDX playbook: Punctuation Rules section (em dashes, semicolons, exclamation marks, ellipsis)
+- Slop test Red Flag #11: Em dashes (docs/slop-test.md + website/.ai/slop-test.md)
+- Removed "2-4 weeks" timeline claims from homepage, design page, and all DEMX variations
+- Replaced with verifiable metrics (80/100 quality floor, 4.9/5 client rating)
+- Cleaned em dashes from production homepage copy (5 instances)
+
 ## 2026-04-03 — Supplement System (The Firm v3.17)
 
 ### Major

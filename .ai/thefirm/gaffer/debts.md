@@ -6,6 +6,10 @@
 
 ## Open Debts
 
+- **"2-4 weeks" references in .ai/ brand docs** (flagged 2026-04-03)
+  ~60 references to "2-4 weeks" remain in .ai/ brand docs, worker playbooks, and design system. Production pages fixed but docs still contain the old timeline claim. Need to update the canonical metrics set (was: 50+, 70%, 4.9/5, 2-4 wks. New: 17, 5 live, 80/100, 4.9/5).
+  Affected: `.ai/brand/`, `.ai/crew/`, `.ai/LOST-MONSTER-DESIGN-SYSTEM.md`, `website/CLAUDE.md`
+
 <!-- Format:
 - **Brief title** (flagged YYYY-MM-DD)
   What happened. What needs to be done.

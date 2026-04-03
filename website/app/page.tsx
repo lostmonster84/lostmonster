@@ -51,8 +51,8 @@ const techStack = ['Next.js', 'TypeScript', 'React Native', 'PostgreSQL', 'Tailw
 
 const processSteps = [
   { num: '01', title: 'Discovery', desc: 'Understand your business, customers, and goals' },
-  { num: '02', title: 'Planning', desc: 'CODA framework — every requirement documented before code' },
-  { num: '03', title: 'Design', desc: 'Design system + key layouts. Not one mockup — options.' },
+  { num: '02', title: 'Planning', desc: 'CODA framework. Every requirement documented before code.' },
+  { num: '03', title: 'Design', desc: 'Design system + key layouts. Not one mockup: options.' },
   { num: '04', title: 'Build', desc: 'Battle-tested frameworks. TypeScript. Tested. Accessible.' },
   { num: '05', title: 'Quality', desc: '80/100 minimum. Nothing ships below the quality floor.' },
   { num: '06', title: 'Launch', desc: 'Deploy + 30 days support. You own everything.' },
@@ -114,7 +114,7 @@ export default function HomePage() {
               <span className="transition-colors duration-300" style={{ color: color.accent }}>Sell</span>
             </h1>
             <p className="text-lg sm:text-xl md:text-xl lg:text-2xl text-neutral-300 mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
-              Platforms, marketplaces, and tools — built by a studio that runs its own products.
+              Platforms, marketplaces, and tools. Built by a studio that runs its own products.
               17 projects. 5 live in production. Your project could be next.
             </p>
             <div className="flex justify-center px-4">
@@ -150,7 +150,7 @@ export default function HomePage() {
               { value: '17', label: 'Projects', sub: 'Built & shipped' },
               { value: '5', label: 'Live in Production', sub: 'Real users, real revenue' },
               { value: '6', label: 'Industries', sub: 'Proven across verticals' },
-              { value: '2-4 wks', label: 'Typical Build', sub: 'Not months' },
+              { value: '80/100', label: 'Quality Floor', sub: 'Nothing ships below' },
             ].map((m, i) => (
               <motion.div
                 key={m.label}
@@ -262,10 +262,10 @@ export default function HomePage() {
               <p className="text-xs font-body font-semibold uppercase tracking-[0.2em] mb-3" style={{ color: color.accent }}>The Studio</p>
               <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tight mb-6">Small team.<br />Big output.</h2>
               <p className="text-neutral-300 text-lg leading-relaxed mb-6">
-                Lost Monster isn&apos;t an agency. We&apos;re a dev studio that builds its own products alongside client work. That means we understand shipping, revenue, and real users — not just deadlines and deliverables.
+                Lost Monster isn&apos;t an agency. We&apos;re a dev studio that builds its own products alongside client work. That means we understand shipping, revenue, and real users. Not just deadlines and deliverables.
               </p>
               <p className="text-neutral-400 leading-relaxed mb-6">
-                Every project runs through The Firm — our quality framework with 31 specialised workers covering planning, building, design review, and QA. Nothing ships below 80/100.
+                Every project runs through The Firm, our quality framework with 31 specialised workers covering planning, building, design review, and QA. Nothing ships below 80/100.
               </p>
               <p className="text-neutral-400 leading-relaxed">
                 We don&apos;t just build for clients. We build with partners. Some projects are co-founded. Some are investment opportunities. All of them are built to the same standard.
