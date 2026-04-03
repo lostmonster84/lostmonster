@@ -118,6 +118,41 @@ Other projects pick up changes via /sync
 
 If no `needs-trainx: true` feedback exists, TRAINX skips silently.
 
+### Trigger D: Supplement Evolution (after any build that used supplements)
+
+When supplements were loaded for a build, TRAINX reviews their effectiveness after the build completes:
+
+```
+Build completes (passes or fails Build Gate)
+    ↓
+TRAINX checks: were supplements loaded?
+    ↓
+If yes, for each loaded supplement:
+  1. Were all checklist items applicable? (flag irrelevant ones)
+  2. Were any patterns missing that the build needed? (note gaps)
+  3. Did any anti-patterns occur despite the supplement? (strengthen warning)
+  4. Did the supplement conflict with the design guide? (note the conflict)
+    ↓
+Log findings to supplement's Evolution table
+    ↓
+If 2+ builds fail using the same supplement → flag as `stale`
+    ↓
+If build passed all gates → promote `provisional` to `validated`
+```
+
+**Attribution Guard (when multiple supplements loaded):**
+- Map the failure to the specific checklist item(s) that apply
+- If it maps to Supplement A's checklist → attribute to A only
+- If it spans both → attribute to both, noting the interaction
+- If supplements conflicted → tag both: `"conflict: [A] vs [B]"` and flag for SCOUTX to reconcile
+- Never flag a supplement as stale based on failures attributed to a DIFFERENT supplement
+
+**Worker vs Supplement attribution:**
+- Did Build Gate Check #7 PASS (patterns applied)? → Supplement is fine. Any remaining failure is worker-level — patch the worker's playbook, not the supplement. Log positive to Evolution: "Pattern confirmed correct"
+- Did Check #7 FAIL (patterns not applied)? → Execution gap in the worker. Patch the worker. Log to Evolution: "Pattern correct but not applied — worker execution gap"
+
+Supplement evolution is lightweight — one line per supplement in the Evolution table. Don't rewrite the supplement mid-session. Flag improvements for the next SCOUTX research refresh.
+
 ### Travis Does NOT:
 - Build anything (that's the builders)
 - Score dimensions (that's the reviewers)
@@ -140,6 +175,21 @@ If no `needs-trainx: true` feedback exists, TRAINX skips silently.
 
 Run these at every gate failure, in order.
 
+### Correction Quality Gate (applies to ALL triggers)
+
+Before logging ANY entry to a supplement Evolution table, TRAINX validates:
+
+**Required fields (ALL must be present):**
+- Specific pattern or checklist item affected
+- What was wrong (concrete, not "same as before")
+- Classification: craft / project / preference (Step 1.5)
+
+**If the correction is vague** ("same issues", "not right", "I don't like it"):
+1. Check session-log and Evolution tables for recent corrections on the same supplement
+2. If found → auto-expand: "Recurrence of [specific prior issue]." Increment the Occurrences count on the existing Evolution entry instead of adding a new row
+3. If not found → the Gaffer asks James ONE clarifying question: "What specifically should change? (layout, copy, spacing, missing element, wrong element?)"
+4. **NEVER log a vague entry to an Evolution table.** Every entry must trace to a specific pattern
+
 ### Step 1: IDENTIFY the Failure
 
 ```
@@ -149,6 +199,31 @@ GATE FAILURE:
   Score: [X / max]
   Specific issues: [what was flagged]
 ```
+
+### Step 1.5: CLASSIFY the Correction (when supplements are involved)
+
+When the failure involves a build that used supplements, classify the correction before proceeding:
+
+```
+TRAINX CLASSIFICATION:
+  Is this correction...
+  
+  A) CRAFT — the supplement's pattern is wrong universally?
+     → Log to supplement Evolution table. Proceed to root cause.
+     Example: "Hero text should never exceed 3 lines" (applies everywhere)
+  
+  B) PROJECT — James wants something different for THIS project?
+     → Log to project context (CLAUDE-SUPPLEMENT.md). Do NOT touch supplement.
+     Example: "Use navy hero background" (brand-specific)
+  
+  C) PREFERENCE — one-time aesthetic call, not a rule?
+     → Apply it. Don't log anywhere. Dies with this task.
+     Example: "Move the CTA left a bit"
+```
+
+If unclear, ask James: "Should this apply to all future [job type] builds, or just this project?"
+
+Only CRAFT corrections reach the supplement Evolution table. PROJECT corrections go to project context. PREFERENCE corrections are ephemeral.
 
 ### Step 2: ROOT CAUSE Analysis
 

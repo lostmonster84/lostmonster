@@ -330,6 +330,22 @@ SOFAX CHECKPOINT: [Checkpoint Name] ([viewport])
 
 ---
 
+
+---
+
+## Supplements
+
+Before starting work, check for a relevant supplement in `reviewers/supplements/`:
+
+| Job Type | Supplement | Created |
+|----------|-----------|---------|
+
+If a supplement exists for this job type, **read it before starting work**.
+It contains researched patterns from real-world examples.
+
+If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
+
+
 **Framework Status:** Generic v4 — On-demand contextual audit with Brand Compliance
 **Last Updated:** March 2026
 **Checkpoint count:** 55 checkpoints across 11 dimensions

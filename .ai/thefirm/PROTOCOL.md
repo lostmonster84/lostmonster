@@ -279,7 +279,21 @@ Every worker has a persona. Workers + The Foreman + TRAINX + The Gaffer. See FIR
 | `audit` | "Run full audit", "Check consistency" |
 | `seo` | "Optimise search pages", "Add structured data" |
 
-### Step 2: EXTRACT Signals
+### Step 2: IDENTIFY Job Types
+
+Classify what type(s) of work this is from the canonical taxonomy in [SUPPLEMENTS.md](crew/SUPPLEMENTS.md). A task can span multiple job types.
+
+| Task | Job Types |
+|------|-----------|
+| "Build a waitlist landing page" | `[landing-pages]` |
+| "Redesign pricing with a signup form" | `[pricing-pages, forms]` |
+| "Fix the nav dropdown" | `[navigation]` |
+| "Build the onboarding wizard" | `[onboarding-flows, forms]` |
+| "Fix broken filter on search" | no job type — skip supplements |
+
+Job types feed into Step 4 (LOAD Supplements). If no job type applies (bug fixes, config changes, infrastructure), supplements are skipped silently.
+
+### Step 3: EXTRACT Signals
 
 | Signal | How to Detect |
 |--------|---------------|
@@ -297,7 +311,7 @@ Every worker has a persona. Workers + The Foreman + TRAINX + The Gaffer. See FIR
 | `has-empty-states` | Lists, tables, search results that can be empty |
 | `performance-sensitive` | Image-heavy pages, search/filter, maps, large lists, public-facing pages |
 
-### Step 3: SCORE Each Worker
+### Step 4: SCORE Each Worker
 
 **Base Relevance by Task Type (0-10):**
 
@@ -348,7 +362,19 @@ Every worker has a persona. Workers + The Foreman + TRAINX + The Gaffer. See FIR
 
 **Inclusion Threshold:** Score >= 3 to be included in the crew sheet.
 
-### Step 4: BUILD Execution Graph
+### Step 5: LOAD Supplements
+
+For each worker that made the crew sheet, check their `supplements/` folder for supplements matching ALL job types identified in Step 2:
+
+1. **If supplements exist** — load all matches. They stack. Include in crew sheet: `Supplements: DEMX ← landing-pages, forms | AIDAX ← landing-page-conversion`. When multiple supplements load for one worker and conflict on a specific pattern, the more specific supplement wins (e.g. forms supplement wins over general page supplement on form-related patterns)
+2. **If no supplement exists for a non-trivial job type** — flag it: `"No supplement for [type] — recommend SCOUTX research first."` James decides whether to proceed without or run SCOUTX Mode 5 first
+3. **If no job types were identified in Step 2** (bug fix, config change, routine work) — skip silently
+4. **If supplement status is `stale`** — 1st use: warn James, recommend SCOUTX refresh. 2nd use: **block** the supplement from loading. Present options: (A) run SCOUTX Mode 5 now, (B) override and use stale (James accepts risk), (C) proceed without supplement
+5. **If supplement status is `provisional`** — load it, but note in crew sheet: `"(provisional — first use)"`
+
+**Conflict hierarchy:** Project design guide > project context > supplement > worker methodology. Supplements inform — they don't override project decisions. See [SUPPLEMENTS.md](crew/SUPPLEMENTS.md) for the full system reference.
+
+### Step 6: BUILD Execution Graph
 
 ```
 Phase 1 PLANNING:   CODAX → PLANX → PETRAX (sequential) → PLANNING GATE
@@ -359,7 +385,7 @@ Phase 5 FOREMAN:    Frank Harmon — composition check, pre-gate, Review Card as
 Phase 6 SIGN-OFF:   GAFFER FINAL VERDICT (strategy-level, informed by Foreman's report)
 ```
 
-### Step 5: MANDATORY Overrides
+### Step 7: MANDATORY Overrides
 
 These workers cannot be skipped regardless of score:
 
@@ -376,7 +402,7 @@ These workers cannot be skipped regardless of score:
 | **NIGELX** | CRUDX is assigned and `touches-ui` signal present |
 | **ALLYX** | APEX is assigned, or `touches-ui` signal present |
 
-### Step 6: PRESENT Crew Sheet
+### Step 8: PRESENT Crew Sheet
 
 ```
 GAFFER: Agent inbox redesign — here's the crew:
@@ -388,7 +414,7 @@ GAFFER: Agent inbox redesign — here's the crew:
              Mobile-relevant — PIXLX mandatory.
 ```
 
-### Step 7: LIGHTWEIGHT Mode
+### Step 9: LIGHTWEIGHT Mode
 
 If the task is small (typo, config change, single-line fix):
 - Present a minimal crew sheet: 1 builder + Frank (lightweight)
@@ -539,8 +565,9 @@ When ANY reviewer (AIDAX, SOFAX, NIGELX, PIXLX, ALLYX) flags a CRITICAL finding:
 | 4 | Pattern check: do new components use the same styling primitives (colours, spacing, shadows, border-radius) as adjacent existing components? Compare visually. Different shadow/radius than cards on the same page = flag | Flag deviations with specific mismatch |
 | 5 | Any "while we're here" additions that weren't in the plan? | Flag scope creep |
 | 6 | Data flow: do new components receive and display the right data from the right source? Right component in the right place but wrong data = still broken | Flag data wiring issue, send back to builder |
+| 7 | Supplement check (two-way): **(a)** If the Gaffer flagged "no supplement" during routing but the job type is non-trivial, verify this was acknowledged (SCOUTX research deferred or James approved proceeding without). **(b)** If supplements WERE loaded, cross-reference the supplement's checklist AND anti-patterns against the output. Missing patterns or present anti-patterns = send back to builder with specific supplement references | Flag missed supplement loading OR missed patterns from supplement |
 
-**This is the most important gate.** The Build Gate catches misplaced furniture AND misplaced data before reviewers waste time scoring something that's structurally wrong.
+**This is the most important gate.** The Build Gate catches misplaced furniture AND misplaced data before reviewers waste time scoring something that's structurally wrong. Check #7 ensures domain knowledge (supplements) was actually used, not just loaded.
 
 ### Review Gate (RG)
 
@@ -982,6 +1009,17 @@ GAFFER SIGN-OFF: ✓ APPROVED
   All assigned workers ran. Scores above threshold. No open contradictions.
   Ready for James.
 ```
+
+**Supplement Override Declaration:**
+
+If the Gaffer (or James) approves work that knowingly violates a supplement pattern, the sign-off MUST include:
+
+```
+supplement-override: [{supplement}, {pattern}, {reason}]
+Example: supplement-override: [DEMX-forms, "max 3 fields", "project requires extended intake form"]
+```
+
+TRAINX reads this at Trigger D and SKIPS Evolution logging for overridden patterns. The supplement is not wrong — the project has a valid exception. Without this declaration, TRAINX will flag the supplement as failing.
 
 **Rules:**
 - The Gaffer sign-off is the LAST step before presenting — nothing gets through without it

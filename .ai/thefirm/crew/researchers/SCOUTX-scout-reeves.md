@@ -265,15 +265,17 @@ SCOUTX operates in four modes. The Gaffer's Smart Routing picks the right mode p
 ```
 THE GAFFER assigns task
     ↓
-SCOUTX researches (Mode 1-4, solo or multi-mode)
+SCOUTX researches (Mode 1-5, solo or multi-mode)
     ↓
-Delivers brief(s)
+Delivers brief(s) AND/OR supplement(s)
+    ↓                          ↓
+PLANNERS consume brief    SUPPLEMENTS filed to workers
+    ↓                          ↓
+BUILDERS execute ←── read supplement before building
     ↓
-PLANNERS consume brief (CODAX/PLANX/PRDX plan against real intel)
+REVIEWERS audit ←── read supplement before scoring
     ↓
-BUILDERS execute
-    ↓
-REVIEWERS audit
+BUILD GATE ←── verify supplement patterns applied (Check #7)
     ↓
 CHECKERS verify
     ↓
@@ -283,6 +285,58 @@ GAFFER sign-off
 ```
 
 SCOUTX runs **before** planners. Not every task needs SCOUTX — the Gaffer's Smart Routing decides. But when research is needed, Scout goes first.
+
+---
+
+## Mode 5: Supplement Research
+
+**Purpose:** Research a specific job type and produce worker-specific supplement files that give builders and reviewers domain knowledge they'd otherwise lack.
+
+**When triggered:** The Gaffer flags "No supplement for [job type]" during Smart Routing, OR James requests `SCOUTX: supplement [job type]`.
+
+**How it works:**
+
+1. **Define scope** — what job type? Which workers will consume it? (Typically 1-2 builders + 1-2 reviewers)
+2. **Research** — study 8-15 real-world examples of this job type. Not blog posts about them — the actual pages/products/emails. Use web search and direct page analysis
+3. **Extract patterns** — what do the best all have in common? What do the worst get wrong?
+4. **Extract benchmarks** — quantifiable standards (layout dimensions, element counts, conversion rates, scroll depth)
+5. **Output supplements** — one file per consuming worker, filed to their `supplements/` folder
+
+**Output rules:**
+
+- **One supplement per worker.** Each consuming worker gets their own lens on the research:
+  - **Builders** (DEMX, CRUDX, etc.) — layout patterns, structure, build approach
+  - **Reviewers** (AIDAX, SOFAX, NIGELX) — scoring benchmarks, quality thresholds
+  - **Copy** (WORDX) — headline formulas, CTA phrasing, content structure
+  - **Planners** (CODAX, PLANX) — standard structure, expected scope, planning implications
+  - Not every worker needs a supplement for every job type. Minimum: 1 builder + 1 reviewer. Add WORDX for content-heavy types, planners for complex flows
+- **Use the template** at `crew/_templates/supplement-template.md`
+- **Naming:** `{WORKER}-{job-type}.md` → e.g. `DEMX-landing-pages.md`
+- **File to:** the consuming worker's `supplements/` folder (e.g. `builders/supplements/DEMX-landing-pages.md`)
+- **Update the worker's playbook** — add the new supplement to their `## Supplements` lookup table
+- **Minimum 8 studied examples.** With URLs, dates, and specific takeaways. Fewer = not enough evidence
+- **Real research, not recall.** Use WebSearch and WebFetch to study actual pages. "Here are 10 best practices I know" is not a supplement — it's an opinion list
+
+**Quality bar:**
+
+A supplement is ready when:
+- Every pattern traces to at least 2 studied examples (evidence, not assertion)
+- Anti-patterns include specific failure examples
+- Benchmarks are quantifiable (not "make it look good" but "hero section 80-100vh, form visible within 2 scrolls")
+- The checklist at the bottom is specific enough that the Build Gate can verify each item
+
+**Refresh Protocol (when replacing a stale supplement, not creating from scratch):**
+
+1. **READ the existing supplement's Evolution table FIRST** — this is battle-tested knowledge from real builds
+2. Classify each existing pattern:
+   - **VALIDATED:** positive outcomes in Evolution, used successfully → MUST be preserved unless new research explicitly contradicts it with evidence
+   - **FAILED:** negative outcomes in Evolution → candidate for removal or revision
+   - **UNTESTED:** no Evolution entries → treat as provisional, re-evaluate against new research
+3. New research ADDS to validated patterns — it does not replace them
+4. If new research contradicts a validated pattern → flag for James: "Pattern [X] was validated in [N] builds but new research suggests [alternative]. Keep or replace?"
+5. Output a DIFF section showing what changed and why
+
+**Feeds into:** Every worker that has a supplement loaded for the current job type. The Gaffer's Smart Routing checks supplements at Step 5.
 
 ---
 
@@ -337,6 +391,19 @@ When researching content or UX topics, SCOUTX must include brand constraints in 
 ---
 
 **Worker Type:** `researcher`
+
+---
+
+## Supplements
+
+SCOUTX **creates** supplements — it does not consume them. See Mode 5 above.
+
+When creating supplements, SCOUTX must:
+1. Write the supplement file to the consuming worker's `supplements/` folder
+2. Update the consuming worker's `## Supplements` lookup table with the new entry
+3. Both steps are mandatory — a filed supplement without a lookup entry is invisible to the worker
+
+
 **Framework Status:** Generic Template
 **Last Updated:** March 2026
 **Version:** 1.0

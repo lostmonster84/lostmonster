@@ -24,18 +24,18 @@ Run ALL of these in parallel — they're independent:
 5. **Changelog** — read tail of `CHANGELOG.md` (last 20 lines) for recent momentum
 6. **Stash/branch check** — `git stash list` and `git branch` — any forgotten WIP or feature branches?
 7. **Time** — run `date` for accurate greeting
+8. **Setup check** — read `SETUP-TODO.md` if it exists. Note the next incomplete step (first row where Status is not `DONE`). Surface it in the briefing under "Setup remaining"
 
-## Step 3: Framework Freshness Check
+## Step 3: Framework Freshness Check + Auto-Sync
 
 Quick check if The Firm or The Stack have upstream updates. Run in parallel with Step 4:
 
 1. **Firm** — `cd ~/Projects/thefirm && git fetch --dry-run origin main 2>&1` — if output is non-empty, upstream has new commits
 2. **Stack** — `cd ~/Projects/thestack && git fetch --dry-run origin main 2>&1` — same check
 
-If either repo is missing or offline, skip silently. If either has upstream changes, include a **prominent** line in the briefing:
+If either repo is missing or offline, skip silently. If either has upstream changes, **run `/sync` automatically** — don't just flag it. Stale workers mean stale quality gates. Report what was synced in the briefing:
 ```
-**Framework drift detected:** Firm/Stack have upstream updates.
-Recommend running `/sync` before starting work — workers may have new rules, pairings, or evidence gates.
+**Auto-synced:** Firm/Stack had upstream updates — pulled latest before launch.
 ```
 If both are current, say nothing — don't clutter the briefing.
 

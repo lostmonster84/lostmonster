@@ -218,6 +218,22 @@ TESTX is scored on coverage and quality:
 
 ---
 
+
+---
+
+## Supplements
+
+Before starting work, check for a relevant supplement in `checkers/supplements/`:
+
+| Job Type | Supplement | Created |
+|----------|-----------|---------|
+
+If a supplement exists for this job type, **read it before starting work**.
+It contains researched patterns from real-world examples.
+
+If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
+
+
 **Framework Status:** Generic
 **Last Updated:** March 2026
 **Version:** 1.0

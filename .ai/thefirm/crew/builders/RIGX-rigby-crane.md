@@ -584,6 +584,22 @@ RIGBY ENV AUDIT: Lost Monster
 
 ---
 
+
+---
+
+## Supplements
+
+Before starting work, check for a relevant supplement in `builders/supplements/`:
+
+| Job Type | Supplement | Created |
+|----------|-----------|---------|
+
+If a supplement exists for this job type, **read it before starting work**.
+It contains researched patterns from real-world examples.
+
+If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
+
+
 **Framework Status:** Template (customise Neon PostgreSQL, NextAuth v5 (Credentials + JWT), [OBJECT-STORAGE], Vercel for project)
 **Last Updated:** February 28, 2026
 **Version:** 1.0 (Generic Template)

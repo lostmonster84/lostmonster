@@ -235,6 +235,22 @@ Run these against every page in scope. Each one is a potential data integrity fa
 49. Company with no jobs — does company page show empty state or old cached data?
 50. Job posted 0 days ago — does it show "Today" or "0 days ago"?
 
+
+---
+
+## Supplements
+
+Before starting work, check for a relevant supplement in `checkers/supplements/`:
+
+| Job Type | Supplement | Created |
+|----------|-----------|---------|
+
+If a supplement exists for this job type, **read it before starting work**.
+It contains researched patterns from real-world examples.
+
+If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
+
+
 ---
 
 **Worker Status:** Active

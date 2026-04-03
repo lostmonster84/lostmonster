@@ -164,14 +164,16 @@ Aida hasn't run in 3 sessions — flag any user-facing work for conversion check
 2. Run the **Smart Routing Algorithm** (see [PROTOCOL.md](../PROTOCOL.md#smart-routing-algorithm)) to determine the crew
 3. Present the crew sheet — who's planning, who's building, who's reviewing, who's signing off
 
-**Smart Routing (7 Steps):**
+**Smart Routing (8 Steps):**
 1. **CLASSIFY** the task → `new-feature`, `ui-change`, `bug-fix`, `api-work`, `content-change`, `infrastructure`, `audit`, `seo`
-2. **EXTRACT** signals → `touches-db`, `touches-ui`, `touches-api`, `marketing-page`, `admin-page`, `mobile-relevant`, `conversion-critical`, `multi-file`, `new-entity`, `has-empty-states`
-3. **SCORE** each worker (base relevance + signal boosters, threshold ≥ 3)
-4. **BUILD** execution graph (planning → building → review → sign-off)
-5. **APPLY** mandatory overrides (TERRX always, TESTX if code ships, AIDAX if conversion-critical, PIXLX if mobile, SOFAX if touches-ui, **DEMX if visual-value-guess**)
-6. **PRESENT** crew sheet
-7. **LIGHTWEIGHT MODE** — for < 3 files, no new UI/DB/API: reduced crew (1 builder + Frank lightweight), but crew sheet still presented. Never skip entirely
+2. **IDENTIFY JOB TYPES** — classify what type(s) of work this is from the canonical taxonomy in [SUPPLEMENTS.md](SUPPLEMENTS.md). A task can span multiple job types. Examples: "build a waitlist page" → `[landing-pages]`. "Redesign pricing with a signup form" → `[pricing-pages, forms]`. "Fix the nav dropdown" → `[navigation]`. Bug fixes and config changes → no job type (skip supplements).
+3. **EXTRACT** signals → `touches-db`, `touches-ui`, `touches-api`, `marketing-page`, `admin-page`, `mobile-relevant`, `conversion-critical`, `multi-file`, `new-entity`, `has-empty-states`
+4. **SCORE** each worker (base relevance + signal boosters, threshold ≥ 3)
+5. **LOAD SUPPLEMENTS** — for each assigned worker, check their `supplements/` folder for supplements matching ALL identified job types. Load every match. If multiple supplements load for one worker, they stack — more specific supplement wins on conflicts. If no supplement exists for a non-trivial job type, flag it: `"No supplement for [type] — recommend SCOUTX research first."` This step is not optional for non-trivial job types.
+5. **BUILD** execution graph (planning → building → review → sign-off)
+6. **APPLY** mandatory overrides (TERRX always, TESTX if code ships, AIDAX if conversion-critical, PIXLX if mobile, SOFAX if touches-ui, **DEMX if visual-value-guess**)
+7. **PRESENT** crew sheet (including supplement status)
+8. **LIGHTWEIGHT MODE** — for < 3 files, no new UI/DB/API: reduced crew (1 builder + Frank lightweight), but crew sheet still presented. Never skip entirely
 8. **VISUAL-VALUE RULE** — if the fix involves guessing a pixel value (crop, spacing, sizing, offset) that you can't verify without seeing it, route through DEMX first. Build a comparison page, see the options, THEN apply. Never guess visual values blind.
 9. **DEMX URL RULE (NON-NEGOTIABLE)** — every DEMX produces a clickable URL. React components → `/demo/` page. Emails → `/demo/email-*/` page with iframes. Copy → rendered in-context. Text-only chat variants are a protocol violation. If James can't click and see it, DEMX hasn't run.
 10. **MANDATORY PAIRINGS** — if DEMX is in the crew, AIDAX is in the crew (full 0-100 audit, not simplified 0-40). If CRUDX is in the crew and `touches-ui`, NIGELX is in the crew. If APEX is in the crew, ALLYX is in the crew. These are structural — not score-based. See [PROTOCOL.md — Mandatory Builder-Reviewer Pairings](../PROTOCOL.md#mandatory-builder-reviewer-pairings).
@@ -188,12 +190,15 @@ Aida hasn't run in 3 sessions — flag any user-facing work for conversion check
 **Format:**
 ```
 GAFFER: Agent screen amendment — here's the crew:
-  Planning:  CODAX (light — scope the change) → PETRAX (validate plan)
-  Build:     UXPATX patterns for the admin form, TESTX (writes tests)
-  Review:    SOFAX (design), NIGELX (usability)
-  Sign-off:  TERRX (runs all tests) → GAFFER SIGN-OFF
-  Note:      This touches the agent dashboard — check existing
-             patterns in /admin/ first (CONSX-style).
+  Planning:     CODAX (light — scope the change) → PETRAX (validate plan)
+  Build:        UXPATX patterns for the admin form, TESTX (writes tests)
+  Review:       SOFAX (design), NIGELX (usability)
+  Sign-off:     TERRX (runs all tests) → GAFFER SIGN-OFF
+  Supplements:  DEMX ← landing-pages | AIDAX ← landing-page-conversion
+                [or: "No supplements for this job type"]
+                [or: "No supplement for [type] — recommend SCOUTX research first"]
+  Note:         This touches the agent dashboard — check existing
+                patterns in /admin/ first (CONSX-style).
 ```
 
 **Rules:**

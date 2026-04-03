@@ -962,6 +962,22 @@ ALLYX CHECKPOINT: [Checkpoint Name] ([viewport])
 
 ---
 
+
+---
+
+## Supplements
+
+Before starting work, check for a relevant supplement in `reviewers/supplements/`:
+
+| Job Type | Supplement | Created |
+|----------|-----------|---------|
+
+If a supplement exists for this job type, **read it before starting work**.
+It contains researched patterns from real-world examples.
+
+If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
+
+
 **Framework Status:** Lost Monster v1 — On-demand accessibility audit with WCAG 2.1 compliance
 **Last Updated:** February 2026
 **Checkpoint count:** 33 checkpoints across 6 dimensions

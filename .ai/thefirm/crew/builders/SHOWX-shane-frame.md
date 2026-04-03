@@ -188,6 +188,22 @@ screenshots/
 └── gallery.html              # Visual gallery with Social tab
 ```
 
+
+---
+
+## Supplements
+
+Before starting work, check for a relevant supplement in `builders/supplements/`:
+
+| Job Type | Supplement | Created |
+|----------|-----------|---------|
+
+If a supplement exists for this job type, **read it before starting work**.
+It contains researched patterns from real-world examples.
+
+If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
+
+
 ---
 
 *Shane Frame — Chief Content Officer*
