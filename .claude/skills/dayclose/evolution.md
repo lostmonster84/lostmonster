@@ -9,6 +9,15 @@
 
 ---
 
+## 2026-04-04b — Supplements + Cross-Project Analysis + Path Fix
+
+**Caught:** Supplement sync path bug in thefirm repo (supplements at `crew/` instead of `.ai/thefirm/crew/`). update.sh PROTOCOL.md overwrite (Universal Copy Rules stripped twice -- restored both times). CODAX-homepage missing Planning Implications section.
+**Missed:** The path bug should have been caught during the initial /firm push. The /firm skill copies to `crew/` at repo root, but update.sh reads from `.ai/thefirm/crew/`. Need to fix /firm skill to use correct path.
+**Friction:** Multiple wrap/dayclose cycles on same day from different conversations. Session log and changelog need careful append-not-overwrite.
+**User overrode:** No deploy check (no production code). Deferred /stack push to next session.
+
+---
+
 ## 2026-04-04 — Firm Health Check + Supplements + Stack Sync
 
 **Caught:** Stack skill drift (3 skills), committed stack/evolution.md from mid-session /stack run. Session context updated with full day's work across 3 conversations.
