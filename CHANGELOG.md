@@ -16,6 +16,10 @@
 - Pushed supplements upstream to thefirm repo
 - Full sync verified (Firm + Stack + project)
 
+### Fixes
+- Fixed supplement sync path in thefirm repo (supplements were in `crew/` instead of `.ai/thefirm/crew/` -- update.sh couldn't find them)
+- Removed orphan `crew/` directory from thefirm repo root
+
 ## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
 
 ### Features
