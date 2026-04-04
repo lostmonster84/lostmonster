@@ -485,6 +485,8 @@ Before starting work, check for a relevant supplement in `reviewers/supplements/
 
 | Job Type | Supplement | Created |
 |----------|-----------|---------|
+| Homepage | `supplements/AIDAX-homepage.md` | 2026-04-03 |
+| Landing pages | `supplements/AIDAX-landing-pages.md` | 2026-04-03 |
 
 If a supplement exists for this job type, **read it before starting work**.
 It contains researched patterns from real-world examples.

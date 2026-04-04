@@ -176,6 +176,8 @@ Before starting work, check for a relevant supplement in `planners/supplements/`
 
 | Job Type | Supplement | Created |
 |----------|-----------|---------|
+| Homepage | `supplements/CODAX-homepage.md` | 2026-04-03 |
+| Landing pages | `supplements/CODAX-landing-pages.md` | 2026-04-03 |
 
 If a supplement exists for this job type, **read it before starting work**.
 It contains researched patterns from real-world examples.

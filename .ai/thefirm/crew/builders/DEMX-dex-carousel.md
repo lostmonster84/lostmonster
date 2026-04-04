@@ -378,6 +378,8 @@ Before starting work, check for a relevant supplement in `builders/supplements/`
 
 | Job Type | Supplement | Created |
 |----------|-----------|---------|
+| Homepage | `supplements/DEMX-homepage.md` | 2026-04-03 |
+| Landing pages | `supplements/DEMX-landing-pages.md` | 2026-04-03 |
 
 If a supplement exists for this job type, **read it before starting work**.
 It contains researched patterns from real-world examples.
