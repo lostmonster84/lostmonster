@@ -18,6 +18,19 @@
 
 -->
 
+## 2026-04-04 — Firm Health Check + System Audit
+
+- **Built:** `firm-health.sh` -- 14-check framework integrity validator (committed to thefirm repo, not lostmonster). Full Firm system audit revealing roster drift, scoring matrix gaps, supplement section gaps.
+- **Work done:** 1 file created in thefirm (750 lines). 2 commits pushed to thefirm (initial + bug fixes).
+- **Workers:** Infrastructure session -- no Firm workers assigned
+- **Foreman:** N/A (framework tooling session)
+- **Protocol:** FULL
+- **Skipped:** All workers (no feature build)
+- **Issues found:** TRAINX false positive (roster extraction too broad), PLANX-SEO-GEO filename collision (greedy regex). Both fixed before shipping. 4 orphan workers, 7 unscored workers, 29/31 missing supplement sections identified as framework drift.
+- **Shipped:** Committed and pushed to thefirm repo (d65b927)
+
+---
+
 ## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
 
 - **Built:** DemxScaffold component (reusable DEMX demo shell). Homepage hero exploration (5 rounds, 25 total variations). Universal Copy Rules (no em dashes in PROTOCOL.md, WORDX, slop test). Removed "2-4 weeks" timeline claims site-wide. Replaced with verifiable metrics.

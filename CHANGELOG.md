@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-04 — Firm Health Check + System Audit
+
+### Features
+- `firm-health.sh` added to thefirm repo: 14-check framework integrity validator
+- Supports master repo and project installation modes, --fix and --verbose flags
+
+### Audit Findings
+- Full Firm system review: 31 workers, 47 files, 5 departments
+- Identified 4 orphan workers (SHOWX, WORDX, MIGRX, WIREX not in PROTOCOL.md roster)
+- 7 workers missing from scoring matrix (invisible to Smart Routing)
+- 29/31 workers missing ## Supplements section in master playbooks
+- FIRM-CONTEXT.md worker table out of sync with PROTOCOL.md
+
 ## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
 
 ### Features
