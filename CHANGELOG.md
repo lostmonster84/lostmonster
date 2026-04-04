@@ -1,17 +1,19 @@
 # Changelog
 
-## 2026-04-04 — Firm Health Check + System Audit
+## 2026-04-04 — First Supplements + Cross-Project Analysis
 
-### Features
+### Major
+- 10 supplement files: homepage + landing-pages for DEMX, AIDAX, SOFAX, WORDX, CODAX
+- SCOUTX Mode 5 research: 16 external sites per job type (Vercel, Stripe, Notion, etc.)
+- Cross-project analysis of 6 owner projects (DOMA, HospoJobs, Ancarraig, WildTrax, Slydes, Evidis)
+- Dual-mode framework: hospitality/experience (warm, photographic) vs SaaS/product (dark, mockup-driven)
+- 12 owner-validated build constants across both modes
+- Owner's Validated Patterns section added to all 10 supplements
+
+### Infrastructure
 - `firm-health.sh` added to thefirm repo: 14-check framework integrity validator
-- Supports master repo and project installation modes, --fix and --verbose flags
-
-### Audit Findings
-- Full Firm system review: 31 workers, 47 files, 5 departments
-- Identified 4 orphan workers (SHOWX, WORDX, MIGRX, WIREX not in PROTOCOL.md roster)
-- 7 workers missing from scoring matrix (invisible to Smart Routing)
-- 29/31 workers missing ## Supplements section in master playbooks
-- FIRM-CONTEXT.md worker table out of sync with PROTOCOL.md
+- Pushed supplements upstream to thefirm repo
+- Full sync verified (Firm + Stack + project)
 
 ## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
 

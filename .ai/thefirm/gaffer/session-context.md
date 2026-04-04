@@ -1,31 +1,39 @@
 # Session Context -- 2026-04-04
 
 ## What Shipped
-- `firm-health.sh` added to thefirm repo: 14-check framework integrity validator
-- Two parsing bugs found and fixed (TRAINX false positive, PLANX-SEO-GEO filename collision)
-- Full Firm system audit completed -- comprehensive inventory of all 31 workers, drift analysis
+- First 10 real supplements: homepage + landing-pages for DEMX, AIDAX, SOFAX, WORDX, CODAX
+- Cross-project analysis of 6 owner projects (DOMA, HospoJobs, Ancarraig, WildTrax, Slydes, Evidis)
+- Owner's Validated Patterns section added to all supplements with dual-mode framework
+- Pushed upstream to thefirm repo. Synced back via /sync
+- firm-health.sh added to thefirm repo (separate session)
 
 ## Design Decisions Made
-- Health check lives in thefirm repo root (alongside setup.sh and update.sh), not in .ai/thefirm/
-- Dual-mode detection: auto-detects master vs project based on whether CWD matches script location
-- `extract_roster_workers` filters PROTOCOL.md by requiring `crew/` in the line (prevents false positives from non-roster bold references)
-- Filename extraction uses first-lowercase-char boundary (not first-X-hyphen) to handle compound codes like PLANX-SEO-GEO
+- **Dual-mode framework**: Hospitality (warm, photographic, Ken Burns) vs SaaS (dark, mockup-driven, glassmorphism). Workers identify the mode before building
+- **Owner's Validated Patterns > external research**: When cross-project evidence conflicts with SCOUTX web research, owner patterns take priority
+- **12 build constants are non-negotiable**: Ken Burns, warm canvas, no pure black, hover lift, scroll entrances, generous padding, eyebrow labels, image hover scale, rounded cards, dark footer, two-font strategy, semantic colours
 
 ## Rejected Alternatives
-- grep -P (Perl regex) -- not available on macOS default grep. Rewrote all patterns with sed
-- Single `extract_bold_workers` for all files -- too broad for PROTOCOL.md, picks up non-roster references
+- Putting owner patterns in a separate file workers must load manually -- instead embedded directly in each supplement for zero-friction access
+- Making supplements project-specific -- kept universal per the supplement system design. Project design guide handles brand, supplement handles craft
+- Single-mode framework -- owner clearly operates in two distinct modes. Pretending one size fits all would produce generic output
 
 ## In-Progress Work
-- None -- session was complete
+- 16 proposed taxonomy additions (comparison pages, listing pages, changelog, etc.) still not added to SUPPLEMENTS.md
+- update.sh overwrites PROTOCOL.md and removes Universal Copy Rules section -- needs fixing upstream
+- Skills /firm, /gaffer, /go are local-ahead of Stack -- need /stack push
 
 ## Deferred to Next Session
-- Fix the 53 warnings the health check surfaced (orphan workers, scoring matrix gaps, supplement sections)
-- Homepage hero Round 5 scoring still pending (carried from 2026-04-03b)
-- ~60 "2-4 weeks" references in .ai/ brand docs still need sweeping
-- PROTOCOL.md has local uncommitted change (Universal Copy Rules section removed) -- unclear origin, needs investigation
+- Push /go, /firm, /gaffer skill changes to thestack via /stack
+- Fix update.sh to preserve Universal Copy Rules in PROTOCOL.md (or add to upstream PROTOCOL.md)
+- Add 16 missing taxonomy entries to SUPPLEMENTS.md
+- Fix framework drift: add SHOWX, WORDX, MIGRX, WIREX to PROTOCOL.md roster + scoring matrix
+- Library product: scope as next major build (browsable pattern library on lostmonster.io)
+- Homepage hero: continue DEMX v3.4 exploration (Round 5 started, not scored)
+- Sweep .ai/ brand docs for "2-4 weeks" references (~60 remaining)
 
 ## Pick Up From Here
-1. Fix framework drift: add SHOWX, WORDX, MIGRX, WIREX to PROTOCOL.md roster and scoring matrix
-2. Add ## Supplements section to the 29 master playbooks that are missing it
-3. Score Round 5 hero variations, pick winner, implement on production homepage
-4. Sweep .ai/ brand docs for "2-4 weeks" references
+1. Fix update.sh PROTOCOL.md overwrite issue (Universal Copy Rules get nuked on sync)
+2. `/stack` push for /go, /firm, /gaffer skills
+3. `/gaffer DEMX: homepage hero` -- continue the v3.4 exploration with supplements now loaded
+4. Add missing taxonomy entries to SUPPLEMENTS.md
+5. Next supplement batch: service-pages, pricing-pages, forms

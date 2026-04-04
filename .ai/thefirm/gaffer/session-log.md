@@ -18,6 +18,19 @@
 
 -->
 
+## 2026-04-04b — First Supplements + Cross-Project Analysis
+
+- **Built:** 10 supplement files (homepage + landing-pages for DEMX, AIDAX, SOFAX, WORDX, CODAX). SCOUTX Mode 5 research (16 external sites per job type). Cross-project analysis of 6 owner projects. Owner's Validated Patterns section with dual-mode framework. 2 SCOUTX research references. 5 worker playbook supplement tables populated.
+- **Work done:** 17 files created/changed in lostmonster (+3,209 lines). 18 files in thefirm (+3,282 lines). Pushed to both repos.
+- **Workers:** SCOUTX (Mode 5 research/8)
+- **Foreman:** N/A (research/infrastructure session)
+- **Protocol:** FULL
+- **Skipped:** All UI workers (no feature build). Frank skipped (no visual output to review)
+- **Issues found:** CODAX-homepage missing Planning Implications section (fixed). update.sh overwrote PROTOCOL.md removing Universal Copy Rules (restored). Slydes project not on SSD (cloned from GitHub).
+- **Shipped:** Committed and pushed to lostmonster (e1d64fa) + thefirm (e151aef)
+
+---
+
 ## 2026-04-04 — Firm Health Check + System Audit
 
 - **Built:** `firm-health.sh` -- 14-check framework integrity validator (committed to thefirm repo, not lostmonster). Full Firm system audit revealing roster drift, scoring matrix gaps, supplement section gaps.
