@@ -12,6 +12,7 @@
 
 ### Infrastructure
 - `firm-health.sh` added to thefirm repo: 14-check framework integrity validator
+- Stack v3.4: /firm (project.json reverse source) + /go (auto-sync + setup check) pushed upstream
 - Pushed supplements upstream to thefirm repo
 - Full sync verified (Firm + Stack + project)
 
