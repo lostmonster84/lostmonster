@@ -9,6 +9,15 @@
 
 ---
 
+## 2026-04-04 — Firm Health Check + Supplements + Stack Sync
+
+**Caught:** Stack skill drift (3 skills), committed stack/evolution.md from mid-session /stack run. Session context updated with full day's work across 3 conversations.
+**Missed:** Nothing -- this was a continuation conversation, most work already wrapped by other instances.
+**Friction:** Multiple conversations on same day means changelog/session-log entries already exist. Need to append not overwrite. Handled correctly this time.
+**User overrode:** No deploy check needed (no production code changes this session -- all framework/docs).
+
+---
+
 ## 2026-04-03b — DEMX v3.4 First Run + Copy Rules
 
 **Caught:** DEMX screenshots cleaned (25+ PNGs), .playwright-mcp/ artifacts removed, 90MB .next cache purged, Firm local-ahead detected (PROTOCOL.md, WORDX). Em dashes caught in production homepage. "2-4 weeks" timeline claims caught and removed.
