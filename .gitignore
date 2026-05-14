@@ -18,6 +18,10 @@
 # misc
 .DS_Store
 *.pem
+.vscode/
+
+# nested workspace deps (monorepo)
+**/node_modules/
 
 # debug
 npm-debug.log*

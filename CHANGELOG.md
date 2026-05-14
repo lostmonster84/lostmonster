@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-05-14 — Framework Sync + Portfolio Intelligence
+
+### Major
+- `/portfolio` skill — new project-specific skill that scans `/Volumes/Projects/`, classifies every repo, and maintains `.ai/portfolio/` as Lost Monster's master view of every venture in development
+- Portfolio knowledge base populated: 11 deep per-venture OVERVIEWs (doma, evidis, hospojobs, twin, ancarraig, wildtrax, govozi, stayflo, canary, barkko, native) + INDEX tally + CHANGELOG
+
+### Infrastructure
+- The Firm synced v3.16 → v4.4.2 (34 workers): 3 new workers (ROADX onboarded, SEOX + STRATX framework-pure); PROTOCOL, GAFFER, FOREMAN, TRAINX, SUPPLEMENTS, lessons, FIRM-CONTEXT refreshed
+- The Stack synced: 4 new skills (buildplan, debtloop, devstart, healthcheck), 10 skill files updated
+- Forensic logging adopted: `scripts/forensic-log.ts`, `scripts/lint-subsystems.ts`, `subsystems.json` (tailored to the monorepo)
+- `docs/BLUEPRINT.md` created — master architecture document
+- `.gitignore`: ignore `.vscode/` and nested `node_modules/`
+
+### Fixes
+- `project.json` firmVersion bumped to 4.4.2
+
+### Pick Up
+> See [TODO.md](TODO.md) for active items from this session
+
 ## 2026-04-04 — First Supplements + Cross-Project Analysis
 
 ### Major

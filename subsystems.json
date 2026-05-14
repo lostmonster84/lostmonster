@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "description": "Maps file-path globs to logical subsystem names for the Lost Monster monorepo. Powers scripts/forensic-log.ts. Order matters: first match wins, so specific subsystems are listed before general ones.",
+  "default": "uncategorised",
+  "subsystems": [
+    {
+      "name": "portfolio",
+      "globs": [".ai/portfolio/**", ".claude/skills/portfolio/**"],
+      "owns": "Portfolio intelligence: the /portfolio skill and the .ai/portfolio knowledge base (per-venture OVERVIEWs + INDEX + CHANGELOG).",
+      "riskSurface": [
+        "SCAN stamp drift (stale head sha = missed re-scan)",
+        "Investor-grade venture claims going stale against fast-moving repos",
+        "Read-only contract on /Volumes/Projects (must never write to sibling repos)"
+      ]
+    },
+    {
+      "name": "firm-framework",
+      "globs": [".ai/thefirm/**", ".claude/skills/**", "CLAUDE.md", "project.json"],
+      "owns": "The Firm worker playbooks + protocol and The Stack skills. Synced via /sync, pushed via /firm and /stack.",
+      "riskSurface": [
+        "Onboarding leakage to upstream (project-specific context bleed into thefirm/thestack)",
+        "Skill self-learn loops (evolution.md drift)",
+        "update.sh overwriting project-specific token fills"
+      ]
+    },
+    {
+      "name": "labs",
+      "globs": ["website/app/labs/**", "website/lib/labs.ts"],
+      "owns": "Labs showcase section: beta product pages under /labs, driven by lib/labs.ts.",
+      "riskSurface": [
+        "labProducts array out of sync with page folders",
+        "iconMap missing a product's Lucide icon"
+      ]
+    },
+    {
+      "name": "website",
+      "globs": ["website/app/**", "website/components/**", "website/lib/**", "website/projects/**", "website/case-studies/**"],
+      "owns": "The Lost Monster marketing site: Next.js app router, components, content (project briefs + case studies).",
+      "riskSurface": [
+        "Project briefs in website/projects/ drifting from venture repo reality",
+        "Dynamic [slug] routes for case studies / services",
+        "Light-bg content pages vs dark Bold Personal Brand homepage"
+      ]
+    },
+    {
+      "name": "universal-framework",
+      "globs": ["framework/**"],
+      "owns": "The universal development framework: templates, agents, docs, setup scripts.",
+      "riskSurface": ["Template drift from current Firm/Stack versions"]
+    },
+    {
+      "name": "design-system",
+      "globs": ["website/.ai/**", "website/app/design/**"],
+      "owns": "Lost Monster design system: brand docs and the living /design page.",
+      "riskSurface": ["Design guide vs actual component token divergence"]
+    },
+    {
+      "name": "infra",
+      "globs": ["scripts/**", "subsystems.json", ".claude/settings*.json"],
+      "owns": "Repo tooling: forensic logging, subsystem lint, harness settings.",
+      "riskSurface": [
+        "Forensic generator needs tsx (not installed at repo root)",
+        "Stale subsystems manifest = stale forensics"
+      ]
+    },
+    {
+      "name": "config",
+      "globs": ["website/tsconfig*.json", "website/tailwind.config.*", "website/next.config.*", "website/.eslintrc*", "**/tsconfig*.json"],
+      "owns": "TypeScript / Tailwind / Next / ESLint configuration.",
+      "riskSurface": ["Strict mode failures", "Path alias resolution"]
+    },
+    {
+      "name": "docs",
+      "globs": ["docs/**", "CHANGELOG.md", "README.md", "**/README.md"],
+      "owns": "Project documentation: blueprint, changelog, readmes.",
+      "riskSurface": ["Doc drift from code"]
+    }
+  ]
+}

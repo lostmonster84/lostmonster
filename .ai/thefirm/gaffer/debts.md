@@ -28,6 +28,10 @@
   `substring(0, 300)` on `contentHtml` truncates mid-tag. Should strip HTML tags before truncating for cleaner card previews.
   Affected: `/case-studies` (listing page)
 
+- **Stale venture briefs in website/projects/** (flagged 2026-05-14)
+  The `/portfolio` scan found the Lost Monster website briefs contradict current repo reality. StayFlo brief calls it an "AI-powered guest handbook SaaS" — it is now a full multi-tenant white-label platform. WildTrax brief describes the pre-pivot fleet-operations business and a stale "75% complete" — misses the April 2026 marketplace pivot. Barkko brief says "ready for launch" but the repo is ~3 months cold. Rewrite all three from the `.ai/portfolio/` OVERVIEWs.
+  Affected: `website/projects/stayflo.md`, `website/projects/wildtrax.md`, `website/projects/barkko.md`
+
 ## Resolved
 
 <!-- Move items here when addressed. Keep for calibration reference.

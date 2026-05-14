@@ -18,6 +18,29 @@
 
 -->
 
+## 2026-05-14 — Framework Sync + Portfolio Intelligence Skill
+
+- **Built:** `/portfolio` skill (project-specific — scans `/Volumes/Projects/`, maintains the `.ai/portfolio/` knowledge base). First full scan produced 11 deep venture OVERVIEWs + INDEX + CHANGELOG. The Firm synced v3.16 → v4.4.2; The Stack synced (4 new skills). ROADX worker onboarded. Forensic logging infrastructure adopted. `docs/BLUEPRINT.md` created.
+- **Work done:** 53 files in the sync + portfolio commits (+7,463 lines), plus the dayclose wrap (subsystems.json, BLUEPRINT.md, forensic infra, changelog, logs, TODO).
+- **Workers:** Infrastructure session — no Firm UI workers assigned. `/sync`, `/go`, `/portfolio` skills run.
+- **Foreman:** N/A (framework/docs/skills session — no feature build, no runtime surface)
+- **Protocol:** FULL
+- **Skipped:** All UI workers (no feature build). Deploy check skipped (no application code changed, nothing deploys — the website was untouched).
+- **Issues found:** Brief-vs-repo drift flagged on StayFlo and WildTrax website briefs (logged as debt). Canary stalled since Feb 2026; Barkko cold ~3 months. Forensic generator cannot run (no `tsx` at repo root) — block hand-written.
+- **Shipped:** 3 commits pushed to lostmonster (02913ec sync, 160472b portfolio, + dayclose wrap).
+- **Forensic block:**
+  ```
+  --- Forensic Block (day) ---
+  Subsystems:   firm-framework, portfolio, infra, docs
+  Files:        .ai/thefirm/** (PROTOCOL, GAFFER, FOREMAN, TRAINX, SUPPLEMENTS, FIRM-CONTEXT, +3 workers), .claude/skills/** (10 updated + 5 new incl portfolio), .ai/portfolio/** (INDEX, CHANGELOG, 11 OVERVIEWs), CLAUDE.md, project.json, subsystems.json, scripts/forensic-log.ts, scripts/lint-subsystems.ts, docs/BLUEPRINT.md, CHANGELOG.md, TODO.md, .gitignore (+ gaffer state) — 70+ files
+  Risk surface: Onboarding leakage to upstream (ROADX manifest fill must not be pushed); skill self-learn evolution.md drift; SCAN-stamp drift in portfolio KB; investor-grade venture claims going stale; forensic generator unrunnable (no tsx at root)
+  Verified:     update.sh ran clean (exit 0, all health checks clear); /portfolio executed end-to-end — 11 OVERVIEWs + INDEX + CHANGELOG generated and inspected; ROADX onboarding verified (no body tokens remain). No runtime/staging test — this session has no application-code or deploy surface.
+  Deferred:     Forensic generator self-healed but not executed (no tsx at repo root) — block hand-written. subsystems.json newly authored, not yet tooling-lint-verified. Ketchum questionnaire: Q3 awaiting James's react, Q4-Q7 unstarted. Stale website/projects/ briefs (StayFlo, WildTrax, Barkko) logged as debt, not fixed.
+  --- /Forensic Block ---
+  ```
+
+---
+
 ## 2026-04-04b — First Supplements + Cross-Project Analysis
 
 - **Built:** 10 supplement files (homepage + landing-pages for DEMX, AIDAX, SOFAX, WORDX, CODAX). SCOUTX Mode 5 research (16 external sites per job type). Cross-project analysis of 6 owner projects. Owner's Validated Patterns section with dual-mode framework. 2 SCOUTX research references. 5 worker playbook supplement tables populated.

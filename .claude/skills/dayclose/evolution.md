@@ -6,6 +6,17 @@
 
 1. **Session-context.md may have been modified by another process** — always re-read before writing (got file-modified error this session)
 2. **Check if session log already has an entry for today** — this project had two sessions on the same day. Use date suffixes (2026-04-01b) to disambiguate
+3. **Forensic generator needs tsx — this repo has none.** No root `package.json`, no `tsx`. Self-heal copies `scripts/forensic-log.ts` in (correct, idempotent) but it cannot be executed here. Hand-write the forensic block — the generator is a convenience, the block is the requirement. Same applies to `lint-subsystems.ts`.
+4. **Framework/docs/skills sessions have no deploy surface.** When a session only touches `.ai/`, `.claude/`, `docs/`, `CLAUDE.md` etc. and never `website/`, skip Step 10 (deploy verify) — the website deploys to Vercel and was untouched, nothing else deploys anywhere. Note it in the session log rather than waiting on a non-existent deploy.
+
+---
+
+## 2026-05-14 — Framework Sync + Portfolio Intelligence
+
+**Caught:** Two unpushed session commits detected and pushed. Step 7 correctly filtered ROADX onboarding (manifest fill — must not push upstream) and the project-specific `/portfolio` skill (no upstream equivalent) — nothing genuine to push, no false `/firm` or `/stack` invoke. `.vscode/` and `website/node_modules/` untracked-since-session-start caught and gitignored (monorepo `/node_modules` only anchored root). Forensic infra self-healed from Stack template. `docs/BLUEPRINT.md` was missing — created. No sensitive files, no demo pages, no stashes, on `main`.
+**Missed:** Nothing flagged by the user.
+**Friction:** Forensic generator unrunnable (no tsx) — had to hand-write the block. subsystems.json had to be authored from scratch and tailored (Stack template's example is app-shaped, not monorepo-shaped). New learned rules 3 + 4 capture both so future runs do not re-derive them.
+**User overrode:** Deploy check skipped (no application code touched — consistent with prior framework/docs sessions).
 
 ---
 
