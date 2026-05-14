@@ -1,5 +1,35 @@
 # Sync — Evolution Log
 
+## 2026-05-14 — Major version jump (Firm v3.16 → v4.4.2)
+
+**What happened:**
+- Both repos already up to date on pull (changes were already fetched, just not applied locally)
+- Firm update.sh: v3.16 → **v4.4.2**, 31 → 34 workers. 3 new workers added:
+  - `reviewers/SEOX-saoirse-sage.md` — framework-pure (no manifest, no tokens)
+  - `planners/ROADX-roy-roadmap.md` — has manifest, onboarded this sync
+  - `planners/STRATX-stratton-pivot.md` — framework-pure (no manifest, no tokens)
+- update.sh also updated PROTOCOL, GAFFER, FOREMAN, TRAINX, SUPPLEMENTS, _templates, lessons/, FIRM-CONTEXT, evolution.md. Preserved all 31 existing workers + 12 supplements.
+- ROADX onboarded: 13 manifest tokens filled (11 real, 2 N/A — `[BUSINESS-PLAN-PATH]`, `[TECH-BUILD-PLAN-PATH]`, no business/tech-build-plan files in this repo). Heading renamed `## [PROJECT] Context` → `## Lost Monster Context`. All body tokens replaced. De-hedged "fill in per project" prose.
+- project.json firmVersion bumped 3.13 → 4.4.2
+- Stack: 4 new skills copied in — **buildplan, debtloop, devstart, healthcheck**. 10 existing skills all Stack-newer (replaced). railway already in sync. No extra files in any skill dir.
+- _templates (self-learn.md) + README synced from Stack.
+
+**Caught:**
+- The 28 existing workers all show exactly 1 `[PROJECT]` — confirmed it's the manifest token-column entry only (nonManifestLines=0, ctxHeading=0). Correctly NOT treated as unfilled, per the standing rule.
+- Skill SKILL.md files contain bracket tokens (`[PROJECT]`, `[DEV_URL]`, `[PRODUCTION_URL]`, `[ISSUE-ID]` etc) — verified ALL are part of the skill instruction text by design (examples, runtime-resolved curl placeholders, regex). NOT project tokens. Step 5 correctly does not fill skill tokens.
+
+**Confirmed resolved:**
+- The historical `[DESIGN-GUIDE-PATH]` recurring issue is GONE. Both the Stack `gaffer/SKILL.md` and the Firm `crew/GAFFER.md` now have zero bracket tokens. The obsolete "re-fill gaffer SKILL.md" rule stays obsolete.
+
+**Friction:**
+- `replace_all` is unsafe for body token replacement when the same token appears in the manifest table (would corrupt the manifest). Used per-line targeted Edits instead. Worth noting for future worker onboarding.
+
+**Learned rules (NEW):**
+- For new workers with a `## [PROJECT] Context` section: fill manifest tokens, rename heading, de-hedge "fill in per project" language, but DON'T wholesale-rewrite genuinely-good generic prose — token fills + heading rename is enough when the prose is already token-driven.
+- When onboarding a worker, replace body tokens with per-line Edits, never global `replace_all` — the manifest table holds the same tokens in backticks and would be clobbered.
+
+---
+
 ## 2026-04-01c — Third sync (verification after all upgrades)
 
 **What happened:**

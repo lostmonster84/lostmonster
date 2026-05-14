@@ -17,7 +17,7 @@ You are syncing improvements made to The Stack framework (skills, scaffold patte
 ## Step 0: Read Evolution Log
 
 1. Read `.claude/skills/stack/evolution.md` before doing anything else
-2. Check the **Learned Rules** section — these are things previous syncs taught you
+2. Check the **Learned Rules** section - these are things previous syncs taught you
 3. Apply every learned rule during this sync. They override the defaults below if there's a conflict
 
 ## What gets synced
@@ -34,6 +34,16 @@ The Stack provides the scaffold and reusable skills for every project. When we c
 | Setup improvements | Learned from project setup | `setup.sh` |
 | Update improvements | Learned from project updates | `update.sh` |
 | Sync script | N/A | `sync-skills.sh` |
+| Product evolution logs | `packages/*/EVOLUTION.md` | `docs/evolution-log.md` (template only) |
+
+**Package evolution log upstream rule:**
+When a package's `EVOLUTION.md` is updated (e.g. `packages/canary/EVOLUTION.md`), check if that package has its own upstream repo. If so, copy the evolution log there too. Known package upstreams:
+
+| Package | Upstream repo | Local clone |
+|---------|--------------|-------------|
+| `packages/canary` | `lostmonster84/canary` | `~/Projects/canary/` |
+
+If the upstream repo doesn't exist yet or the clone is missing, log it as a debt and move on. The Stack's `docs/evolution-log.md` always gets the latest **template** (not project-specific content).
 
 **NEVER sync (project-specific):**
 - Skills with `# PROJECT-SPECIFIC OVERRIDE` comment (only sync methodology changes)
@@ -56,7 +66,7 @@ If the project skill already has `# PROJECT-SPECIFIC OVERRIDE` as its first line
 ### Generalising evolution logs
 
 When syncing a skill's `evolution.md`:
-- Keep the **Learned Rules** section — these are universal
+- Keep the **Learned Rules** section - these are universal
 - Keep pattern entries but strip project-specific details (file paths, feature names)
 - The wrap count and dates are fine to keep
 
@@ -71,20 +81,20 @@ When syncing a skill's `evolution.md`:
 7. **Bump version** in README if significant (new skill, scaffold overhaul)
 8. **Commit** with a clear message
 9. **Pre-push verification (MANDATORY):**
-   - Run `git diff --stat HEAD~1` — review the diff one last time. Does it look right? Any accidental overwrites, project-specific references left in, or evolution.md content (should be blank seeds only)?
-   - Run `ls skills/` in the repo — does every skill dir have a `SKILL.md`? Does every evolving skill have an `evolution.md`?
-   - Check the README skills table — does it list all skills in `skills/`? Any missing?
+   - Run `git diff --stat HEAD~1` - review the diff one last time. Does it look right? Any accidental overwrites, project-specific references left in, or evolution.md content (should be blank seeds only)?
+   - Run `ls skills/` in the repo - does every skill dir have a `SKILL.md`? Does every evolving skill have an `evolution.md`?
+   - Check the README skills table - does it list all skills in `skills/`? Any missing?
    - If anything's wrong, fix before pushing
 10. **Push** to `origin main`
 11. **Confirm** what was pushed
 
-## Self-Learn (MANDATORY — runs every sync)
+## Self-Learn (MANDATORY - runs every sync)
 
 After completing the sync, write a retrospective entry to `.claude/skills/stack/evolution.md`:
 
 ### What to log
 ```markdown
-## Sync #N — YYYY-MM-DD
+## Sync #N - YYYY-MM-DD
 
 - **Synced:** [What skills/files were pushed upstream]
 - **Generalisation issues:** [Anything that was hard to generalise, or mistakes made]
@@ -109,7 +119,7 @@ When patterns are detected:
 
 ## Key rules
 
-- **NEVER OVERWRITE — ONLY ADD/UPDATE.** Read existing files first, then merge improvements in. Append to changelogs. Never replace file contents wholesale unless explicitly told to overwrite
+- **NEVER OVERWRITE - ONLY ADD/UPDATE.** Read existing files first, then merge improvements in. Append to changelogs. Never replace file contents wholesale unless explicitly told to overwrite
 - **Generalise everything.** The Stack repo is project-agnostic
 - **Always update both changelogs** - `CHANGELOG.md` for framework changes, `SKILLS-CHANGELOG.md` for skill changes
 - **Skills with `# PROJECT-SPECIFIC OVERRIDE` are not fully synced** - only methodology changes

@@ -1,4 +1,4 @@
-# Lessons — Hard-Won Cross-Project Knowledge
+# Lessons - Hard-Won Cross-Project Knowledge
 
 > The Firm's institutional memory. Every lesson here was learned the hard way.
 > These travel with every project via `setup.sh` / `update.sh`.
@@ -7,7 +7,7 @@
 
 ## What Goes Here
 
-Platform gotchas, infrastructure traps, process failures, and verified truths that apply to **any project** using The Firm. Not project-specific quirks — universal knowledge.
+Platform gotchas, infrastructure traps, process failures, and verified truths that apply to **any project** using The Firm. Not project-specific quirks - universal knowledge.
 
 ## Rules
 
@@ -15,7 +15,7 @@ Platform gotchas, infrastructure traps, process failures, and verified truths th
 2. **Every lesson must have:** title, platform tag, verified date, Why, How to apply
 3. **Verified date is mandatory.** If a lesson hasn't been re-verified in 6 months, the Gaffer fitness audit flags it for review
 4. **Universal only.** If it only applies to one project, it goes in project memory, not here
-5. **Concrete, not vague.** "Verify cron jobs actually fire" is bad. "Railway ignores multiple [[cron]] entries — only the last schedule takes effect" is good
+5. **Concrete, not vague.** "Verify cron jobs actually fire" is bad. "Railway ignores multiple [[cron]] entries - only the last schedule takes effect" is good
 6. **Tag by platform** so workers can filter. Tags: `railway`, `vercel`, `cloudflare`, `stripe`, `resend`, `postgresql`, `process`, `general`
 
 ## Format
@@ -48,10 +48,10 @@ A session finding becomes a lesson when ALL of these are true:
 
 | Worker | When |
 |--------|------|
-| **RIGX** | Before ANY infrastructure change — mandatory pre-flight |
-| **AUDIX** | Before scoring health — check if any lesson defines "healthy" differently than assumed |
-| **The Gaffer** | Before approving infra work — cross-reference lessons against the proposed approach |
-| **TRAINX** | During improvement loop — check if a failure matches a known lesson (if so, the worker should have known) |
+| **RIGX** | Before ANY infrastructure change - mandatory pre-flight |
+| **AUDIX** | Before scoring health - check if any lesson defines "healthy" differently than assumed |
+| **The Gaffer** | Before approving infra work - cross-reference lessons against the proposed approach |
+| **TRAINX** | During improvement loop - check if a failure matches a known lesson (if so, the worker should have known) |
 
 ## Promotion Flow
 

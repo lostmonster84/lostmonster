@@ -41,7 +41,7 @@ The Firm lives at `.ai/thefirm/` in every project. The standalone repo at `~/Pro
 ## Procedure
 
 1. **Identify what changed** - diff the project's `.ai/thefirm/` against the repo clone to find improvements
-2. **Auto-generalise workers** — for each changed worker file, use the onboarding manifest to reverse project-specific content back to generic tokens. See "Worker Generalisation" below
+2. **Auto-generalise workers** - for each changed worker file, use the onboarding manifest to reverse project-specific content back to generic tokens. See "Worker Generalisation" below
 3. **Copy files** to `~/Projects/thefirm/` at matching paths
 4. **Update `~/Projects/thefirm/CHANGELOG.md`** - add entry under current version with what changed and why
 5. **README.md audit (MANDATORY every push)** - count actual files in the repo and verify README matches reality:
@@ -54,8 +54,8 @@ The Firm lives at `.ai/thefirm/` in every project. The standalone repo at `~/Pro
 6. **Bump version** in README if it's a significant change (new worker, protocol overhaul)
 7. **Commit** with a clear message describing the improvement
 8. **Pre-push verification (MANDATORY):**
-   - Run `git diff --stat HEAD~1` — review the diff one last time. Does it look right? Any accidental overwrites, state files slipping in, or project-specific references left in?
-   - Count files in `crew/planners/`, `crew/builders/`, `crew/reviewers/`, `crew/checkers/` — do the counts match what the README claims?
+   - Run `git diff --stat HEAD~1` - review the diff one last time. Does it look right? Any accidental overwrites, state files slipping in, or project-specific references left in?
+   - Count files in `crew/planners/`, `crew/builders/`, `crew/reviewers/`, `crew/checkers/` - do the counts match what the README claims?
    - If anything's wrong, fix before pushing
 9. **Push** to `origin main`
 10. **Confirm** what was pushed
@@ -67,11 +67,11 @@ When pushing worker files upstream, project-specific content must be reversed to
 ### project.json as Reverse Source
 
 If `project.json` exists at the project root, use it as the **primary source** for reverse-replacement. This is more reliable than reading individual manifests because:
-- project.json has the complete token→value mapping in one place
+- project.json has the complete token-to-value mapping in one place
 - It includes alias tokens (HOSTING and HOSTING-PROVIDER both map to the same value)
 - It distinguishes N/A tokens from unfilled tokens
 
-**N/A tokens during push:** Tokens marked `"N/A"` in project.json were never replaced in the worker body, so there's nothing to reverse. Skip them. The manifest Value column should be cleared to **empty** (not "N/A") for the upstream version — upstream manifests are always empty.
+**N/A tokens during push:** Tokens marked `"N/A"` in project.json were never replaced in the worker body, so there's nothing to reverse. Skip them. The manifest Value column should be cleared to **empty** (not "N/A") for the upstream version -- upstream manifests are always empty.
 
 **project.json is NEVER pushed upstream.** It is project-specific.
 
@@ -79,11 +79,11 @@ If `project.json` exists at the project root, use it as the **primary source** f
 
 For each worker with an `<!-- ONBOARD:START -->` manifest:
 
-1. **Read project.json** (preferred) or the manifest for Token → Value pairs
-2. **Sort by value length descending** — replace longer values first to avoid partial matches (e.g. `wildtrax-red (#c41e3a)` before `wildtrax`)
-3. **Reverse-replace in body** — for each row, replace all instances of the Value with the Token throughout the file (OUTSIDE the `ONBOARD:START/END` markers)
-4. **Clear manifest values** — reset the Value column to empty (token-only state, not "N/A")
-5. **Verify** — grep the file for known project-specific values (project name, brand colours, product names). If any remain, they weren't in the manifest — add them and re-run
+1. **Read project.json** (preferred) or the manifest for Token to Value pairs
+2. **Sort by value length descending** - replace longer values first to avoid partial matches (e.g. `wildtrax-red (#c41e3a)` before `wildtrax`)
+3. **Reverse-replace in body** - for each row, replace all instances of the Value with the Token throughout the file (OUTSIDE the `ONBOARD:START/END` markers)
+4. **Clear manifest values** - reset the Value column to empty (token-only state, not "N/A")
+5. **Verify** - grep the file for known project-specific values (project name, brand colours, product names). If any remain, they weren't in the manifest - add them and re-run
 
 ### Mechanism 2: Context Section Generalisation
 
@@ -97,7 +97,7 @@ For each worker with a project-specific Context section (e.g. `## WildTrax Conte
    - [PROJECT-DOMAIN] specifics relevant to this worker's role
    - See onboarding manifest for token definitions
    ```
-2. **Update heading** — `## ProjectName Context` → `## [PROJECT] Context`
+2. **Update heading** - `## ProjectName Context` → `## [PROJECT] Context`
 
 ### Verification Checklist
 
@@ -108,7 +108,7 @@ Before copying to the Firm repo, verify each worker file:
 - [ ] No product-specific terms (e.g. "Camping", "Lodge & Landy") outside the manifest
 - [ ] Context section is generic `## [PROJECT] Context`
 - [ ] Manifest Value column is empty
-- [ ] Worker title doesn't say "ProjectName Edition" — use generic title or no edition
+- [ ] Worker title doesn't say "ProjectName Edition" - use generic title or no edition
 
 If verification fails, check if the manifest is missing tokens. Add them, re-run reversal.
 
@@ -117,14 +117,14 @@ If verification fails, check if the manifest is missing tokens. Add them, re-run
 If generalisation misses project-specific content:
 1. **Add the missing token** to the worker's manifest
 2. **Add to the Token Catalogue** in `ONBOARDING.md` if it's a new standard token
-3. **Log to evolution.md** — "Generalisation missed [value], added [TOKEN] to manifest"
+3. **Log to evolution.md** - "Generalisation missed [value], added [TOKEN] to manifest"
 4. Same miss won't happen next push
 
 ---
 
 ## Key rules
 
-- **NEVER OVERWRITE — ONLY ADD/UPDATE.** Read existing files first, then merge improvements in. Append to changelogs. Add new entries to evolution logs. Never replace file contents wholesale unless James explicitly says to overwrite
+- **NEVER OVERWRITE - ONLY ADD/UPDATE.** Read existing files first, then merge improvements in. Append to changelogs. Add new entries to evolution logs. Never replace file contents wholesale unless James explicitly says to overwrite
 - **Generalise everything.** The Firm repo is project-agnostic. No project-specific references
 - **Never touch state files.** Session logs, debts, calibration are per-project
 - **Always update the changelog.** Every push gets a changelog entry appended under the current version

@@ -22,20 +22,20 @@ skills/
 
 | File | Purpose | Synced? |
 |------|---------|---------|
-| `SKILL.md` | Skill definition — instructions, steps, rules | Yes |
-| `evolution.md` | Per-project learning log — what worked, what didn't | Never |
+| `SKILL.md` | Skill definition - instructions, steps, rules | Yes |
+| `evolution.md` | Per-project learning log - what worked, what didn't | Never |
 
 ## Available skills
 
 | Command | What it does |
 |---------|-------------|
-| `/go` | Session launchpad — orient, triage, present ranked menu |
+| `/go` | Session launchpad - orient, triage, present ranked menu |
 | `/gaffer` | Crew assignment, QA, scoring, debt tracking |
 | `/linear` | Pull Linear issues, triage, hand each to `/gaffer` |
-| `/railway` | Railway ops — status, logs, deploy, migrate, vars |
+| `/railway` | Railway ops - status, logs, deploy, migrate, vars |
 | `/canary` | Error reports, diagnostics, threshold tuning |
-| `/wrap` | Lightweight session close — commit, push, update logs |
-| `/dayclose` | Full day close — changelog, cache purge, process kill |
+| `/wrap` | Lightweight session close - commit, push, update logs |
+| `/dayclose` | Full day close - changelog, cache purge, process kill |
 | `/design` | Generate `/design` page from design config |
 | `/firm` | Push Firm framework improvements upstream |
 | `/stack` | Push Stack skill improvements upstream |
@@ -45,9 +45,9 @@ skills/
 
 Skills are synced from The Stack repo (`lostmonster84/thestack`) into each project's `.claude/skills/` directory.
 
-- **Pull latest:** `/sync` — pulls from Stack, updates local skills
-- **Push improvements:** `/stack` — pushes local skill changes back to Stack
-- **evolution.md is sacred** — never overwritten during sync. It's per-project state
+- **Pull latest:** `/sync` - pulls from Stack, updates local skills
+- **Push improvements:** `/stack` - pushes local skill changes back to Stack
+- **evolution.md is sacred** - never overwritten during sync. It's per-project state
 
 ## Adding a new skill
 

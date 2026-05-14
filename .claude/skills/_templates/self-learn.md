@@ -15,7 +15,7 @@ Each skill that uses this protocol needs:
 After the skill completes its work, write an entry to `evolution.md`:
 
 ```markdown
-## Run #N — YYYY-MM-DD
+## Run #N - YYYY-MM-DD
 
 - **Caught:** [Things the skill correctly identified/handled that were useful]
 - **Missed:** [Things the user had to flag manually, or that fell through the cracks]
@@ -57,11 +57,11 @@ The `evolution.md` file has two sections:
 ---
 
 ### Learned Rules
-- [Rules extracted from patterns — these override defaults in SKILL.md]
+- [Rules extracted from patterns - these override defaults in SKILL.md]
 
 ---
 
-## Run #N — YYYY-MM-DD
+## Run #N - YYYY-MM-DD
 [Retrospective entries, newest first]
 ```
 
