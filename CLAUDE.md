@@ -98,6 +98,17 @@ website/app/labs/
 
 ---
 
+## Portfolio Intelligence (`.ai/portfolio/`)
+
+Lost Monster is the master agency — it tracks every project in development across the `/Volumes/Projects/` workspace.
+
+- **`/portfolio`** — project-specific skill. Scans every repo in `/Volumes/Projects/`, maintains a deep `OVERVIEW.md` per venture plus a running `INDEX.md` tally. Smart-updates only what changed since the last scan; logs every run to `CHANGELOG.md`.
+- **`.ai/portfolio/INDEX.md`** — the running tally: every project, status, strategic call, one-liner.
+- **`.ai/portfolio/projects/<name>.md`** — investor-grade deep-dive per venture.
+- Read-only on other repos. This skill and its knowledge base are local to lostmonster and never synced to The Stack.
+
+---
+
 ## For AI Assistants
 
 **If working on the website:** Read [website/CLAUDE.md](./website/CLAUDE.md) first.
