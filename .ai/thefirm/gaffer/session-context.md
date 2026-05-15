@@ -1,32 +1,37 @@
-# Session Context -- 2026-05-14
+# Session Context — 2026-05-15
 
 ## What Shipped
-- `/sync` ran: The Firm v3.16 → v4.4.2 (34 workers), The Stack synced (4 new skills: buildplan, debtloop, devstart, healthcheck). ROADX worker onboarded.
-- New `/portfolio` skill -- project-specific, scans `/Volumes/Projects/`, maintains `.ai/portfolio/` knowledge base. Never synced to The Stack.
-- First full portfolio scan: 11 deep venture OVERVIEWs (doma, evidis, hospojobs, twin, ancarraig, wildtrax, govozi, stayflo, canary, barkko, native) + INDEX + CHANGELOG.
-- Forensic logging infrastructure adopted (`scripts/`, `subsystems.json`). `docs/BLUEPRINT.md` created.
-- 3 commits pushed: 02913ec (sync), 160472b (portfolio), + dayclose wrap.
+
+- Pushed `chore(v4.6.1) strip DOMA project contamination from framework` to lostmonster84/thefirm (commit `9d03bd8`). 23 files, +776/-652 lines.
+- 12 worker playbooks generalised upstream (MAPX, BLAZX, INSPX, STANX, TERRX, TESTX, AUDIX, AIDAX, ALLYX, PIXLX, SEOX, SOFAX) + 9 specs/feature-requests swept. SEOX was the biggest (52 DOMA refs) — Dim 6 Hreflang now scales with project locale count, no longer hard-coded to DOMA's 7.
+- Local re-pulled cleaned versions and re-onboarded via `/tmp/reonboard.py` — 47 manifest tokens filled across 12 workers. Local DOMA contamination: zero in active workers (only documented KEEP files retain refs).
+- Forensic-block scaffold completed: `scripts/install-hooks.sh`, `.githooks/commit-msg`, `.githooks/post-merge`, `.github/pull_request_template.md`. `core.hooksPath` wired to `.githooks/`.
+- Firm version: v4.4.2 → v4.6.0 (sync) → v4.6.1 (our cleanup). CLAUDE.md + BLUEPRINT.md + project.json stamped.
 
 ## Design Decisions Made
-- **`/portfolio` lives only in lostmonster.** It is the "master agency" view -- read-only on every sibling repo, never pushed to The Stack. Output goes to `.ai/portfolio/` (chosen over `docs/` or extending `website/projects/`).
-- **Smart-update via SCAN stamps.** Each `projects/*.md` carries `<!-- SCAN: head=<sha> date=... -->`. Re-runs only deep-scan repos whose git HEAD moved -- the first run was the expensive one (11 parallel agents).
-- **subsystems.json tailored, not copied.** The Stack template's example manifest is app-shaped (apps/, packages/); lostmonster is a marketing-site + framework monorepo, so the manifest was authored fresh.
-- **Forensic block hand-written.** No `tsx` at repo root -- the generator self-heals into `scripts/` but cannot run here. Captured as dayclose learned rule 3.
+
+None — backend/infrastructure session.
 
 ## Rejected Alternatives
-- Putting the portfolio KB in `website/projects/` -- rejected: mixes internal strategic intel with publishable website content.
-- Full-regenerate-every-run for `/portfolio` -- rejected in favour of smart-update + changelog.
-- Copying the Stack template's subsystems.json verbatim -- rejected: globs would never match this repo's shape.
+
+- **Identifier-only tokenisation** vs full generalisation: user picked full generalisation. Worth it — methodology now points at `[DESIGN-GUIDE-PATH]` instead of dictating DOMA's specific palette laws.
+- **Leave STRATX worked-example DOMA ref in place**: kept under the same documentation-by-real-example carve-out as GAFFER's contamination-scan section. Flag if the framework's worked examples should be neutralised in a later pass.
+- **Strip the "real-estate-shaped" worked examples from calibration-anchors-template.md**: not done — the template now wraps them in a "from a real-estate marketplace project" framing note. Concrete examples kept for usefulness; the wrapper makes the scope explicit.
 
 ## In-Progress Work
-- **Jack Stanley / Ketchum questionnaire** -- 7-question research questionnaire on how AI is changing what brands are for. Q1 + Q2 drafted (voice crew-approved). Q3 (where the human is irreplaceable) has a draft on the table awaiting James's react -- one accuracy note flagged: "the Nigel test" is shorthand; the persona actually varies by project (Nigel/Evidis, Graduate Grace/HospoJobs, Tourist Tom/GoVozi). Q4-Q7 unstarted. Source material: the `.ai/portfolio/` knowledge base (fresh, fact-checked).
+
+None — every piece committed locally or pushed upstream.
 
 ## Deferred to Next Session
-- React to Ketchum Q3, then draft Q4-Q7 (belief questions -- need James's actual take, crew can propose positions from how he operates).
-- Rewrite stale `website/projects/` briefs (StayFlo, WildTrax, Barkko) from the `.ai/portfolio/` OVERVIEWs -- logged in debts.md.
-- Forensic generator + lint-subsystems can't run without tsx -- decide whether to add a minimal root toolchain or keep hand-writing blocks.
+
+- **Upstream Firm catalogue**: add 11 new tokens to `~/Projects/thefirm/.ai/thefirm/ONBOARDING.md` Token Catalogue + `schemas/project.schema.json`. Without this, the next project that /syncs will treat them as "gaps". (debts.md)
+- **Merge reonboard.py pattern into /sync or update.sh** so worker methodology drift gets re-onboarded automatically. Currently ad-hoc at /tmp. (debts.md)
+- **Extend subsystems.json** with globs for `.githooks/`, `.github/`, `scripts/install-hooks.sh` — the forensic generator's "uncategorised" bucket flagged this. (debts.md)
+- **Pre-existing UX/content debts unchanged**: "2-4 weeks" refs sweep (~60 in .ai/), content pages styling (white bg vs homepage dark gradient), case-study HTML preview fix, content-page CTAs, stale website/projects/ briefs (StayFlo / WildTrax / Barkko). None touched this session.
 
 ## Pick Up From Here
-1. **Ketchum questionnaire** -- react to the Q3 draft, then draft Q4-Q7. This is the live task James paused. See TODO.md + the Q3 draft in the last session transcript.
-2. Rewrite the 3 stale venture briefs in `website/projects/` from the portfolio OVERVIEWs.
-3. Existing open debts unchanged: content pages don't match Bold Personal Brand, no CTA on content pages, "2-4 weeks" doc sweep, case-study listing raw HTML.
+
+1. **/dayclose to push the local commit** — 1 commit ahead of origin after this /wrap. Push triggers nothing critical since the work is framework + docs, but completes the eject.
+2. **Close one of the long-running debts**: the website/projects/ briefs sweep (StayFlo / WildTrax / Barkko) is the most actionable — `.ai/portfolio/` OVERVIEWs are fresh, just rewrite the website briefs from them.
+3. **OR address upstream catalogue debt** (add new tokens to ONBOARDING.md + project.schema.json) while the SEOX context is fresh in head.
+4. The "2-4 weeks" sweep (~60 refs across `.ai/`) is overdue — flagged 6 weeks ago, still open.

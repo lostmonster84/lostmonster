@@ -29,7 +29,7 @@ lostmonster/
 │   └── CLAUDE.md         Website-specific AI instructions
 ├── framework/            Universal development framework (templates, agents, docs)
 ├── .ai/
-│   ├── thefirm/          The Firm v4.4.2 — 34 workers, protocol, gaffer state
+│   ├── thefirm/          The Firm v4.6.1 — 34 workers, protocol, gaffer state
 │   └── portfolio/        Portfolio knowledge base (INDEX + CHANGELOG + projects/)
 ├── .claude/skills/       Slash-command skills (synced from The Stack + project-specific)
 ├── scripts/              Repo tooling (forensic-log.ts, lint-subsystems.ts)
@@ -60,7 +60,7 @@ Brand docs live in `website/.ai/` (including `LOST-MONSTER-DESIGN-SYSTEM.md`). T
 Reusable project-spin-up templates, agents and docs. Not wired into the website — it is a toolkit consumed when starting new projects.
 
 ### The Firm (`.ai/thefirm/`)
-The AI worker-crew framework, currently v4.4.2 with 34 workers. `PROTOCOL.md` is the execution contract; `crew/` holds worker playbooks (GAFFER, FOREMAN, planners, builders, reviewers, checkers); `gaffer/` holds per-project state (session-log, debts, calibration, evolution, session-context). Synced down from `lostmonster84/thefirm` via `/sync` (which runs `update.sh`); genuine improvements pushed back via `/firm`. Project-specific context is filled into workers by an onboarding mechanism (manifest token tables + `## Project Context` sections) driven by `project.json` — this onboarding state must never be pushed upstream.
+The AI worker-crew framework, currently v4.6.1 with 34 workers. `PROTOCOL.md` is the execution contract; `crew/` holds worker playbooks (GAFFER, FOREMAN, planners, builders, reviewers, checkers); `gaffer/` holds per-project state (session-log, debts, calibration, evolution, session-context). Synced down from `lostmonster84/thefirm` via `/sync` (which runs `update.sh`); genuine improvements pushed back via `/firm`. Project-specific context is filled into workers by an onboarding mechanism (manifest token tables + `## Project Context` sections) driven by `project.json` — this onboarding state must never be pushed upstream.
 
 ### Portfolio intelligence (`.ai/portfolio/`, `.claude/skills/portfolio/`)
 The `/portfolio` skill (project-specific, never synced to The Stack) scans every repo in `/Volumes/Projects/`, classifies each, and maintains:

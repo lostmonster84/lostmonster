@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+# post-merge - check if The Firm has updates after a git pull.
+#
+# Lives in .githooks/ so it travels with the repo. install-hooks.sh wires
+# core.hooksPath = .githooks so this fires automatically on every merge.
+
+FIRM_DIR="$HOME/Projects/thefirm"
+if [ -d "$FIRM_DIR/.git" ]; then
+  git -C "$FIRM_DIR" fetch origin main --quiet 2>/dev/null
+  LOCAL=$(git -C "$FIRM_DIR" rev-parse HEAD 2>/dev/null)
+  REMOTE=$(git -C "$FIRM_DIR" rev-parse origin/main 2>/dev/null)
+  if [ "$LOCAL" != "$REMOTE" ]; then
+    echo ""
+    echo "  The Firm has updates available."
+    echo "  Run: bash ~/Projects/thefirm/update.sh"
+    echo ""
+  fi
+fi

@@ -10,7 +10,7 @@ child_envelope:
     - ONE dimension rubric (only that dimension's checkpoints + scoring + red flags)
     - target search intent + locale context
     - INSPX checkpoint screenshots if available (optional, for visible-content checks)
-    - locale set (DOMA internal IDs: en, me, ru, uk, de, tr, it. Hreflang emission: en, sr-Latn-ME, ru, uk, de, tr, it). Source: `packages/shared/i18n/routing.ts:5` for the internal locale set; mapping `me → sr-Latn-ME` per BCP 47 (Serbian Latin script in Montenegro region) - see `apps/web/src/app/layout.tsx:32-51` for the `generateAlternates()` mapping
+    - locale set (per project i18n config — the number of locales drives the Dim 6 hreflang scoring cap; emission must follow BCP 47 / ISO 639-1 conventions, with regional variants where the internal locale ID is not a valid hreflang value). Source: `[I18N-ROUTING-PATH]` for the internal locale set; mapping rules and `generateAlternates()` (or equivalent) live in `[LOCALE-ALTERNATES-PATH]`
   emits:
     - per-dimension fragment with score, top issues (file:line), gate verdict
 synthesis_pattern_ref: A (Compositional rot - SEO defects compound across dimensions)
@@ -41,14 +41,34 @@ total_budget: 10 minutes wall-clock worst-case (parallel) | 3 minutes target
 fallback: slice_axis_override: NONE (single-threaded mode for short artefacts, isolated metadata fixes)
 ---
 
-# SEOX Framework - DOMA Edition v4 (OUTPUT-sliced)
+# SEOX Framework v4 (OUTPUT-sliced)
+
+<!-- ONBOARD:START -->
+| Token | Value | Source |
+|-------|-------|--------|
+| `[PROJECT]` | Lost Monster | Project name |
+| `[PROJECT-URL]` | https://lostmonster.io | Canonical production URL (e.g. `https://example.com`) |
+| `[PROJECT-DOMAIN]` | Framework-driven development that actually works | One-line description of what the project does |
+| `[DESIGN-GUIDE-PATH]` | website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md | Path to the project's design guide (e.g. `docs/DESIGN-GUIDE.md`) |
+| `[I18N-ROUTING-PATH]` | N/A | Path to the i18n routing / locale config (e.g. `packages/shared/i18n/routing.ts:5`) |
+| `[LOCALE-ALTERNATES-PATH]` | N/A | Path + line range for `generateAlternates()` (or equivalent hreflang emitter) |
+| `[LOCALE-SET]` | N/A | Internal locale IDs as a list (e.g. `[en, me, ru, uk, de, tr, it]`) |
+| `[HREFLANG-EMISSION-MAP]` | N/A | Map of internal IDs to emitted BCP 47 codes (e.g. `{en: en, me: sr-Latn-ME, ...}`) |
+| `[CDN-HOST]` | N/A | Image/asset CDN hostname (e.g. `cdn.example.com`) |
+| `[ADDRESS-COUNTRY]` | GB | ISO 3166-1 alpha-2 country code if project is geo-targeted |
+| `[PRICE-CURRENCY]` | GBP | ISO 4217 currency code if project handles pricing |
+| `[CALLING-CODE]` | +44 | E.164 country code if project surfaces phone numbers |
+| `[PRIMARY-INTENT]` | N/A | One-line description of dominant search intent for the project (e.g. "find property to buy/rent in Montenegro") |
+| `[PAGE-TYPES]` | N/A | List of indexable page types with route patterns (e.g. `homepage / search /search / detail /l/[slug] / category /[type]-in-[city]`) |
+| `[NAMED-LANDMARKS]` | N/A | List of pre-trained named entities the project should anchor to (locales, brands, proper nouns) |
+<!-- ONBOARD:END -->
 
 > **Saoirse Sage: SEO & Discovery Auditor**
 > On-demand SEO audit with measurable pass/fail criteria.
 > v4 fan-out: 10 dimension sub-agents in parallel against the whole artefact. SEOX synthesises with compositional pattern detection.
-> Run contextually on marketing pages, property detail, agency profiles, category landings, and search.
+> Run contextually on marketing pages, primary entity-detail pages, profile pages, category landings, and search.
 
-DOMA's free-acquisition channel is organic search. Every marketing page that ships without proper title/meta/schema/hreflang is leaving inbound traffic on the table. Worse: a single canonical-cross-locale error voids hreflang silently for 6 of 7 locales. SEOX exists to catch those before they ship.
+Lost Monster's free-acquisition channel is organic search. Every marketing page that ships without proper title/meta/schema/hreflang is leaving inbound traffic on the table. Worse: a single canonical-cross-locale error voids hreflang silently for every non-default locale. SEOX exists to catch those before they ship.
 
 ---
 
@@ -73,21 +93,23 @@ Each dimension has binary checkpoints - they pass or fail. Points are awarded ba
 
 ### Target Scores
 
+Targets vary by page type. Fill in this table per project; the examples below are illustrative defaults — substitute the actual `[PAGE-TYPES]` for the project.
+
 | Page Type | Target | Rationale |
 |-----------|--------|-----------|
 | Marketing homepage | 95+ / 110 | Highest-value page, highest scrutiny |
-| Property detail (`/l/[slug]`) | 90+ / 110 | Schema-heavy, conversion-critical |
-| Search results (`/search`) | 80+ / 110 | Dynamic content, lower schema demand |
-| Category landing (`/for-sale-in-budva`) | 90+ / 110 | High intent, must rank |
-| Agency profile (`/agencies/[slug]`) | 90+ / 110 | LocalBusiness schema mandatory |
-| Blog post (`/news/[cat]/[slug]`) | 85+ / 110 | Article schema, E-E-A-T weight |
+| Primary entity-detail page (e.g. product / listing / profile) | 90+ / 110 | Schema-heavy, conversion-critical |
+| Search results page | 80+ / 110 | Dynamic content, lower schema demand |
+| Category landing | 90+ / 110 | High intent, must rank |
+| Profile / agent / org page | 90+ / 110 | LocalBusiness or Organization schema mandatory |
+| Blog post / article | 85+ / 110 | Article schema, E-E-A-T weight |
 | Account / auth pages | 60+ / 110 | Indexability concerns only |
 
 ### Rating Levels
 
 | Score | Rating | Meaning |
 |-------|--------|---------|
-| 100-110 | Exceptional | Ship with pride. Best-in-Montenegro SEO posture. |
+| 100-110 | Exceptional | Ship with pride. Best-in-market SEO posture. |
 | 90-99 | Sophisticated | Launch-ready. Minor polish opportunities. |
 | 80-89 | Good | Needs targeted fixes. Ship after P1 sweep. |
 | 65-79 | Acceptable | MVP only. Will rank poorly. Plan a polish session. |
@@ -107,14 +129,14 @@ Per-dim maxes:
   Dim 3 H1 hierarchy: 10 (standard)
   Dim 4 Schema:       15 (CRITICAL - max +5 above standard)
   Dim 5 Canonical:    10 (CRITICAL, full-weight max)
-  Dim 6 Hreflang:     15 (CRITICAL - max +5 above standard, DOMA has 7 locales)
+  Dim 6 Hreflang:     variable — base 10, +1 per additional locale beyond 1 (cap +5). E.g. a 7-locale project caps at 15; a single-locale project stays at 10.
   Dim 7 E-E-A-T:      10 (standard)
   Dim 8 Internal:     10 (standard)
   Dim 9 GEO:          10 (CRITICAL, full-weight max)
   Dim 10 URL/Image:   10 (SUPPORTING - lighter checkpoint scoring per failed check)
 ```
 
-Frank #19 will BLOCK any SEOX fragment that emits a composite that doesn't equal `sum(dim_scores)` clamped by auto_fail rules. **Calibration note (2026-05-13):** prior version of this formula double-weighted by applying severity multipliers on top of already-elevated dim maxes. Found during first smoke test on `/l/property-in-montenegro-budva-blizikuce-...`. Simplified to direct sum.
+Frank #19 will BLOCK any SEOX fragment that emits a composite that doesn't equal `sum(dim_scores)` clamped by auto_fail rules. **Calibration note (2026-05-13):** prior version of this formula double-weighted by applying severity multipliers on top of already-elevated dim maxes. Found during the framework's first live smoke test on a deep entity-detail page. Simplified to direct sum.
 
 ### Auto-Fail Conditions (composite capped at 50 regardless of dim scores)
 
@@ -124,9 +146,9 @@ If ANY of these fire, `seox_auto_fail: true` and composite is capped at 50:
 - Canonical points to non-200 OR non-indexable OR redirect URL (v4.1 from V1)
 - Hreflang is non-reciprocal (one or more sibling missing OR sibling URL returns non-200 OR sibling is noindex - v4.1 depth from V1+V2)
 - JSON-LD has parse errors (Rich Results Test or Schema Validator rejects)
-- Property detail page missing `RealEstateListing` JSON-LD entirely
+- Primary entity-detail page missing its required JSON-LD `@type` entirely (e.g. a product detail without `Product`, a property detail without `RealEstateListing`, an article without `Article` / `BlogPosting`)
 - Page is JS-only rendered: defined precisely (v4.1 from V6) as "critical content (`<h1>`, body intro, primary JSON-LD block) absent from the response body returned at the first HTTP request, BEFORE any JS execution"
-- Listing is sold/let but still indexed as `availability: InStock`
+- Stale availability/status: entity is sold/let/discontinued in the database but JSON-LD still reports it as `availability: InStock` (or equivalent active state)
 - robots.txt blocks Googlebot/GPTBot/ClaudeBot/PerplexityBot on indexable routes
 - Page returns 5xx (v4.1 from V6)
 - Page in sitemap returns 4xx (v4.1 from V6)
@@ -141,36 +163,38 @@ These anchors are loaded by the agent-identity-loader into every SEOX sub-agent 
 
 ### Severity Definitions for SEOX
 
+> Examples below are calibrated patterns from a multi-locale real-estate site (a 7-locale property marketplace). Substitute project-specific examples during onboarding — keep the severity shape, replace the concrete artefacts.
+
 - **CRITICAL** - de-indexing OR ranking collapse OR Google penalty risk.
-  Concrete DOMA examples:
-  - Russian page canonicals to English page (kills international rankings, hreflang voided)
-  - Property detail missing JSON-LD entirely
+  Examples:
+  - Non-default-locale page canonicals to the default-locale page (kills international rankings, hreflang voided)
+  - Primary entity-detail page missing JSON-LD entirely
   - `<meta name="robots" content="noindex">` accidentally left on a marketing page
-  - JSON-LD has hidden data (marked-up bedrooms count not visible on page - Google spam policy violation)
+  - JSON-LD has hidden data (a marked-up fact not visible on page - Google spam policy violation)
   - JS-only SPA rendering with no SSR (AI crawlers see empty `<div id="root">`)
 
 - **HIGH** - significant ranking loss / crawl efficiency / lost rich result eligibility.
-  Concrete DOMA examples:
-  - Title tag = brand only ("DOMA | Home") with no intent keyword
-  - Meta description missing or duplicated across all listings
-  - Schema validation errors on listing page (`floorSize` without `unitCode`)
-  - Hreflang only references 5 of 7 locales (entry dropped for omitted siblings)
-  - Property detail title only in metadata, not in DOM `<h1>`
-  - Blog post missing `Article` / `BlogPosting` schema
+  Examples:
+  - Title tag = brand only ("Lost Monster | Home") with no intent keyword
+  - Meta description missing or duplicated across all entity-detail pages
+  - Schema validation errors on a detail page (e.g. a unit-bearing property without its `unitCode`)
+  - Hreflang only references a subset of declared locales (entry dropped for omitted siblings)
+  - Detail-page title only in metadata, not in DOM `<h1>`
+  - Article-style page missing `Article` / `BlogPosting` schema
 
 - **MEDIUM** - polish-tier / missed optimisation opportunity.
-  Concrete DOMA examples:
-  - Search page title is static "Search Properties" (should reflect filters)
-  - OG image is generic logo on a property page that has 20 photos
-  - Internal linking from property detail back to category page is missing
-  - Alt text is property title verbatim (descriptive but not differentiated)
+  Examples:
+  - Search page title is static (should reflect filters / current query)
+  - OG image is generic logo on a page that has page-specific imagery available
+  - Internal linking from a detail page back to its parent category is missing
+  - Alt text is the page title verbatim (descriptive but not differentiated)
   - FAQ block missing on guides that would benefit
 
 - **LOW** - minor / aspirational.
-  Concrete DOMA examples:
-  - URL slug uses ID rather than location ("/l/4827" instead of "/l/sea-view-budva")
+  Examples:
+  - URL slug uses ID rather than descriptive segment ("/item/4827" instead of "/item/sea-view-budva")
   - OG image not optimised dimensions (not 1200x630)
-  - `priceCurrency` displayed as "€" in OG but "EUR" in schema (cosmetic, both valid)
+  - Cosmetic display drift between OG / schema / page body where both forms are valid (e.g. currency symbol vs ISO code)
   - Sitemap `lastmod` could be more granular
 
 ### Composite-Score Anchors
@@ -186,17 +210,17 @@ These anchors are loaded by the agent-identity-loader into every SEOX sub-agent 
 
 ### Recurring Patterns (SEOX is calibrated to catch these)
 
-These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent prompts as "known failure modes":
+These are scar-tissue patterns observed in live audits. Loaded into sub-agent prompts as "known failure modes":
 
-- **Pattern: Cookie-based locale switching emits hreflang but URLs don't carry locale path** - DOMA uses `localePrefix: 'as-needed'` so URLs are `/search` not `/en/search`. Hreflang must reference distinct URLs per locale; verify reciprocally.
-- **Pattern: `@doma/shared` barrel imports pull server-only code into client bundles** - flagged in 2026-05-12 launch promo dayclose. Not strictly SEO but breaks SSR for affected pages, making them JS-only (CRITICAL for SEO).
-- **Pattern: Schema markup of invisible data on listing pages** - if `numberOfBedrooms` is in JSON-LD but not visible in the property card UI, that's a Google spam policy hit.
-- **Pattern: Stale `EUR 2` pricing in legacy locale files** - if monetary values in schema/copy drift from source of truth (`packages/shared/lib/launch-promo.ts`), schema becomes false advertising.
-- **Pattern: `availability: InStock` left on sold/let listings** - data freshness bug. Listings flipped to `sold` in DB but JSON-LD not regenerated until next deploy. Flag as auto-fail.
+- **Pattern: Cookie-based locale switching emits hreflang but URLs don't carry locale path** - some projects use `localePrefix: 'as-needed'` so URLs are `/search` not `/en/search`. Hreflang must reference distinct URLs per locale; verify reciprocally.
+- **Pattern: Shared-package barrel imports pull server-only code into client bundles** - not strictly SEO but breaks SSR for affected pages, making them JS-only (CRITICAL for SEO).
+- **Pattern: Schema markup of invisible data on entity-detail pages** - if a numeric fact (e.g. `numberOfBedrooms`, `numberOfRooms`, ratings count) is in JSON-LD but not visible in the rendered UI, that's a Google spam policy hit.
+- **Pattern: Stale or drifted pricing in legacy locale files** - if monetary values in schema/copy drift from source of truth, schema becomes false advertising.
+- **Pattern: `availability: InStock` (or equivalent) left on sold/let/discontinued entities** - data freshness bug. Entities flipped to sold/inactive in DB but JSON-LD not regenerated until next deploy. Flag as auto-fail.
 - **Pattern: Em-dashes in marketing copy** - SOFAX/CONSX already flag these as brand violations; SEOX additionally notes some AI engines down-weight em-dash patterns as "AI-written slop".
-- **Pattern: Hreflang ZERO on multi-locale page** (added 2026-05-13) - DOMA's root layout has `generateAlternates()` emitting hreflang in metadata, but property detail pages don't inherit it correctly. First smoke test on `/l/property-in-montenegro-budva-blizikuce-...-3` returned zero `hreflang=` entries in rendered HTML despite 7 locales. Lighthouse SEO graded this PASS (because hreflang VALUES weren't invalid - they were absent, and Lighthouse's hreflang audit only validates present values). This is a CRITICAL miss that Lighthouse cannot catch by design. SEOX Dim 6 catches at audit time.
-- **Pattern: Generic templated title across thousands of listings** (added 2026-05-13) - DOMA's scraper emits "Property in Montenegro, {City}, {Area}" as both `<title>` and `<h1>` for every listing. No differentiating value/feature/price. Title cannibalisation risk: thousands of pages compete for the same query intent. Distinct from "title too short" - this is title generic-ness.
-- **Pattern: Meta description truncated mid-word with `...`** (added 2026-05-13) - DOMA property descriptions truncate to a hard character limit ending mid-word ("With a total l..."). Looks broken in SERP snippets. Truncation should end at word boundary + meaningful unit, ideally summarising the listing rather than chopping the body verbatim.
+- **Pattern: Hreflang ZERO on multi-locale page** - root layout emits hreflang in metadata via `generateAlternates()` (or equivalent), but deep dynamic-route pages don't inherit it correctly. Rendered HTML returns zero `hreflang=` entries despite the project declaring multiple locales. Lighthouse SEO grades this PASS (because hreflang VALUES weren't invalid - they were absent, and Lighthouse's hreflang audit only validates present values). This is a CRITICAL miss that Lighthouse cannot catch by design. SEOX Dim 6 catches at audit time.
+- **Pattern: Generic templated title across thousands of entities** - scraper or template emits the same "{Entity-type} in {City}, {Area}" string as both `<title>` and `<h1>` for every record. No differentiating value/feature/price. Title cannibalisation risk: thousands of pages compete for the same query intent. Distinct from "title too short" - this is title generic-ness.
+- **Pattern: Meta description truncated mid-word with `...`** - source descriptions truncate to a hard character limit ending mid-word ("With a total l..."). Looks broken in SERP snippets. Truncation should end at word boundary + meaningful unit, ideally summarising the entity rather than chopping the body verbatim.
 
 ---
 
@@ -210,7 +234,7 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **v4.1 additions:**
 - Explicit intent classification per Kevin Indig (V2): label this page's primary intent as one of `informational | commercial | transactional | navigational`. Audit asks: does the page format match the intent label?
-- Cannibalisation flag (V2 from Indig): note if another DOMA page targets the same intent. (Single-page audit can't verify across pages - SEOX flags suspected cannibalisation for CONSX to cross-check site-wide.)
+- Cannibalisation flag (V2 from Indig): note if another page on the project targets the same intent. (Single-page audit can't verify across pages - SEOX flags suspected cannibalisation for CONSX to cross-check site-wide.)
 - Intent-shift detection (V2 from Glenn Gabe): if SERP for the target query has changed character (was informational, now transactional), the page may be off-intent through no fault of its content.
 
 **Checkpoints:**
@@ -220,10 +244,10 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] No "Welcome to..." or generic landing-page filler before the substance
 - [ ] No forced sign-up wall before content (Google Helpful Content penalty)
 - [ ] Page is not a duplicate of another with different keywords (cannibalisation)
-- [ ] For DOMA listings: filters visible, count visible, sort visible without scroll
-- [ ] For DOMA property detail: photos + price + key specs in first viewport
-- [ ] For DOMA agency profile: listings count + verified badge + contact visible
-- [ ] For DOMA category landing: real local content, not 200 words of "Find your dream home"
+- [ ] For listing/search/index pages: primary filters visible, result count visible, sort control visible without scroll
+- [ ] For entity-detail pages: hero imagery + price (where applicable) + key specs in first viewport
+- [ ] For profile / agent / org pages: holdings count + trust badge + contact visible
+- [ ] For category landings: real local/topical content, not boilerplate marketing prose
 
 **Scoring:** -1 per failed checkpoint. 10 = page is the obvious best result for its intent.
 
@@ -247,7 +271,7 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **Scoring:** -1 per failed checkpoint.
 
-**Red flags:** "DOMA | Home", title = H1 verbatim, auto-generated meta from first paragraph, identical metas across listings, generic OG image on a property page with 20 photos.
+**Red flags:** "Lost Monster | Home" (brand-only title), title = H1 verbatim, auto-generated meta from first paragraph, identical metas across entity-detail pages, generic OG image on a page that has page-specific imagery available.
 
 ### Dim 3: Heading Hierarchy (0-10, SUPPORTING weight per v4.1 - V3 evidence-base)
 
@@ -261,14 +285,14 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] H1 is visible to the user (not hidden via CSS, not metadata-only)
 - [ ] Heading structure is skim-readable (logical outline, even if multiple H1s exist within HTML5 sectioning content - that's allowed)
 - [ ] No heading-styled-as-decoration (h2 used for typography weight, not structure)
-- [ ] For DOMA property detail: H1 = property title (visible on page, not just in `<title>`)
-- [ ] For DOMA category page: H1 = "{Property type} for {sale|rent} in {city}"
-- [ ] For DOMA agency profile: H1 = agency name + verified status
+- [ ] For entity-detail pages: H1 = entity name/title (visible on page, not just in `<title>`)
+- [ ] For category landings: H1 includes the category + location/qualifier (e.g. "{Type} for {action} in {place}")
+- [ ] For profile / agent / org pages: H1 = the entity's display name + trust/status signal
 - [ ] **Passage retrievability** (v4.1 from V2 / Mike King) - H2-led self-contained sections of ~150-300 words each (helps LLM citation; this is GEO-adjacent)
 
 **Scoring:** -1 per failed checkpoint. Missing H1 entirely triggers auto-fail. Multiple H1s within sectioning content = no penalty (v4.1 correction).
 
-**Red flags:** H1 = brand name only ("DOMA"), H1 buried in metadata not DOM, h2 elements with `font-weight: bold` styled as h3 visually but semantically wrong.
+**Red flags:** H1 = brand name only ("Lost Monster"), H1 buried in metadata not DOM, h2 elements with `font-weight: bold` styled as h3 visually but semantically wrong.
 
 ### Dim 4: Structured Data / Schema.org (0-15, CRITICAL weight)
 
@@ -282,45 +306,48 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] No deprecated `SearchAction` sitelinks searchbox (deprecated Nov 2024)
 - [ ] `BreadcrumbList` present on pages deeper than home, matches visible breadcrumb UI exactly
 - [ ] No duplicate `@id` across pages
-- [ ] **No duplicate JSON-LD blocks emitting the same `@type`+`@id` with different content** (added 2026-05-13 from first smoke test - DOMA property pages emit Organization+WebSite twice with conflicting `description` and `logo` fields)
+- [ ] **No duplicate JSON-LD blocks emitting the same `@type`+`@id` with different content** - a common Next.js bug pattern: root layout + page-level metadata both emit Organization+WebSite with conflicting `description` and `logo` fields
 - [ ] **Entity-graph `@id` linkage** (v4.1 from V4) - property `RealEstateListing.provider` or `broker` references the agency `@id`; agency `RealEstateAgent.makesOffer` references the property `@id`. Closed graph = AI engines traverse confidently.
 - [ ] **Listing status taxonomy correct** (v4.1 from V4 - sold/let handling). `availability` field uses one of: `InStock` (active), `LimitedAvailability` (under offer / let agreed), `SoldOut` (completed), `Discontinued` (withdrawn). Source: https://schema.org/ItemAvailability (canonical enum). NOT 410 immediately, NOT noindex on sale-completion - keep page indexed 6-12 months for residual traffic + link equity, then 301 to category landing.
 - [ ] **CollectionPage + ItemList schema** on category/landing pages (v4.1 from V4) - `/for-sale-in-budva` should emit `CollectionPage` with `mainEntity: ItemList` of property URLs (URLs only, NOT inlined full RealEstateListings per item - link to detail page).
 - [ ] **EPC / Energy rating fields** where applicable (v4.1 from V4) - `energyEfficiencyScaleMax` / `energyEfficiencyScaleMin` for EU markets. Mandatory in many countries; useful signal for Montenegro expat audience.
-- [ ] **`tourBookingPage` field on rentals** (v4.1 from V4) - if DOMA supports viewing booking, link it.
+- [ ] **`tourBookingPage` field on rentals / bookable inventory** (v4.1 from V4) - if the project supports viewing/booking, link it from the schema.
 - [ ] **NAP consistency cross-check** (v4.1 from V4) - the `telephone` and `address` in JSON-LD must match the visible DOM text. Mismatch is a Google spam policy hit AND breaks local-pack rankings.
 - [ ] **JSON-LD passes Google's Rich Results Test** (v4.1 from V1) - not just schema.org valid. Google's validator runs additional rich-result-specific requirements.
 
-**Checkpoints (DOMA-specific - property detail):**
-- [ ] Property-type subtype is present, in ONE of these valid patterns (v4.1 correction from V4 red-team - the `@type` array form is non-standard; production sites use nested or sibling):
-  - **Pattern A (preferred)**: nest the property-type inside `RealEstateListing.about`, e.g. `"about": { "@type": "Apartment", ... }`
-  - **Pattern B**: emit two separate JSON-LD blocks - one `RealEstateListing` + one `Apartment` - linked by `@id` cross-reference
-  - **Pattern C (uncommon but valid)**: `@type` array `["RealEstateListing", "Apartment"]` - technically valid Schema.org, accept but don't require
-  - Valid Accommodation subtypes (Schema.org official): `Apartment`, `House`, `SingleFamilyResidence`, `Room`, `Suite`, `Accommodation` (parent class for fallback). Source: https://schema.org/Accommodation (subtype tree). **NOT valid**: `Villa`, `Penthouse`, `Studio`, `Loft`, `Bungalow` - these are marketing categories not in the schema.org type tree. A "villa" listing should use `House` with descriptive name/description.
-- [ ] `address.addressCountry: "ME"` (ISO 3166-1 alpha-2, NOT "Montenegro")
-- [ ] `geo.latitude` and `geo.longitude` are NUMBERS, not strings, 4+ decimal places, within Montenegro bounds (41.85-43.55N, 18.45-20.35E)
+**Checkpoints (vertical-specific — example: real-estate property detail):**
+
+> Replace this entire block with the vertical-appropriate checkpoint set for `Lost Monster`. The example below is for a multi-locale real-estate marketplace. Other verticals: products use `Product` + `Offer`, articles use `Article`, profiles use `Person` / `Organization`, courses use `Course` + `CourseInstance`, etc. Keep the shape (mandatory fields, ISO codes, unit codes) — substitute the vertical-specific values.
+
+- [ ] Entity subtype is present in ONE of these valid patterns (v4.1 correction from V4 red-team - the `@type` array form is non-standard; production sites use nested or sibling). The example below is for real estate; substitute the appropriate Schema.org parent + subtype for `Lost Monster`'s vertical:
+  - **Pattern A (preferred)**: nest the specific subtype inside the parent's `about`, e.g. `"about": { "@type": "Apartment", ... }` inside a `RealEstateListing`
+  - **Pattern B**: emit two separate JSON-LD blocks - one parent (`RealEstateListing`) + one specific (`Apartment`) - linked by `@id` cross-reference
+  - **Pattern C (uncommon but valid)**: `@type` array (e.g. `["RealEstateListing", "Apartment"]`) - technically valid Schema.org, accept but don't require
+  - Valid Accommodation subtypes (Schema.org official, real-estate example): `Apartment`, `House`, `SingleFamilyResidence`, `Room`, `Suite`, `Accommodation` (parent class for fallback). Source: https://schema.org/Accommodation (subtype tree). **NOT valid**: `Villa`, `Penthouse`, `Studio`, `Loft`, `Bungalow` - these are marketing categories not in the schema.org type tree. A "villa" listing should use `House` with descriptive name/description. Other verticals will have analogous valid-vs-marketing subtype distinctions.
+- [ ] `address.addressCountry: "GB"` (ISO 3166-1 alpha-2, NOT the country's full name)
+- [ ] `geo.latitude` and `geo.longitude` are NUMBERS, not strings, 4+ decimal places, within the project's geo-bounds
 - [ ] `offers.price` is numeric or numeric-string
-- [ ] `offers.priceCurrency: "EUR"` (ISO 4217, never "€")
-- [ ] `image` array has 3+ URLs on `cdn.domamontenegro.com`, all return 200
-- [ ] `floorSize.unitCode: "MTK"` (UN/CEFACT square metres)
+- [ ] `offers.priceCurrency: "GBP"` (ISO 4217, never the symbol)
+- [ ] `image` array has 3+ URLs on `[CDN-HOST]`, all return 200
+- [ ] `floorSize.unitCode: "MTK"` (UN/CEFACT square metres) — substitute the vertical-appropriate unit code if not real estate
 - [ ] `datePosted` ISO-8601, within 6 months OR `dateModified` recent
-- [ ] Rent listings: `leaseLength` + `UnitPriceSpecification` with `unitCode: "MON"`, `businessFunction: "LeaseOut"`
-- [ ] `availability` matches DB state (auto-fail if `InStock` on sold/let listing)
+- [ ] Rent/recurring listings: `leaseLength` + `UnitPriceSpecification` with appropriate `unitCode` (e.g. `"MON"` for monthly) and `businessFunction: "LeaseOut"`
+- [ ] `availability` matches DB state (auto-fail if `InStock` on sold/let/discontinued entity)
 
-**Checkpoints (DOMA-specific - agency profile):**
-- [ ] `@type: "RealEstateAgent"` (LocalBusiness subtype)
+**Checkpoints (vertical-specific — example: agent / org profile):**
+- [ ] `@type` matches the entity (e.g. `RealEstateAgent`, `LocalBusiness` subtype) per Schema.org
 - [ ] `aggregateRating` only present IF real reviews are visibly rendered (fake = manual action risk)
-- [ ] `telephone` in E.164 format with `+382` country code
-- [ ] `priceRange` populated (LocalBusiness recommended)
-- [ ] `areaServed` lists cities the agency operates in
+- [ ] `telephone` in E.164 format with the correct `+44` country code
+- [ ] `priceRange` populated where the entity is a LocalBusiness (recommended)
+- [ ] `areaServed` lists the geographic regions the entity operates in
 
-**Checkpoints (DOMA-specific - homepage):**
+**Checkpoints (homepage):**
 - [ ] `Organization` + `WebSite` graph (no deprecated SearchAction)
 - [ ] `Organization.sameAs` includes social profiles
 
-**Scoring:** -1.5 per failed checkpoint. Listing page missing schema entirely triggers auto-fail. Validation error on Rich Results Test triggers auto-fail.
+**Scoring:** -1.5 per failed checkpoint. Primary entity-detail page missing schema entirely triggers auto-fail. Validation error on Rich Results Test triggers auto-fail.
 
-**Red flags:** `addressCountry: "Montenegro"`, `priceCurrency: "€"`, `latitude: "42.29"` (string), `Product` schema on a real estate listing (type-specificity violation per Google policy), fake `aggregateRating`.
+**Red flags:** country names instead of ISO 3166-1 codes in `addressCountry`, currency symbols instead of ISO 4217 codes in `priceCurrency`, `latitude` as a string, `Product` schema on a vertical that has a more specific Schema.org type (type-specificity violation per Google policy), fake `aggregateRating`.
 
 ### Dim 5: Canonical & Indexability (0-10, CRITICAL weight)
 
@@ -330,7 +357,7 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **Checkpoints:**
 - [ ] `alternates.canonical` set on every indexable page
-- [ ] Canonical URL is absolute (`https://domamontenegro.com/...`), not relative
+- [ ] Canonical URL is absolute (`https://lostmonster.io/...`), not relative
 - [ ] Canonical points to self (not to English master across locales - common error)
 - [ ] **Canonical target validity** (v4.1 from V1) - canonical URL returns 200, is indexable, is NOT a redirect, is NOT noindex
 - [ ] **Self-referencing canonical present on indexable Next.js dynamic routes** (v4.1 from V1 - silent killer)
@@ -351,16 +378,16 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **Red flags:** Canonical pointing to non-existent page (404 canonical), all locales canonicalised to `/en/` master (kills international rankings - #1 international SEO error), noindex left on after dev, redirect chain loops, mixed http+https resources.
 
-### Dim 6: International & Hreflang (0-15, CRITICAL weight - DOMA has 7 locales)
+### Dim 6: International & Hreflang (0-15, CRITICAL weight — scales with locale count)
 
-**What:** Hreflang implementation correctness across all 7 DOMA locales. This dimension carries 15 points because DOMA's locale count makes it the highest-leverage area.
+**What:** Hreflang implementation correctness across all locales in `[LOCALE-SET]`. This dimension's max scales with locale count: base 10 + 1 per additional locale beyond 1 (cap +5). A multi-locale project (e.g. 7 locales) caps at 15; a single-locale project stays at 10 and many of these checkpoints become non-applicable.
 
 **Checkpoints:**
 - [ ] Exactly one hreflang method used (head `<link>` OR HTTP header OR sitemap - never mixed)
-- [ ] Every locale variant lists all 7 siblings + self-reference (8 entries minimum if `x-default` used)
-- [ ] Self-reference is present (e.g. `/me/property/123` declares `hreflang="sr-Latn-ME"` to itself)
-- [ ] `x-default` present and points to English (DOMA's safe fallback)
-- [ ] Language codes valid: 6 are ISO 639-1 lowercase (`en`, `ru`, `uk`, `de`, `tr`, `it`); Montenegrin is emitted as `sr-Latn-ME` (Serbian Latin script, Montenegro region) because the standardised Montenegrin code `cnr` is ISO 639-3 only and Google honours it inconsistently. Source: ISO 639-1 standard (canonical list at https://www.loc.gov/standards/iso639-2/php/code_list.php) + BCP 47 for the `sr-Latn-ME` regional variant. DOMA's internal locale ID `me` is NOT a valid hreflang value - the mapping `me → sr-Latn-ME` must happen in `generateAlternates()`. Source for DOMA locale list: `packages/shared/i18n/routing.ts:5`.
+- [ ] Every locale variant lists all siblings + self-reference (`N+1` entries minimum if `x-default` used, where N = `[LOCALE-SET]` size)
+- [ ] Self-reference is present (each locale variant declares `hreflang` to itself with its own emitted code)
+- [ ] `x-default` present and points to the project's safe fallback (typically the default locale)
+- [ ] Language codes valid: ISO 639-1 lowercase for the language portion; BCP 47 regional variant (`language-Script-REGION`) where the internal locale ID is not a valid hreflang value (e.g. an internal `me` for Montenegrin emits as `sr-Latn-ME` because `cnr` is ISO 639-3 only and Google honours it inconsistently). Source: ISO 639-1 standard (canonical list at https://www.loc.gov/standards/iso639-2/php/code_list.php) + BCP 47 for regional variants. Per-project locale set + mapping: see `[HREFLANG-EMISSION-MAP]` and the source in `[I18N-ROUTING-PATH]`.
 - [ ] If region codes used, uppercase ISO 3166-1 alpha-2 (`GB`, never `gb`; format `language-REGION` with hyphen)
 - [ ] Each locale's canonical points to SELF (not to English master - voids hreflang entirely)
 - [ ] All `href` URLs are absolute (`https://...`), not relative
@@ -368,12 +395,12 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] Locale switching uses banner/option, not forced redirect on homepage
 - [ ] **Reciprocal linking verified** (every locale lists every other locale + self - Aleyda Solis per V2: the #1 silent killer)
 - [ ] **Hreflang target validity** (v4.1 from V1) - every sibling URL declared in hreflang returns 200 AND is indexable AND is not a redirect AND is not canonicalised away
-- [ ] **Hreflang/canonical agreement** (v4.1 from V2 - Aleyda) - hreflang declares 7 alternates, but if 6 of them canonical back to the English master, hreflang is voided. Each locale's canonical must be self-referencing
-- [ ] **HTML lang and OG locale agreement** (v4.1 from V2 / V4) - `<html lang="...">`, OG `locale`, and the page's hreflang self-ref must all agree. If `<html lang="sr">` but the rendered body content is English (fallback), that's "locale drift" - flag for content team
-- [ ] **Locale-localised JSON-LD content** (v4.1 from V4) - schema `name` and `description` should match the page's locale, not be hardcoded English across all locale variants
-- [ ] DOMA's `uk` locale is Ukrainian (NOT United Kingdom - `en-GB` would be for UK; DOMA doesn't target UK English specifically)
+- [ ] **Hreflang/canonical agreement** (v4.1 from V2 - Aleyda) - if any sibling listed in hreflang canonicals back to the default-locale master, hreflang is voided. Each locale's canonical must be self-referencing
+- [ ] **HTML lang and OG locale agreement** (v4.1 from V2 / V4) - `<html lang="...">`, OG `locale`, and the page's hreflang self-ref must all agree. If `<html lang="sr">` but the rendered body content is the default-locale fallback, that's "locale drift" - flag for content team
+- [ ] **Locale-localised JSON-LD content** (v4.1 from V4) - schema `name` and `description` should match the page's locale, not be hardcoded default-locale across all locale variants
+- [ ] Watch for ambiguous language codes that conflict with region codes (classic example: `uk` is Ukrainian per ISO 639-1, NOT United Kingdom - `en-GB` would be for UK English). Flag any project whose locale list mixes these levels of code
 
-**Scoring:** -1.25 per failed checkpoint (15 total).
+**Scoring:** failed checkpoints penalised to add up to the per-project dim max (e.g. -1.25 per failed checkpoint on a 7-locale project where dim max is 15).
 
 **Red flags (the 6 silent killers - any one voids hreflang with no GSC error):**
 1. Non-reciprocal links (A→B without B→A) - whole annotation ignored
@@ -392,7 +419,7 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 **v4.1 additions:**
 - Author entity Knowledge Graph linkage per Lily Ray (V2): does the author's `Person` schema have `sameAs` to Wikipedia / LinkedIn / Crunchbase / Wikidata / ORCID? Mere bio markup without entity linkage is weak.
 - YMYL classifier gate per Marie Haynes (V2): for property purchase (financial decision) and rental (consumer protection), this is YMYL-adjacent. Author credentials, sources, transparency block become MANDATORY, not optional.
-- First-hand experience markers per Lily Ray (V2): original photos with EXIF, dated site visits, specific personal observations (not generic AI-vocab descriptions).
+- First-hand experience markers per Lily Ray (V2): original photos with EXIF, dated visits, specific personal observations (not generic AI-vocab descriptions).
 - Page transparency block per Marie Haynes (V2): author + publication date + last-reviewed date + sources cited, all visible (not just in schema).
 
 **Checkpoints:**
@@ -400,16 +427,16 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] Link from byline to author/agency profile bio
 - [ ] Credentials visible (license number for agencies, years active, verified badge)
 - [ ] `datePosted` and `dateModified` visible on page (not just in schema)
-- [ ] Photos look first-hand (not stock - Mediterranean stock photo flagged)
+- [ ] Photos look first-hand (not generic stock imagery for the project's vertical)
 - [ ] Contact path to a real human (email/phone/form visible)
-- [ ] For DOMA agencies: verified status surfaced visually + in schema
-- [ ] For DOMA blog: "Reviewed by" or author bio block with credentials
+- [ ] For profile / agent / org pages: verified status surfaced visually + in schema
+- [ ] For article / blog content: "Reviewed by" or author bio block with credentials
 - [ ] Author `Person` schema linked with `sameAs` (LinkedIn, Wikidata) where applicable
 - [ ] No "AI-generated" tells (em-dash patterns, "delve/leverage" vocabulary, generic intros)
 
 **Scoring:** -1 per failed checkpoint.
 
-**Red flags:** "Admin" byline, no updated date, generic stock photo of Sveti Stefan when listing is in Kotor, anonymous content, AI-vocabulary patterns.
+**Red flags:** "Admin" byline, no updated date, mismatched stock photography (generic destination/category image used on a different location's page), anonymous content, AI-vocabulary patterns.
 
 ### Dim 8: Internal Linking & Crawl Path (0-10, STANDARD weight)
 
@@ -421,14 +448,14 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] Breadcrumbs present and visible (not just in schema)
 - [ ] `BreadcrumbList` schema matches visible breadcrumb UI exactly
 - [ ] Final breadcrumb item has NO `item` URL (it's the current page)
-- [ ] Click depth to any listing ≤3 from homepage
-- [ ] Property detail links to agency profile
-- [ ] Property detail has "More from this agency" or "Similar listings" module
+- [ ] Click depth to any primary entity-detail page ≤3 from homepage
+- [ ] Entity-detail page links to its parent/owner profile (e.g. listing → agency, product → brand, article → author)
+- [ ] Entity-detail page has a "More from this {owner}" or "Similar {entities}" module
 - [ ] Search results paginated with crawlable `<a>` links (not JS-only "load more")
 - [ ] **Pagination uses self-canonical per page** (v4.1 from V4) - NOT canonical-to-page-1 (Google deprecated rel=prev/next in 2019; self-canonical is current best practice)
 - [ ] **All outbound internal links resolve** (v4.1 from V1) - every `<a href>` returns 200, not redirect chain, not noindex target
-- [ ] Footer surfaces city + property-type hubs
-- [ ] Category pages link laterally (apartments → houses in same city)
+- [ ] Footer surfaces the project's main category + location/qualifier hubs
+- [ ] Category pages link laterally (sibling categories in the same parent context)
 - [ ] No orphan pages (every indexable page reachable from at least one other indexable page - cross-page check, SEOX flags suspicion for CONSX)
 - [ ] **Descriptive anchor text** (v4.1 from V2 / Cyrus Shepard) - no "click here", "read more", "view"; anchor describes destination
 
@@ -439,11 +466,11 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **Scoring:** -1 per failed checkpoint (capped at -10).
 
-**Red flags:** Listings only reachable via search JS, infinite-scroll-only pagination, breadcrumbs decorative without schema, missing related-properties module, broken internal links.
+**Red flags:** Entities only reachable via JS-driven search, infinite-scroll-only pagination, breadcrumbs decorative without schema, missing related-entity module, broken internal links.
 
 ### Dim 9: GEO / LLM Discoverability (0-10, CRITICAL weight - per v4.1 with reshaped checkpoints)
 
-**What:** Optimisation for citation by AI engines (ChatGPT, Perplexity, Claude, Google AI Overviews, Bing Copilot). Real-estate-AIO triggers on ~50% of local-intent queries (V5 - FlyDragon benchmark). DOMA's actual battlefield.
+**What:** Optimisation for citation by AI engines (ChatGPT, Perplexity, Claude, Google AI Overviews, Bing Copilot). For local-intent verticals, AI Overviews trigger on a large share of long-tail queries (e.g. real-estate-AIO triggers on ~50% of local-intent queries per the FlyDragon benchmark / V5). The actual battlefield for `Lost Monster` if it serves local-intent queries.
 
 **Confidence:** directional. The 2024 Princeton paper SEOX was originally built on is **only "one-third right" by 2026 replication** (V5): statistics density replicates with the correct sign; citation density and quotation density (the famous "+40% lift") do NOT replicate in production AI engines. Calibration is based on what survived independent replication, not on the original paper's full tactic list.
 
@@ -454,13 +481,13 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] Answer-first lede: page intent answered in first 100-200 words (44.2% of LLM citations come from first 30% of body per ConvertMate 2026)
 - [ ] Original / first-party data on page (the surviving Princeton tactic - statistics with sources)
 - [ ] Freshness signal visible: `dateModified` + "Listed/updated X days ago" string. 30-day window correlates with 3.2x citation multiplier per V5; pages >14 days old see -23%
-- [ ] `robots.txt` allows GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended (DOMA: present per codebase scan)
+- [ ] `robots.txt` allows GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended
 
 **Medium weighted (correlation, not causation - still useful):**
 - [ ] H1 phrased as searchable question or clear definition (helps passage retrievability)
 - [ ] Schema.org structured data present (Bing Copilot honours; others use for entity disambiguation - present/absent matters, elaborate nesting is NOT a separate bonus per V5)
-- [ ] Distance markers as structured prose ("350m from Slovenska Plaža")
-- [ ] Named landmarks mentioned where relevant (Sveti Stefan, Bay of Kotor, Tivat Airport, Slovenska Plaža) - anchors to pre-trained AI entities
+- [ ] Distance markers as structured prose where geo-relevant ("350m from {named landmark}")
+- [ ] Named landmarks / pre-trained entities mentioned where relevant (see `[NAMED-LANDMARKS]` for the project's anchor entity list) - anchors to pre-trained AI entities
 
 **Dropped from v4.0 (didn't replicate per V5)**:
 - ~~Quotation density bonus~~ (Princeton tactic, didn't replicate)
@@ -472,7 +499,7 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **Red flags:** JS-only rendering (auto-fail), content behind tabs/accordions requiring click, gated content, AI bots blocked in robots.txt, em-dash + "delve/leverage" patterns.
 
-**DOMA-specific GEO insight (V5):** Property detail pages are the WRONG GEO target - too volatile (sold/let cycles) to be cited reliably. **Topic / location / guide pages** (`/budva/buying-guide`, `/kotor/rental-market-2026`) are the citation surface. SEOX flags this distinction: high-GEO-weighting on stable evergreen pages, lower expected GEO score on individual listings.
+**Vertical-specific GEO insight (V5):** transient entity-detail pages (anything with rapid lifecycle — sold/let cycles, sold-out products, expired offers) are the WRONG GEO target. They're too volatile to be cited reliably. **Stable evergreen pages** (topic guides, location guides, methodology pages, comparison pages) are the citation surface. SEOX flags this distinction: high-GEO-weighting on stable evergreen pages, lower expected GEO score on individual transient entity pages.
 
 ### Dim 10: URL Structure & Image SEO (0-10, SUPPORTING weight)
 
@@ -480,12 +507,12 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 
 **Checkpoints (URL):**
 - [ ] URLs are short, readable, lowercase, hyphenated
-- [ ] URLs include location slug where relevant (`/l/sea-view-budva-12345` not `/l/12345`)
+- [ ] URLs include descriptive slug where relevant (`/item/sea-view-budva-12345` not `/item/12345`)
 - [ ] URLs are stable (don't break when title edits)
 - [ ] No session params indexed
 - [ ] No trailing-slash inconsistency
-- [ ] Locale routing matches design (DOMA uses cookie-based - URLs don't carry locale prefix)
-- [ ] **No slug-pattern duplication within a single URL** (added 2026-05-13 from first smoke test - DOMA scraper emits `/l/property-in-montenegro-budva-blizikuce-property-in-montenegro-budva-blizikuce-3` with the location pattern duplicated). Scraper config bug, but SEOX catches it at audit time.
+- [ ] Locale routing matches the project's design (e.g. cookie-based with `localePrefix: 'as-needed'` means URLs don't carry locale prefix; prefix-based routing means they do — verify whichever pattern the project uses)
+- [ ] **No slug-pattern duplication within a single URL** — common scraper / template bug pattern: an entity slug ends up duplicated within its own path (e.g. `/item/foo-bar-foo-bar-3`). Origin is usually scraper config or a template that concatenates path segments twice; SEOX catches it at audit time regardless of root cause.
 
 **Checkpoints (Image):**
 - [ ] Descriptive `alt` text (not "image1.jpg", not empty)
@@ -494,11 +521,11 @@ These are scar-tissue patterns from prior DOMA sessions. Loaded into sub-agent p
 - [ ] Modern format (WebP/AVIF via next/image)
 - [ ] Responsive `srcset` via next/image `sizes` prop
 - [ ] Dimensions set to prevent CLS
-- [ ] Original photos where possible (DOMA listings - first-hand from agencies)
+- [ ] Original imagery where possible (first-hand / contributor-supplied, not generic stock)
 
 **Scoring:** -0.625 per failed checkpoint (10 total across 16 checks).
 
-**Red flags:** `/listing?id=4827` style URLs, `alt="property"`, 4MB hero JPGs, same stock kitchen photo across listings.
+**Red flags:** `/item?id=4827` style URLs, generic `alt="image"`, 4MB hero JPGs, the same stock image reused across multiple entity-detail pages.
 
 ---
 
@@ -542,20 +569,20 @@ max = 10+10+10+15+10+15+10+10+10+10 = 110
 
 ### Top 3 Issues (severity-ordered)
 
-1. **HIGH - Hreflang missing `uk` locale variant in sitemap** - `apps/web/src/app/sitemap.ts:142` - the `uk` locale isn't being emitted, voiding hreflang for Ukrainian variants → add `uk` to the alternates loop on line 142.
-2. **HIGH - Property detail H1 not in DOM** - `apps/web/src/app/(marketing)/l/[slug]/page.tsx:178` - property title only in `<title>` and metadata, not visible as `<h1>` → wrap property title at line 178 in `<h1 className="...">`.
-3. **MEDIUM - GEO citation patterns missing** - same file - no FAQ block, no comparison table for amenities → add FAQ section with FAQPage schema after property description.
+1. **HIGH - Hreflang missing a locale variant in sitemap** - `<sitemap-file>:<line>` - the locale isn't being emitted, voiding hreflang for that locale's variants → add it to the alternates loop.
+2. **HIGH - Entity-detail H1 not in DOM** - `<entity-detail page>:<line>` - entity title only in `<title>` and metadata, not visible as `<h1>` → wrap entity title in `<h1 className="...">`.
+3. **MEDIUM - GEO citation patterns missing** - same file - no FAQ block, no comparison table for differentiators → add FAQ section with FAQPage schema after the entity description.
 
 ### Quick Wins (< 5 min each)
 
-- [ ] Add `uk` to sitemap alternates loop - `apps/web/src/app/sitemap.ts:142`
-- [ ] Wrap property title in `<h1>` - `apps/web/src/app/(marketing)/l/[slug]/page.tsx:178`
-- [ ] Differentiate property card alt text with city + bedroom count - `apps/marketing/components/property/PropertyCard.tsx:43`
+- [ ] Add the missing locale to sitemap alternates loop - `<sitemap-file>:<line>`
+- [ ] Wrap entity title in `<h1>` - `<entity-detail page>:<line>`
+- [ ] Differentiate entity-card alt text with location + key spec - `<card-component>:<line>`
 
 ### Cross-Dimension Patterns Detected
 
-- **Pattern: Hreflang + Schema both missing `uk` locale** - whatever omits `uk` from sitemap likely omits it from `generateAlternates()` too. Verify both, fix together. Composite impact: -3 dim points across Dim 5 + Dim 6.
-- **Pattern: H1 missing in DOM AND first 100 words don't contain primary keyword** - the property title is the page's primary keyword, and it's neither in DOM h1 nor in the first paragraph. Single fix (DOM h1) closes both Dim 3 and Dim 1.
+- **Pattern: Hreflang + Schema both missing the same locale** - whatever omits a locale from sitemap likely omits it from `generateAlternates()` too. Verify both, fix together. Composite impact: -3 dim points across Dim 5 + Dim 6.
+- **Pattern: H1 missing in DOM AND first 100 words don't contain primary keyword** - the entity title is the page's primary keyword, and it's neither in DOM h1 nor in the first paragraph. Single fix (DOM h1) closes both Dim 3 and Dim 1.
 
 ### Gate Verdict
 
@@ -563,26 +590,26 @@ max = 10+10+10+15+10+15+10+10+10+10 = 110
 
 ---
 
-## DOMA Context
+## Lost Monster Context
 
-**SEOX for DOMA** understands:
-- Organic search is the free-acquisition channel. Every marketing page without proper SEO is leaving inbound on the table.
-- 7 locales (en, me, ru, uk, de, tr, it - where `me` is the internal Montenegrin locale ID mapped to `sr-Latn-ME` in hreflang per packages/shared/i18n/routing.ts) targeting expat property buyers in Montenegro. Hreflang correctness is non-negotiable.
-- Cookie-based locale switching (`localePrefix: 'as-needed'`) means URLs don't carry locale prefix - hreflang must reference distinct URLs via `generateAlternates()`.
-- Schema.org `RealEstateListing` + `Accommodation` subtype is mandatory on every property detail page.
-- `addressCountry: "ME"` (NOT "Montenegro"), `priceCurrency: "EUR"`, `floorSize.unitCode: "MTK"` are DOMA-specific schema constants.
-- Property detail title should be in DOM `<h1>`, not just `<title>`.
-- Trusted List (`/agencies`) is a high-value GEO surface - comparison page with named methodology, ideal for AI citation.
-- Named local landmarks (Sveti Stefan, Bay of Kotor, Tivat Airport, Slovenska Plaža) anchor pages to pre-trained AI entities.
+**SEOX for Lost Monster** understands (fill in at /sync time from the onboarding manifest):
+- Whether organic search is the project's primary free-acquisition channel (drives Dim 1/2/4/5 weight).
+- The locale set (`[LOCALE-SET]`) and its hreflang emission map (`[HREFLANG-EMISSION-MAP]`). Multi-locale projects: hreflang correctness is non-negotiable. Single-locale projects: Dim 6 contracts to base 10 and most reciprocity checks are non-applicable.
+- The locale-routing pattern (cookie-based vs prefix-based) and the path that emits hreflang (`[LOCALE-ALTERNATES-PATH]`).
+- The Schema.org `@type` mandatory on the project's primary entity-detail page (e.g. `RealEstateListing` + `Accommodation` for real estate; `Product` + `Offer` for commerce; `Article` for editorial; etc.).
+- Project-specific schema constants: `GB`, `GBP`, and any vertical-specific unit codes (e.g. `floorSize.unitCode: "MTK"`).
+- That the entity-detail page title must be in DOM `<h1>`, not just `<title>`.
+- Which evergreen pages are the project's high-value GEO surfaces (comparison pages, methodology pages, guides) — these get the highest GEO scrutiny.
+- The project's `[NAMED-LANDMARKS]` (locales, brands, proper nouns) that anchor pages to pre-trained AI entities.
 
-**SEOX hunts bugs in:**
-- Property detail pages (`/l/[slug]`): schema completeness, h1 in DOM, hreflang reciprocity
-- Search results (`/search`): static title (should be dynamic), facet UX, crawlable pagination
-- Category landings (`/for-sale-in-budva`, `/[type]`): real local content, schema, breadcrumbs
-- Agency profiles (`/agencies/[slug]`): LocalBusiness schema, E-E-A-T, verified badge surfacing
+**SEOX hunts bugs across the project's `[PAGE-TYPES]`. Typical patterns:**
+- Primary entity-detail pages: schema completeness, h1 in DOM, hreflang reciprocity
+- Search results: static title (should be dynamic), facet UX, crawlable pagination
+- Category landings: real local/topical content, schema, breadcrumbs
+- Profile / agent / org pages: LocalBusiness schema, E-E-A-T, verified badge surfacing
 - Homepage: Organization + WebSite graph, no deprecated SearchAction
-- Blog posts (`/news/[cat]/[slug]`): missing Article/BlogPosting schema (current gap)
-- 18 secondary marketing pages currently missing metadata (per Codebase Scan output 2026-05-13)
+- Article / blog posts: missing Article/BlogPosting schema
+- Secondary marketing pages frequently missing metadata — flag for sweep
 
 **SEOX defers to:**
 - **BLAZX** for Core Web Vitals (LCP, INP, CLS) - SEOX checks the structural prerequisites (preload, fetchpriority, sizes) but performance numbers belong to BLAZX
@@ -598,13 +625,13 @@ When INSPX has run before SEOX, SEOX consumes checkpoint screenshots + rendered 
 Checkpoint format SEOX expects:
 ```json
 {
-  "page": "apps/web/src/app/(marketing)/l/[slug]/page.tsx",
-  "url": "https://domamontenegro.com/l/sea-view-budva-12345",
+  "page": "<source page path>",
+  "url": "https://lostmonster.io/<canonical-path>",
   "viewport": "desktop_1280x800",
-  "rendered_html_path": ".inspx-runs/<session>/desktop/12345.html",
-  "screenshot_path": ".inspx-runs/<session>/desktop/12345.png",
+  "rendered_html_path": ".inspx-runs/<session>/desktop/<id>.html",
+  "screenshot_path": ".inspx-runs/<session>/desktop/<id>.png",
   "metadata_export": {"title": "...", "description": "...", "alternates": {...}},
-  "jsonld_blocks": [{"@type": "RealEstateListing", ...}]
+  "jsonld_blocks": [{"@type": "<vertical-appropriate @type>", ...}]
 }
 ```
 
@@ -638,16 +665,16 @@ sub_fragment_id: dim-<N>-<dimension-slug>
 
 context:
   artefact_paths:
-    - apps/web/src/app/(marketing)/l/[slug]/page.tsx
-    - apps/web/src/app/layout.tsx (root metadata)
+    - <entity-detail page path>
+    - <root layout / metadata path>
   inspx_checkpoints:
-    - .inspx-runs/<session>/desktop/12345.html
-    - .inspx-runs/<session>/desktop/12345.png
+    - .inspx-runs/<session>/desktop/<id>.html
+    - .inspx-runs/<session>/desktop/<id>.png
   metadata_export: <inline JSON of generateMetadata output>
   jsonld_blocks: <inline array of parsed JSON-LD>
-  locale_set: [en, me, ru, uk, de, tr, it]  # internal IDs
-  hreflang_emission_map: {en: en, me: sr-Latn-ME, ru: ru, uk: uk, de: de, tr: tr, it: it}
-  target_intent: <e.g. "transactional - property detail for rent in Budva">
+  locale_set: <[LOCALE-SET] — internal IDs>
+  hreflang_emission_map: <[HREFLANG-EMISSION-MAP]>
+  target_intent: <e.g. "transactional - entity-detail page for {action} in {location}">
 
 dimension_rubric:
   dimension_id: <N>
@@ -657,8 +684,8 @@ dimension_rubric:
   checkpoints: [<verbatim from playbook>]
   red_flags: [<verbatim from playbook>]
   calibration_anchors:
-    severity_examples: <DOMA-specific from playbook>
-    recurring_patterns: <DOMA-specific from playbook>
+    severity_examples: <project-specific from playbook (filled at /sync time)>
+    recurring_patterns: <project-specific from playbook (filled at /sync time)>
 
 allowed_tools: [Read, Grep, Glob, Bash(read-only), WebFetch(rich-results-test only)]
 forbidden_actions: [Edit, Write, NotebookEdit, Task, arbitrary network calls]
@@ -708,14 +735,14 @@ Each sub-agent receives the dimension block above verbatim. Compact references b
 
 Sub-agents see one dimension. SEOX synthesis sees all 10 fragments + the artefact + recurring-pattern history. The cross-cuts SEOX is calibrated to detect (v4.1 - patterns 1+5 from v4.0 collapsed into one; 4 new patterns added from V2/V6):
 
-1. **Hreflang × Sitemap × Canonical × locale-set compound** - if locale X is missing from sitemap AND hreflang AND canonical-alternates, it's one bug (missing from the locale array), not three. This includes the special-case `uk` confusion (Ukrainian vs United Kingdom) - same root cause class. Synthesis collapses to one issue.
+1. **Hreflang × Sitemap × Canonical × locale-set compound** - if locale X is missing from sitemap AND hreflang AND canonical-alternates, it's one bug (missing from the locale array), not three. This includes the classic ambiguous-code confusion (e.g. `uk` Ukrainian vs `uk` United Kingdom) - same root cause class. Synthesis collapses to one issue.
 2. **H1 missing × Intent miss × Title duplicate** - the page's primary keyword is the H1, and it's nowhere in DOM, nowhere in first paragraph, and the title is generic. Single root cause: the page template forgot to render the entity name. One fix closes 3 dim regressions.
 3. **Schema marked-up data invisible × E-E-A-T missing dates** - `dateModified` in JSON-LD but not visible, `author` in JSON-LD but no byline. Same root cause: SEO scaffolding done in schema but not surfaced visually. Triggers Google spam policy.
 4. **GEO fail × JS-only render × Schema empty in initial HTML** - SPA pages with no SSR. Schema present in source but never injected in initial HTML response body. AI bots and SEOX sub-agents (if no INSPX) both blind.
 5. **Schema-vs-DOM drift** (v4.1 from V6) - JSON-LD declares 4 bedrooms, DOM displays 3. JSON-LD `availability: InStock`, page shows "Sold". Google spam policy hit. Root cause: schema generated from one data source, page rendered from another, sources drift.
 6. **Sitemap orphans** (v4.1 from V6) - page is indexable, has canonical, but not in sitemap. Or in sitemap but returns 404. Discoverability bug pattern - same root cause class as canonical/hreflang inconsistency but specific to sitemap drift.
 7. **Mixed canonical signals** (v4.1 from V6) - `<link rel=canonical>` says X, response header `Link: <Y>; rel=canonical` says Y, OG `url` says Z. Common Next.js misconfiguration; Google picks one signal but you can't predict which.
-8. **Locale drift** (v4.1 from V6) - `<html lang="me">` (or `lang="sr"`) but the rendered body content is English fallback (next-intl translation missing). The page is structurally a Montenegrin page but contains no Montenegrin content. Most common silent i18n bug, kills the locale variant in foreign SERPs.
+8. **Locale drift** (v4.1 from V6) - `<html lang="<non-default>">` but the rendered body content is the default-locale fallback (translation missing in next-intl / i18n layer). The page is structurally a non-default-locale page but contains none of that locale's content. Most common silent i18n bug, kills the locale variant in foreign SERPs.
 
 ### Cross-dimension patterns SEOX MUST detect
 
@@ -762,12 +789,12 @@ if dim9.js_only_render and dim4.schema_missing_in_rendered_html:
         "single_fix_closes": ["dim-4", "dim-9", "potentially-dim-1-3"]
     })
 
-# Pattern 5: uk locale confusion
+# Pattern 5: ambiguous-locale-code confusion (example: uk Ukrainian vs UK region)
 if dim6.fails_mention("en-UK") and dim6.fails_mention("uk"):
     patterns.append({
-        "name": "uk-ukrainian-vs-united-kingdom",
+        "name": "ambiguous-locale-code-conflation",
         "slice_fragments": ["dim-6"],
-        "root_cause": "developer conflated Ukrainian locale (uk) with United Kingdom region code",
+        "root_cause": "developer conflated a language code with a region code (classic: Ukrainian 'uk' vs United Kingdom region)",
         "single_fix_closes": ["dim-6"]
     })
 
@@ -842,8 +869,8 @@ The composite must be capped at 50 when `auto_fail == true`. If the fragment emi
 **Flag 5: synthesis_quality = HIGH with sub_fragment_count < 10.**
 If `synthesis_quality == "HIGH"` AND fewer than 10 slice_fragments composed, BLOCK. Quality inflation - synthesis can't be HIGH if it didn't compose all dimensions. Should be MEDIUM (8-9) or LOW (<8).
 
-**Flag 6: Property detail page without RealEstateListing schema flagged in dim-4 but composite > 80.**
-DOMA-specific. If artefact is a property detail page (`/l/[slug]/page.tsx` in artefact_paths) AND dim-4 reports schema missing AND composite > 80, BLOCK. This is the highest-leverage DOMA-specific SEO failure - missing it can't be hidden by other dims passing.
+**Flag 6: Primary entity-detail page missing its mandatory schema flagged in dim-4 but composite > 80.**
+Vertical-specific. If the artefact is a primary entity-detail page for the project's vertical (route pattern matches `[PAGE-TYPES]` entry for entity-detail) AND dim-4 reports the mandatory `@type` (e.g. `RealEstateListing`, `Product`, `Article`) missing AND composite > 80, BLOCK. This is typically the highest-leverage SEO failure for the project — missing it can't be hidden by other dims passing.
 
 **Detection mechanism:** Frank loads the SEOX fragment, runs each flag as a pure-function assertion. Any flag firing = SEOX fragment rejected, Gaffer re-dispatches synthesis pass (not full fan-out), TRAINX logs the anti-pattern for calibration.
 
@@ -869,7 +896,7 @@ DOMA-specific. If artefact is a property detail page (`/l/[slug]/page.tsx` in ar
 
 ## Migration Path from v3.x
 
-SEOX has no v3.x version - this is the v4.0 first release. Future minor versions should refine calibration anchors (severity examples) and recurring patterns based on what SEOX catches across DOMA shipping sessions. Major version bumps reserved for structural changes (new dimensions, scoring weight changes).
+SEOX has no v3.x version - this is the v4.0 first release. Future minor versions should refine calibration anchors (severity examples) and recurring patterns based on what SEOX catches across `Lost Monster` shipping sessions. Major version bumps reserved for structural changes (new dimensions, scoring weight changes).
 
 ---
 
@@ -877,7 +904,7 @@ SEOX has no v3.x version - this is the v4.0 first release. Future minor versions
 
 For SEOX v4.0 to promote from PROVISIONAL to STABLE:
 
-1. **3 live audits** on real DOMA marketing pages (property detail, category landing, agency profile) - sub-agent fan-out completes within 3-minute target, synthesis quality HIGH on at least 2.
+1. **3 live audits** on real `Lost Monster` marketing pages (covering the project's major page types — e.g. entity-detail, category landing, profile) - sub-agent fan-out completes within 3-minute target, synthesis quality HIGH on at least 2.
 2. **1 caught regression** - SEOX detects a real SEO defect that would have shipped (e.g. canonical-cross-locale during a locale refactor, or missing schema after a template refactor).
 3. **0 false positives** at HIGH severity across the 3 audits (LOW false positives acceptable, HIGH false positives indicate calibration drift).
 4. **Calibration anchors expanded** from initial 5 recurring patterns to 8+ as scar tissue accumulates.
@@ -892,13 +919,13 @@ For SEOX v4.0 to promote from PROVISIONAL to STABLE:
 - **Last updated:** 2026-05-13 (fresh-eyes audit promotion + FA-1 fact-list citations backfilled)
 - **Authored by:** v4.0 - 7 parallel research agents + Gaffer synthesis (HospoJobs pattern). v4.1 - 6 parallel validation agents (tool gap, expert checklists, severity calibration, RE vertical depth, GEO 2026 update, red-team) + Gaffer patch composition. Fresh-eyes audit by distinct Explore agent 2026-05-13 (separate from author) confirmed FA-1/FA-2/Frank #19 compliance and promoted authoring status from PROVISIONAL to CLEARED per Execution Contract Rule 10.
 - **Brand Compliance Chain role:** REVIEW phase (Wave 2 of BULLETPROOF), parallel to SOFAX/AIDAX/PIXLX/CONSX
-- **DOMA criticality:** HIGH - DOMA's free-acquisition channel is organic search across 7 locales (en, me, ru, uk, de, tr, it)
+- **Per-project criticality:** scales with the project's reliance on organic search and its locale count. Multi-locale projects with organic search as a primary acquisition channel: HIGH. Single-locale, paid-acquisition-only projects: MEDIUM (Dim 6 contracts; other dims still ship-blocking).
 
 ### v4.1 Changelog (validation pass)
 
 **Critical bugs fixed:**
 - Composite formula contradicted itself in 3 places (spec + worked example + synthesis pseudocode). Now: direct `sum(dim_scores)`, severity encoded by per-dim max (15 vs 10), no multipliers.
-- Locale set was fiction (`[en, sr, de, ru, it, fr]`). Corrected to actual `[en, me, ru, uk, de, tr, it]` per packages/shared/i18n/routing.ts. Added `me → sr-Latn-ME` hreflang emission mapping.
+- Locale set was placeholder fiction. Corrected to be filled per project from `[I18N-ROUTING-PATH]`. Documented the `internal-locale-id → BCP-47-code` mapping pattern (e.g. a project's `me → sr-Latn-ME` emission) as a required ONBOARD token.
 - Accommodation subtype list included invalid schema.org types (Villa/Penthouse/Studio/Loft/Bungalow are marketing categories, not schema types). Restricted to: Apartment, House, SingleFamilyResidence, Room, Suite, Accommodation.
 - `@type` array form (`["RealEstateListing", "Apartment"]`) was documented as required - it's non-standard. Production sites use nested `about: {@type: "Apartment"}` or sibling blocks linked by `@id`. v4.1 accepts all 3 patterns.
 - Multiple-H1 auto-fail was outdated (HTML5 sectioning content allows it, Mueller 2019/2022 confirmed). Now: only missing-H1 entirely is auto-fail.
@@ -931,6 +958,6 @@ For SEOX v4.0 to promote from PROVISIONAL to STABLE:
 **Confidence tagging:** each dimension now declares its evidence basis as `validated | directional | vibes`. Honest about epistemic state - Schema/Canonical/Intent are validated; E-E-A-T/Hreflang/GEO are directional; Heading hierarchy is vibes.
 
 **Honest unresolved gaps** (V6 - acknowledged, not fixed):
-- 10-parallel-sub-agent fan-out plus Frank #19 anti-pattern flags may over-engineer for DOMA's single-market scale. 80% of value likely comes from 3 dims (Schema, Hreflang, Canonical). Operational decision pending - run all 10 in CI or only the CRITICAL 4?
+- 10-parallel-sub-agent fan-out plus Frank #19 anti-pattern flags may over-engineer for single-market-scale projects. 80% of value likely comes from 3 dims (Schema, Hreflang, Canonical). Operational decision pending - run all 10 in CI or only the CRITICAL 4?
 - Several checkpoints in Dim 1 + Dim 7 are aspirational, not testable from rendered HTML alone ("first-hand photos", "answers implied query"). Calibration drift expected; TRAINX will patch as drift accumulates.
 - The dimension list still doesn't cover: log-file SEO analysis, GBP integration, sitewide cannibalisation detection, backlink-quality signals. These belong to full-site audits or other workers, not per-page SEOX.

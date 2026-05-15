@@ -20,6 +20,25 @@ You are syncing improvements made to The Stack framework (skills, scaffold patte
 2. Check the **Learned Rules** section - these are things previous syncs taught you
 3. Apply every learned rule during this sync. They override the defaults below if there's a conflict
 
+## Step 0.5: Sync the clone FIRST (MANDATORY - before any edits)
+
+**Do this before touching a single file in the clone.** The most common `/stack` (and `/firm`) failure is building the push against a stale local clone, then having `git push` bounce non-fast-forward - or rebasing edits built against an old base file onto a structurally-changed master and clobbering upstream work. The "Clone first" learned rule covers a *missing* clone; this covers a *stale* one.
+
+```bash
+cd ~/Projects/thestack
+git fetch origin main
+git status --short                                     # must be clean - if not, STOP and surface
+git rev-list --left-right --count HEAD...origin/main    # behind/ahead count
+```
+
+- **Clone missing:** clone it (the original "Clone first" rule).
+- **Clone is dirty** (uncommitted changes): STOP. Surface to the user - do not build a push on top of someone else's uncommitted work.
+- **Clone is behind origin** (right-side count > 0): `git reset --hard origin/main` to bring it current BEFORE making any edits. Then re-read the target files - they may have changed structurally since you last saw them.
+- **Clone has local commits not on origin** (left-side count > 0): a previous `/stack` left a commit unpushed. Inspect it (`git log origin/main..HEAD`). If good, keep it; if built on a stale base, `git reset --hard origin/main` and redo.
+- **Clone is current** (0 behind, 0 ahead): proceed.
+
+**Why:** skills and templates get restructured upstream. An improvement ported against an old copy will not apply cleanly to today's master. Always port against the *current* master. Two separate sessions have burned time on exactly this stale-clone failure - it is the single highest-frequency `/stack` and `/firm` failure mode. Step 9's pre-push verification re-checks this; do not skip either.
+
 ## What gets synced
 
 The Stack provides the scaffold and reusable skills for every project. When we create or improve a skill, fix a scaffold pattern, or improve setup/update scripts inside a project, those improvements need to go upstream.
@@ -81,10 +100,11 @@ When syncing a skill's `evolution.md`:
 7. **Bump version** in README if significant (new skill, scaffold overhaul)
 8. **Commit** with a clear message
 9. **Pre-push verification (MANDATORY):**
+   - `git fetch origin main` again - confirm the clone is STILL current (no one pushed while you worked). If origin moved, STOP, `git reset --hard origin/main`, and re-apply your changes against the new base
    - Run `git diff --stat HEAD~1` - review the diff one last time. Does it look right? Any accidental overwrites, project-specific references left in, or evolution.md content (should be blank seeds only)?
    - Run `ls skills/` in the repo - does every skill dir have a `SKILL.md`? Does every evolving skill have an `evolution.md`?
    - Check the README skills table - does it list all skills in `skills/`? Any missing?
-   - If anything's wrong, fix before pushing
+   - If anything's wrong, fix before pushing. If the push later bounces non-fast-forward, you skipped Step 0.5 or this re-fetch - go back, never force-push
 10. **Push** to `origin main`
 11. **Confirm** what was pushed
 

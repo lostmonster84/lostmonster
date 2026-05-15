@@ -7,7 +7,7 @@ This repository contains two main sections:
 ---
 
 <!-- FIRM:START — auto-managed by update.sh, do not edit between markers -->
-> **The Firm v4.4.2** - 34 workers | [Reference](.ai/thefirm/FIRM-CONTEXT.md) | [Protocol](.ai/thefirm/PROTOCOL.md) | [Evolution](.ai/thefirm/gaffer/evolution.md)
+> **The Firm v4.6.1** - 34 workers | [Reference](.ai/thefirm/FIRM-CONTEXT.md) | [Protocol](.ai/thefirm/PROTOCOL.md) | [Evolution](.ai/thefirm/gaffer/evolution.md)
 <!-- FIRM:END -->
 
 

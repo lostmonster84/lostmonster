@@ -1,5 +1,62 @@
 # Sync — Evolution Log
 
+## 2026-05-15 — Firm v4.4.2 → v4.6.0 + worker methodology drift discovered
+
+**What happened:**
+- Firm pull: 2 commits — SOFAX v4.5.0 (Excellence Layer + deck supplement) + GAFFER v4.6.0 (Project-Contamination Scan in fitness).
+- Stack pull: firm/gaffer/stack SKILL.md updates.
+- update.sh ran clean: v4.4.2 → v4.6.0 stamp, preserved 34 workers, added 1 new supplement (SOFAX-decks.md), filled 1 token from project.json.
+- 3 Stack-newer skills replaced: firm, gaffer, stack.
+- 4 forensic-block scaffold files added (install-hooks.sh, .githooks/commit-msg, .githooks/post-merge, .github/pull_request_template.md). core.hooksPath wired to .githooks.
+- project.json firmVersion bumped 4.4.2 → 4.6.0 manually (update.sh doesn't write to it).
+
+**Caught (BIG):**
+- **14 worker playbooks have significant methodology drift** (local vs upstream). update.sh's "preserve onboarded workers" policy is shielding methodology updates from propagating. Examples:
+  - SOFAX: 353 → 1512 lines (+1159) — entire v4 fan-out subagent architecture missing
+  - AIDAX: 499 → 1040 (+541)
+  - MAPX: 148 → 635 (+487)
+  - TERRX: 370 → 740 (+370)
+  - PIXLX: 331 → 660 (+329), STANX +283, TESTX +227, INSPX +206, BLAZX +126, NIGELX +123, APEX +78, CRUDX +64, AUDIX +51
+  - ALLYX: 983 → 395 (-588) — upstream shrank (v4 restructure)
+- Cause: upstream had v4.0 marathon restructure (commit 1d10a96) + intra-worker fan-out (cc688de) + per-worker v4 rewrites between Firm v3.x and v4.x. update.sh preserves the WHOLE local file when a worker exists, so methodology updates never land.
+
+**Friction:**
+- update.sh's preservation policy is too conservative. Onboarding (manifest tokens + Context section) is interleaved with methodology in the same file. Preserving the whole file to protect onboarding also shields methodology from updates.
+- /sync didn't previously detect this — it trusted update.sh's "Preserved: N workers" message. Now flagged via line-count delta scan.
+
+**Learned rules (NEW):**
+- After update.sh runs, /sync MUST do a line-count delta scan: `wc -l` on every `.ai/thefirm/crew/**/*.md` vs `~/Projects/thefirm/.ai/thefirm/crew/**/*.md`. Surface any file with |Δ| > 50 lines as drift.
+- Methodology drift is a real category — flag it in the sync report, don't silently accept update.sh's preservation as "all good".
+- Resolution path (not auto-applied): copy upstream worker over local, then re-run the manifest token-fill step. Manifest values come from project.json, so they regenerate cleanly. Context section may need re-write if upstream version touched it.
+
+**Resolution (same session — user chose option 1, overwrite all 14):**
+- 14 drifted workers copied from `~/Projects/thefirm/` over local. Onboarding script `/tmp/onboard.py` written to handle ONBOARD:START/END exclusion correctly.
+- 5 workers had manifest blocks (APEX, CRUDX, AUDIX, TESTX, NIGELX) — 48 non-N/A tokens filled across them. Zero gaps, zero unreplaced-in-body tokens, zero remaining `## [PROJECT] Context` headings.
+- **9 workers have NO `ONBOARD:START/END` block at all** in upstream Firm v4.6 (MAPX, BLAZX, INSPX, STANX, TERRX, AIDAX, ALLYX, PIXLX, SOFAX). They contain 5–27 hard-coded "DOMA" references each (and `# SOFAX Framework - DOMA Edition v4` as the H1) — 184 foreign-project refs across the 9 files. This is upstream Firm contamination: DOMA was the test project for the v4 marathon restructure and references leaked in.
+- **Upstream bug:** AUDIX has `[PROJECT-DOMAIN]` in body but missing from its own manifest. Algorithm correctly left it untouched.
+
+**Learned rules (NEW from resolution):**
+- Upstream Firm v4.x is not fully generalised. 9 workers were rewritten in v4 with DOMA-as-scenario hard-coded. Until upstream tokenises them or strips the DOMA references, every /sync into any non-DOMA project will inherit DOMA contamination.
+- For workers without a manifest block: methodology overwrite is safe; but DOMA references in headings/examples are NOT safe and should be flagged. /firm push (reverse direction) would carry those DOMA refs back upstream, making it worse.
+- Action upstream: open issue on thefirm repo to either (a) add manifests to the 9 v4-restructured workers OR (b) strip DOMA references from their bodies. This is a framework-level fix, not project-level.
+- Compare to v4.6.0 GAFFER playbook commit (`60cde94 gaffer(playbook): v4.6.0 - Project-Contamination Scan in Gaffer: fitness`) — Gaffer itself ALREADY added a contamination scan in v4.6, but the workers being scanned are still contaminated. The scan exists but the remediation is upstream-only.
+
+**Upstream cleanup applied (same session — user picked "Full generalisation"):**
+- Committed and pushed `9d03bd8 chore(v4.6.1): strip DOMA project contamination from framework` to lostmonster84/thefirm. 23 files, +776/-652 lines.
+- Workers cleaned upstream: MAPX, BLAZX, INSPX, STANX, TERRX, TESTX, AIDAX, ALLYX, PIXLX, SEOX, SOFAX, AUDIX (manifest fix). SEOX was the biggest — 52 DOMA refs across locale set, scoring caps, page-type checkpoints, red-flag examples. Dim 6 Hreflang now scales with project locale count instead of hard-coded "7 locales".
+- TESTX was a full DOMA-onboarded leak (manifest had `[PROJECT]=DOMA`); reverse-onboarded to template state.
+- 9 specs/feature-requests also swept (calibration-anchors-template was 16 refs).
+- KEEP carve-outs (legitimate, not contamination): GAFFER.md (uses DOMA in contamination-scan documentation), SCOUTX-owner-project-patterns.md (portfolio research), DEMX-homepage / DEMX-landing-pages / WORDX-homepage supplements (portfolio citations), STRATX-stratton-pivot.md (single ref in a labelled worked-example scenario).
+- After push: pulled cleaned versions back into local lostmonster via `/tmp/reonboard.py` (12 worker files copied + token-filled from project.json). 47 tokens filled across 12 workers. Local DOMA contamination: 0 in active workers (only KEEP files retain DOMA refs).
+
+**Learned rules (NEW — post-cleanup):**
+- The /sync line-count drift detector was the single highest-leverage check this session. Without it, the 14 drifted workers would have stayed at v3 methodology indefinitely. Keep that scan in /sync going forward.
+- Word-boundary matters for DOMA scans: `\bDOMA\b` excludes false positives from `[PROJECT-DOMAIN]` (the `DOMA` substring inside the token name). The `doma-` lowercase scan needs explicit class names (`doma-(sea|ink|mist|sand|cream|storage)`) to avoid hitting `doma` inside `domain`.
+- SEOX introduced new tokens (`[I18N-ROUTING-PATH]`, `[LOCALE-SET]`, `[HREFLANG-EMISSION-MAP]`, `[CDN-HOST]`, `[ADDRESS-COUNTRY]`, `[PRICE-CURRENCY]`, `[CALLING-CODE]`, `[PRIMARY-INTENT]`, `[PAGE-TYPES]`, `[NAMED-LANDMARKS]`) and AIDAX introduced `[PERSONA-FILE]`. These should be added to ONBOARDING.md catalogue + project.json schema upstream. Marked N/A locally for now (Lost Monster is single-locale).
+- The `reonboard.py` script pattern (copy from upstream + parse manifest + fill values + replace body tokens outside manifest, skip N/A) is a candidate to merge into /sync itself or into `update.sh` so this isn't manual next time.
+
+---
+
 ## 2026-05-14 — Major version jump (Firm v3.16 → v4.4.2)
 
 **What happened:**

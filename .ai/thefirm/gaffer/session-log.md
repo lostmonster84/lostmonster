@@ -18,6 +18,28 @@
 
 -->
 
+## 2026-05-15 — Firm v4.6.1: DOMA Contamination Cleanup + Worker Re-Onboarding
+
+- **Built:** Pushed `chore(v4.6.1) strip DOMA project contamination from framework` to lostmonster84/thefirm (commit `9d03bd8`). 12 worker playbooks generalised (MAPX, BLAZX, INSPX, STANX, TERRX, TESTX, AUDIX, AIDAX, ALLYX, PIXLX, SEOX, SOFAX) + 9 specs/feature-requests swept. SEOX Dim 6 Hreflang now scales with project locale count. TESTX reverse-onboarded from `[PROJECT]=DOMA`. AUDIX `[PROJECT-DOMAIN]` manifest bug fixed. Local re-pulled cleaned versions and onboarded via `/tmp/reonboard.py` — 47 tokens filled. /sync's line-count delta scan was the win that caught the v3-era methodology drift hidden by `update.sh`'s worker-preservation policy.
+- **Work done:** 27 files in this commit (+6,859/-2,701 lines locally) + 23 files in the upstream thefirm commit (+776/-652).
+- **Workers:** Infrastructure session — no Firm UI workers assigned. `/sync` + `/gaffer self-audit` skills run; subagents handled the bulk methodology cleanup. The Gaffer noted: 14 drifted workers, 9 with DOMA contamination, 1 (TESTX) full DOMA-onboard leak.
+- **Foreman:** N/A (framework/docs session — no runtime surface, no UI to inspect)
+- **Protocol:** FULL
+- **Skipped:** All UI workers (no feature build). Deploy check skipped (framework changes only, nothing deploys).
+- **Issues found:** SEOX contamination was 5x bigger than initial scan suggested (52 refs vs 27 reported earlier). TESTX manifest had `[PROJECT]=DOMA` filled and pushed upstream — a literal DOMA-onboarded file in the framework. AUDIX had `[PROJECT-DOMAIN]` in body but missing from its own manifest. STRATX worked-example has a stray DOMA ref under a documented carve-out (left in place).
+- **Shipped:** Upstream pushed (`9d03bd8` on lostmonster84/thefirm). Local commit pending in this /wrap.
+
+**Forensic block:**
+```
+Subsystems:   firm-framework, infra, uncategorised
+Files:        .ai/thefirm/crew/GAFFER.md, builders/APEX, CRUDX, MAPX, checkers/AUDIX, BLAZX, INSPX, STANX, TERRX, TESTX, reviewers/AIDAX, ALLYX, NIGELX, PIXLX, SEOX, SOFAX, supplements/SOFAX-decks, .claude/skills/firm|gaffer|stack|sync, CLAUDE.md, project.json, .githooks/, .github/, scripts/install-hooks.sh — 27 files
+Risk surface: Worker drift hidden by update.sh preservation (now caught via line-count scan, keep going forward); upstream/local divergence on framework tokens; new SEOX tokens not yet in upstream ONBOARDING.md catalogue or project.schema.json; reonboard.py at /tmp not merged into /sync or update.sh; subsystems.json missing .githooks/ + .github/ globs (uncategorised bucket exposes this)
+Verified:     Upstream cleanup verified via word-boundary grep across ~/Projects/thefirm/.ai/thefirm/ (0 DOMA refs in active workers; only documented KEEP files retain refs). Upstream push verified (commit 9d03bd8 on lostmonster84/thefirm/main). Local re-onboarding verified — 47 tokens filled across 12 workers, all manifest tokens have body replacement (zero orphan [TOKEN] in body), all `## [PROJECT] Context` headings renamed to `## Lost Monster Context`. project.json firmVersion bumped to 4.6.0; BLUEPRINT.md + CLAUDE.md stamped v4.6.1.
+Deferred:     No runtime/staging/deploy verification (framework + docs session, no app code shipped, nothing deploys). New SEOX tokens ([I18N-ROUTING-PATH], [LOCALE-SET], [HREFLANG-EMISSION-MAP], [CDN-HOST], [ADDRESS-COUNTRY], [PRICE-CURRENCY], [CALLING-CODE], [PRIMARY-INTENT], [PAGE-TYPES], [NAMED-LANDMARKS]) + AIDAX [PERSONA-FILE] not yet added to upstream ONBOARDING.md catalogue + project.schema.json. reonboard.py still ad-hoc at /tmp — pattern should land in /sync or update.sh next pass. subsystems.json uncategorised bucket flagging .githooks/, .github/, scripts/install-hooks.sh — manifest should be extended. STRATX worked-example DOMA ref left as KEEP — flag if it should be scrubbed in a later pass.
+```
+
+---
+
 ## 2026-05-14 — Framework Sync + Portfolio Intelligence Skill
 
 - **Built:** `/portfolio` skill (project-specific — scans `/Volumes/Projects/`, maintains the `.ai/portfolio/` knowledge base). First full scan produced 11 deep venture OVERVIEWs + INDEX + CHANGELOG. The Firm synced v3.16 → v4.4.2; The Stack synced (4 new skills). ROADX worker onboarded. Forensic logging infrastructure adopted. `docs/BLUEPRINT.md` created.

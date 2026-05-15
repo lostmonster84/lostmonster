@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-05-15 — Firm v4.6.1: DOMA Contamination Cleanup + Worker Re-Onboarding
+
+### Major
+- Pushed `chore(v4.6.1)` upstream to `lostmonster84/thefirm` (commit `9d03bd8`) — stripped DOMA project contamination from the framework. 23 files cleaned, +776/-652 lines.
+- 12 worker playbooks generalised: added ONBOARD:START/END manifests where missing, tokenised DOMA identifiers, rewrote DOMA-specific design rules into project-agnostic methodology pointing at `[DESIGN-GUIDE-PATH]`. Affected: MAPX, BLAZX, INSPX, STANX, TERRX, TESTX, AUDIX, AIDAX, ALLYX, PIXLX, SEOX, SOFAX.
+- SEOX Dim 6 Hreflang scoring now scales with project locale count (was hard-coded to DOMA's 7 locales).
+- TESTX reverse-onboarded — its manifest had `[PROJECT]=DOMA` filled; the whole worker was a leaked DOMA-onboarded copy pushed upstream without reverse-replace. Cleared.
+- 9 specs / feature-requests swept of DOMA scaffold refs (calibration-anchors-template had 16).
+
+### Infrastructure
+- Firm synced v4.4.2 → v4.6.0 → v4.6.1: pulled SOFAX v4.5.0 Excellence Layer + GAFFER v4.6.0 Project-Contamination Scan, then shipped our own v4.6.1 cleanup upstream.
+- Stack synced: firm/gaffer/stack SKILL.md updates.
+- Forensic infrastructure completed: scaffolded `scripts/install-hooks.sh`, `.githooks/commit-msg`, `.githooks/post-merge`, `.github/pull_request_template.md`. `core.hooksPath` wired to `.githooks/`.
+- New SOFAX-decks supplement added (deck-review job type).
+- Local re-onboarded: 47 manifest tokens filled across 12 workers via `/tmp/reonboard.py`.
+
+### Fixes
+- AUDIX manifest bug — `[PROJECT-DOMAIN]` row added so the existing body reference resolves.
+- `project.json` firmVersion bumped 4.4.2 → 4.6.0.
+- `docs/BLUEPRINT.md` updated to v4.6.1.
+
+### Detected (the win that made this session work)
+- `/sync` line-count delta scan caught 14 workers with major methodology drift hidden by `update.sh`'s worker-preservation policy. Without that scan, local would still be on v3-era worker playbooks. Keep that scan in `/sync` going forward.
+
 ## 2026-05-14 — Framework Sync + Portfolio Intelligence
 
 ### Major

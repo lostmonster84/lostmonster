@@ -518,6 +518,7 @@ GAFFER: Mobile overflow bug.
 - A worker's project context is stale (references outdated tech, old file paths, removed features)
 - A worker's examples don't match current project patterns
 - A worker is being skipped because its trigger criteria are too narrow
+- **A worker is project-contaminated** - its playbook carries another project's name, brand tokens, or "X Edition" title, inherited from a contaminated thefirm master via `/sync`. Caught by the Project-Contamination Scan below.
 
 **What The Gaffer does:**
 1. Identify the weakness - which worker, which specific dimension or checklist item
@@ -565,6 +566,47 @@ GAFFER UPTRAIN: PIXLX (Pixie)
 - Every uptrain change gets logged to calibration.md with date, reason, and what was changed
 - The Gaffer can add to worker files but never removes existing checks without James's approval
 - Uptrained workers should be tested on the next piece of work to verify the improvement
+
+#### Project-Contamination Scan (runs on every `Gaffer: fitness`)
+
+The Firm master (`~/Projects/thefirm/`) is meant to be project-agnostic - generic tokens, no project identity. When a project improves a worker and pushes upstream without reverse-generalising, that project's name, brand tokens, and "X Edition" title get baked into the master - and then **every project inherits them on the next `/sync`**. This actually happened: SOFAX, SEOX, and STRATX shipped to the master carrying `DOMA Edition` titles and a `## DOMA Design Tokens Reference` section.
+
+`Gaffer: fitness` scans the local crew for this. The scan is a **candidate-finder, not an auto-classifier** - the greps cast a wide net, the Gaffer does the final judgement (it can tell "DOMA" from "Audit" instantly; a regex cannot). Two layers:
+
+**Layer 1 - structural (catches wholesale onboarding).** A file onboarded to another project announces it in the H1 title:
+
+```bash
+grep -rnE '^# .*\bEdition\b' .ai/thefirm/crew/
+```
+
+Single-hash on purpose (H1 only - never trips on an H2 like `## AI Slop Detection (WORDX Edition)`). For each hit, the name before "Edition" is either **this project's name** (correct onboarding - pass), **`Lost Monster`** (generic - pass), or **a different project** (contamination).
+
+**Classify each hit by reading it - do NOT `grep -v <projectname>` to filter.** A `grep -rn` line is prefixed with the file path, and the project's own path (`/Volumes/Projects/<project>/...`) contains the project name - filtering on it swallows every line. Read the title, name the project, classify.
+
+**Layer 2 - literal proper-noun scan (catches body-level contamination).** A wholesale-onboarded file announces itself in the title; a single stray reference (`"...their portfolio is on DOMA"`) does not. Layer 2 catches the stray kind. Build the worker-codename allowlist from the crew directory itself, then list ALLCAPS tokens that are NOT codenames:
+
+```bash
+CODENAMES=$(find .ai/thefirm/crew -name '*.md' -exec basename {} \; | grep -oE '^[A-Z]{4,}' | sort -u)
+grep -rhoE '\b[A-Z]{4,}\b' .ai/thefirm/crew/ | sort -u | grep -vxF "$CODENAMES"
+```
+
+The residual list is ALLCAPS words that aren't worker codenames - mostly Firm/tech terms (`PROTOCOL`, `BULLETPROOF`, `CRITICAL`, `OWASP`, `WCAG`...). **A foreign project name stands out in that list.** The Gaffer reads it and flags any token that is a project name - not this project's, not a Firm/tech term. If unsure whether a token is a project name, grep it back (`grep -rn '\bTOKEN\b' .ai/thefirm/crew/`) and read the context.
+
+**Honest limit:** Layer 1 is reliable. Layer 2 depends on the Gaffer recognising a foreign project name in a candidate list - it surfaces the candidate, the Gaffer judges. It will not catch a foreign name that is also a common word, or one that appears only in lowercase. The scan is a strong net, not a proof.
+
+**Classifying a hit** (either layer) against **this project's** name (from `project.json`):
+
+- **Matches this project** (the title's name is this project's own name) - correct onboarding. Pass.
+- **A generic token** (`Lost Monster`) - correct. Pass.
+- **A different project** (the title or body carries a project name that is not this project's - e.g. a `DOMA Edition` title, or a stray `DOMA` reference in the body) - **contamination**. The worker's playbook was pulled down from a contaminated master.
+
+**What the Gaffer does on a contamination hit - and its honest limit:**
+
+1. **Log it as a debt** in `debts.md` under the upstream-defects entry (or a new one), naming the file and the foreign project.
+2. **Recommend a thefirm-repo cleanup session.** State plainly: the Gaffer running inside a project **cannot** correct the master - a local fix diverges from master and is reverted by the next `/sync`. The fix is genericising the file *in the thefirm repo*, then pushing.
+3. **Do NOT silently re-onboard the local copy.** That masks the contamination without fixing the source, and the next `/sync` brings it back.
+
+This scan covers `crew/**` in full - including `GAFFER.md`, `FOREMAN.md`, and `TRAINX-*.md`. The Gaffer audits its own playbook here too. The prevention half of this lives in the `/firm` skill's Generalisation Gate (hard pre-push block); this fitness scan is the detection half on the receiving end.
 
 ### Trigger 7: PATCH-LOOP ESCALATION (HARD STOP)
 

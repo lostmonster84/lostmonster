@@ -7,31 +7,32 @@
 <!-- ONBOARD:START -->
 | Token | Value | Source |
 |-------|-------|--------|
-| `[PROJECT]` | Lost Monster | CLAUDE.md |
-| `[PROJECT-DOMAIN]` | lostmonster.io | CLAUDE.md |
-| `[ENTITY-PRIMARY]` | Projects | CLAUDE.md |
-| `[ENTITY-SECONDARY]` | Case Studies | CLAUDE.md |
-| `[ENTITY-USERS]` | Clients | CLAUDE.md |
-| `[DATABASE]` | Neon PostgreSQL | CLAUDE.md |
-| `[HOSTING-PROVIDER]` | Vercel | CLAUDE.md |
-| `[BRAND-PRIMARY]` | #06B6D4 (teal) | CLAUDE.md |
-| `[BRAND-BG]` | Dark/black backgrounds | CLAUDE.md |
-| `[BRAND-DARK]` | Dark theme with glassmorphism | CLAUDE.md |
-| `[MAP-SERVICE]` | | |
-| `[APP-PUBLIC]` | website/ (port 3000) | CLAUDE.md |
-| `[APP-ADMIN]` | dashboard/apps/web/ (port 3001) | CLAUDE.md |
-| `[APP-API]` | Next.js API routes (website/app/api/ + dashboard/apps/web/src/app/api/) | CLAUDE.md |
-| `[DESIGN-GUIDE-PATH]` | website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md | CLAUDE.md |
-| `[TEST-PERSONA]` | Graduate Grace | CLAUDE.md |
+| `[PROJECT]` | Lost Monster | |
+| `[PROJECT-DOMAIN]` | Framework-driven development that actually works | |
+| `[ENTITY-PRIMARY]` | Projects | |
+| `[ENTITY-SECONDARY]` | Case Studies | |
+| `[ENTITY-USERS]` | Clients | |
+| `[DATABASE]` | Neon PostgreSQL | |
+| `[HOSTING]` | Vercel | |
+| `[BRAND-PRIMARY]` | #06B6D4 (teal) | |
+| `[BRAND-BG]` | Dark/black backgrounds | |
+| `[BRAND-DARK]` | Dark theme with glassmorphism | |
+| `[MAP-SERVICE]` | N/A | |
+| `[APP-PUBLIC]` | website/app/ | |
+| `[APP-ADMIN]` | dashboard/apps/web/src/app/ | |
+| `[APP-API]` | website/app/api/ + dashboard/apps/web/src/app/api/ | |
+| `[DESIGN-GUIDE-PATH]` | website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md | |
+| `[TEST-PERSONA]` | Graduate Grace | |
 <!-- ONBOARD:END -->
 
 ---
 
 ## Lost Monster Context
 
-**APEX for Lost Monster** orchestrates the full builder stack to deliver production-ready features across the Lost Monster monorepo. It coordinates database migrations (Neon PostgreSQL), API routes, admin interfaces (dashboard on port 3001), and public-facing pages (website on port 3000) — all wired together in a single command.
+**APEX for Lost Monster** understands:
+- Framework-driven development that actually works specifics relevant to this worker's role
+- See onboarding manifest for token definitions
 
-Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind CSS, and a dark-themed design system with 5 dynamic colour themes. APEX ensures every feature ships with Graduate Grace-friendly UX, SOFAX-audited design (93+/110), and full brand compliance.
 ---
 
 ## What is APEX?
@@ -44,7 +45,7 @@ Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind C
 
 **You get:**
 - ✅ Complete backend (Neon PostgreSQL tables + API routes + Types)
-- ✅ Admin interface (dashboard/apps/web/ (port 3001))
+- ✅ Admin interface (dashboard/apps/web/src/app/)
 - ✅ Public UI with AIDA conversion structure
 - ✅ Mobile-native experience (gestures + touch)
 - ✅ SOFAX-audited design (93+/110 score)
@@ -83,6 +84,18 @@ Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind C
 
 ---
 
+## APEX Anti-Patterns (DO NOT DO THESE)
+
+| Anti-Pattern | Why It's Wrong | What To Do Instead |
+|---|---|---|
+| Writing quality gate scores (85+, 80+) at planning stage | You're declaring victory before the war starts. Those numbers are fiction until output exists | Quality gates are verification steps that run AFTER each stage completes |
+| Skipping AIDAX in APEX-BACKEND mode when there's any UI | Backend mode means zero UI stages. If there's a settings page, that's UI - not backend | Check: does ANY user see ANY screen? If yes, AIDAX runs |
+| Running all 6 stages without checking output between them | Errors compound. Bad Stage 2 output makes Stage 4 garbage | Screenshot and verify after each stage that produces visible output |
+| Marking a stage complete without evidence | "Stage 4 done" with no screenshot is not done - it's a claim | Every stage that produces UI output needs a screenshot before proceeding |
+| Skipping ALLYX because "it's an admin page" | Admin users deserve accessibility too. Screen readers exist in admin contexts | ALLYX runs on every APEX output. No exceptions |
+
+---
+
 ## The APEX Workflow
 
 ```
@@ -105,7 +118,7 @@ Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind C
 ┌─────────────────────────────────────────────────────────────────┐
 │ STAGE 2/6: PLAN (CODAX)                                         │
 ├─────────────────────────────────────────────────────────────────┤
-│ • Context: Current Lost Monster state (website/ (port 3000), dashboard/apps/web/ (port 3001))  │
+│ • Context: Current Lost Monster state (website/app/, dashboard/apps/web/src/app/)  │
 │ • Objective: Feature goal                                       │
 │ • Details: Entities and relationships involved                  │
 │ • Acceptance: PRD alignment, domain rules                       │
@@ -118,8 +131,8 @@ Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind C
 ├─────────────────────────────────────────────────────────────────┤
 │ Layer 1: Neon PostgreSQL schema                                      │
 │ Layer 2: TypeScript types                                       │
-│ Layer 3: API routes (Next.js API routes (website/app/api/ + dashboard/apps/web/src/app/api/))                                 │
-│ Layer 4: Admin UI (dashboard/apps/web/ (port 3001))                                 │
+│ Layer 3: API routes (website/app/api/ + dashboard/apps/web/src/app/api/)                                 │
+│ Layer 4: Admin UI (dashboard/apps/web/src/app/)                                 │
 │ Layer 5: Components                                             │
 │ Layer 6: Integration (nav, status badges, indicators)           │
 ├─────────────────────────────────────────────────────────────────┤
@@ -182,10 +195,21 @@ Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind C
 │     gradients, decorative flourishes, or orphan patterns.       │
 │ Ref: website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md + AI Slop Test (10 Red Flags)         │
 │ If Brand Gate fails → reject variation, rebuild before proceed  │
+│                                                                 │
+│ Accessibility Gate (ALLYX - mandatory):                         │
+│ 12. Keyboard nav: Tab, Escape, arrows all work logically       │
+│ 13. Screen reader: Logical headings, alt text, ARIA labels     │
+│ 14. Colour contrast: WCAG 2.1 AA (4.5:1 text, 3:1 UI)        │
+│ 15. Touch targets: 44px minimum on mobile                      │
+│ 16. Focus indicators: Visible logical focus ring on all         │
+│     interactive elements                                        │
+│ 17. No colour-only indicators: Status must have text/icon      │
+│ If Accessibility Gate fails → fix before continuing             │
 ├─────────────────────────────────────────────────────────────────┤
 │ Quality Gate: ☑ Score 85+ achieved                              │
 │               ☑ Benchmarked against industry leaders             │
 │               ☑ Brand Gate passed (Provenance + no AI Slop)     │
+│               ☑ Accessibility Gate passed (ALLYX 80+)           │
 └─────────────────────────────────────────────────────────────────┘
                                ↓
                          ┌──────────┐
@@ -193,6 +217,76 @@ Lost Monster is a personal brand + agency site built with Next.js 15, Tailwind C
                          │    ✅     │
                          └──────────┘
 ```
+
+---
+
+## Bug Fix Protocol - Evidence Before Patch
+
+When the bug is in code that transforms input data - parser, extractor, formatter, joiner, serializer, validator, normalizer - or is a regression in previously-working behaviour, the protocol is observation before action. Never a speculative patch.
+
+### Step 0: Forensic Archaeology (before reading any current code)
+
+Most bugs are regressions. Before reading the current code, find out what changed.
+
+1. **Grep forensic blocks for the suspect subsystem:**
+   ```bash
+   git log --all --grep "Subsystems:.*<suspect-area>" --oneline -50
+   ```
+   This returns every commit that touched the area, with risk surface attached. Cheaper than reading 50 commits manually. Requires the project to embed forensic blocks in commit bodies (see `/wrap` and `/dayclose` skills + `subsystems.json`).
+
+2. **Read the latest few commits that match.** Look for:
+   - Risk surface items that match the symptoms
+   - `Verified: NONE` or `Deferred: <area>` entries (un-verified theory patches are prime regression suspects)
+   - Commits that changed the data shape feeding the broken function
+
+3. **Cross-reference the evolution log:**
+   ```bash
+   grep -B2 -A8 "<suspect-area>" .ai/thefirm/gaffer/evolution.md
+   ```
+   Framework changes (worker uptrains, protocol patches) sometimes reshape behaviour upstream.
+
+4. **Cross-reference the debts log:**
+   ```bash
+   grep -B2 -A6 "<suspect-area>" .ai/thefirm/gaffer/debts.md
+   ```
+   Recently-resolved debts in the same area sometimes over-correct.
+
+5. **Output a SHORTLIST of 1-3 candidate commits + WHY each is suspect.** Then and only then, read the current code in those files.
+
+If `subsystems.json` doesn't have the suspect area mapped, that is itself a finding - propose adding it before continuing. If the project hasn't adopted forensic blocks yet, fall back to plain `git log --oneline` of the suspect file paths and read each diff.
+
+### Step 1: Reproduce the bug (with real input)
+
+1. Create `scripts/repro-<bug-id>.ts` (or `.mjs`)
+2. Load the actual failing input - the PDF, the email, the JSON, the buffer, whatever the function operates on in production
+3. Call the suspect function in isolation, with the same options the real caller uses
+4. Print: input shape, intermediate values, final output, and the heuristic the function uses to decide success/failure
+5. Run with `tsx scripts/repro-<bug-id>.ts` (or your project's TS runner)
+
+### Why this is non-negotiable
+
+Theories about input data are usually wrong. Examples from real incidents:
+- "unpdf returns empty pages for scanned PDFs" - actually returns whitespace, page numbers, headers
+- "this email body is plain text" - actually MIME multipart with quoted-printable encoding
+- "this PDF has 14 pages" - actually 14 pages plus an embedded thumbnail track
+
+You cannot tell without running the code on the real input. A 2-minute repro script saves 60 minutes of patch-and-pray iteration.
+
+### Three-strikes rule
+
+If two consecutive patches fail to fix the bug, STOP. The mental model is wrong. Continuing to patch reinforces the wrong model - your patches themselves become bugs.
+
+At that point: write the repro, see real data, restart the diagnosis from observation. Discard prior patches if they were based on wrong theory.
+
+### Caller-tracing rule
+
+When changing the return semantics of a function - especially edge cases like empty/short/null returns - grep ALL callers and verify they handle the new return value correctly. Routing decisions in callers (if/else branches based on return value) are part of the bug surface. A correct fix to function X can be a regression in caller Y if Y's branch logic was wired around the old return value.
+
+### Anti-pattern: the user as the test runner
+
+If your "verification" loop has the user re-clicking, re-uploading, re-submitting, or re-running anything in the browser between your patches - STOP. That's not testing. That's blame-shifting. Build a repro that runs without the user. The user clicks once to confirm the fix, not once per patch attempt.
+
+Logged from a real incident: a three-patch loop on a PDF extraction regression that should have been resolved in one patch with a 5-line repro script. Each patch was theory-driven; none had observed-data evidence behind it.
 
 ---
 
@@ -275,22 +369,6 @@ APEX-BACKEND: notification system
 - **Clients** - User/account entities
 
 ---
-
-
----
-
-## Supplements
-
-Before starting work, check for a relevant supplement in `builders/supplements/`:
-
-| Job Type | Supplement | Created |
-|----------|-----------|---------|
-
-If a supplement exists for this job type, **read it before starting work**.
-It contains researched patterns from real-world examples.
-
-If no supplement exists and the job type is unfamiliar, flag it — SCOUTX may need to research first.
-
 
 **Framework Status:** Generic
 **Last Updated:** March 2026

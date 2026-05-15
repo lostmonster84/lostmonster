@@ -154,7 +154,7 @@ For **backend/API/infrastructure work**:
 | `/gaffer` (no task) | Session start - boot reads, surface debts |
 | `/gaffer [task]` | Full pipeline: plan, build, bulletproof, present, ship |
 | `/gaffer scores` | Read session-log.md, report worker performance trends |
-| `/gaffer fitness` | Audit all worker playbooks for staleness/accuracy |
+| `/gaffer fitness` | Audit all worker playbooks for staleness/accuracy + run the Project-Contamination Scan (foreign-project names/tokens leaked in via `/sync`) |
 | `/gaffer uptrain [worker]` | Read worker's playbook, identify gaps, rewrite sections |
 | `/gaffer calibrate` | Review calibration.md, adjust scoring baselines |
 | `/gaffer debts` | Read and report all open quality debts |
