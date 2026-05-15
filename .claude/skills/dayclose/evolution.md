@@ -11,6 +11,15 @@
 
 ---
 
+## 2026-05-15 — Firm v4.6.1 DOMA Cleanup + Worker Re-Onboarding
+
+**Caught:** Framework sync check correctly detected zero drift to push — Firm push (commit `9d03bd8 chore(v4.6.1) strip DOMA project contamination`) already happened mid-session via `git push origin main` in `~/Projects/thefirm/`, and Stack was unchanged. Local Firm HEAD matched `ls-remote origin main` exactly, so no false `/firm` invoke. /wrap already handled CHANGELOG / session-log / debts / BLUEPRINT / session-context / forensic block; /dayclose was lean — push + cache + volume release. No sensitive files, no demo pages, no stashes. The line-count delta scan in /sync was the win that surfaced the contamination — keep that scan going forward (it caught 14 drifted workers update.sh's preservation policy was shielding).
+**Missed:** Initially under-scoped the contamination scope — first pass saw only the 9 workers without manifests; SEOX (52 refs) + TESTX (full DOMA-onboard leak) + 9 specs/FRs were caught only on a second wider scan. Next time: pair the line-count delta with a `\bDOMA\b` word-boundary grep across the whole `.ai/thefirm/` tree before declaring scope.
+**Friction:** Forensic generator needed `--include-working` and `npx tsx` (vs `pnpm exec tsx`) at /wrap because HEAD was still at session start and pnpm has no workspace at repo root. Logged in /wrap evolution; both nuances belong in the runbook for both skills. `git reset HEAD -- .env*` errors on zsh with "no matches found" when no `.env` files exist — known issue from /wrap evolution learned rule, ignored via `2>/dev/null`.
+**User overrode:** Deploy check skipped (framework/docs session — consistent with prior framework/docs dayclose pattern, per learned rule 4). Nothing app-side was touched; website untouched.
+
+---
+
 ## 2026-05-14 — Framework Sync + Portfolio Intelligence
 
 **Caught:** Two unpushed session commits detected and pushed. Step 7 correctly filtered ROADX onboarding (manifest fill — must not push upstream) and the project-specific `/portfolio` skill (no upstream equivalent) — nothing genuine to push, no false `/firm` or `/stack` invoke. `.vscode/` and `website/node_modules/` untracked-since-session-start caught and gitignored (monorepo `/node_modules` only anchored root). Forensic infra self-healed from Stack template. `docs/BLUEPRINT.md` was missing — created. No sensitive files, no demo pages, no stashes, on `main`.
