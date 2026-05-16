@@ -1,5 +1,40 @@
 # Changelog
 
+## 2026-05-16 — Firm v4.6.2: Confidence Tiers + Self-Compliance Gate + Pre-Commit Risk Scan + Telemetry Block
+
+### Major
+- **Execution Contract Rule 18 (Confidence Tiers)** — every worker score now reports with HIGH / MEDIUM / LOW. Any LOW → Foreman verdict downgrades to PROVISIONAL by default. Missing tier → BLOCKED. Per-worker criteria table for the 7 most-used reviewers; other workers extrapolate.
+- **Execution Contract Rule 19 (Self-Compliance Gate)** — material framework changes must dogfood + upstream-cohere + Q&A + verify install before they can ship. Refined mid-session with a material-vs-trivial carve-out so typo fixes (≤10 lines, non-semantic) skip the gate.
+- **Pre-commit risk scan** — `.githooks/firm-risk-scan.sh` greps `session-log.md` + `debts.md` for staged file paths and soft-warns on prior incidents. Wired via new `.githooks/pre-commit`. Exit 0 always (warn-only in v4.6.2). Tested with 30 edge cases; 30/30 PASS.
+- **Telemetry block in session-log** — every shipped session entry now carries a structured Telemetry block: workers invoked, retries, skills used, improvement-gate pass record, time-to-Frank, Frank verdict path, confidence tier mix, notable observations. TRAINX gets new Trigger E to spot patterns across sessions.
+
+### Framework
+- Foreman bumped 16 → 18 points (added Check 16 Confidence Tier Presence + Check 17 Self-Compliance Gate).
+- TRAINX Step 4 (LOG the Learning) now records confidence tier alongside the score.
+- GAFFER.md Trigger 4 (POST-SHIP) updated to require Telemetry block and surface risk-scan output.
+- Stale Frank point-count references corrected locally (PROTOCOL.md ×2 "currently 14" → "currently 18", SKILL.md ×1 "currently 17" → "currently 18").
+
+### Infrastructure
+- New `.githooks/firm-risk-scan.sh` (~110 lines, soft-warn risk scanner — works on fresh projects, monorepo subdirs, weird filenames, deleted files, 100+ staged files).
+- New `.githooks/pre-commit` (~20 lines, calls risk-scan, coexists cleanly with existing `commit-msg`).
+- `install-hooks.sh` automatically chmods + registers the new hooks (idempotent).
+
+### Verified
+- 30/30 edge tests (script robustness + hook integration + doc coherence + real-world).
+- 5 governance checks (dogfood, upstream coherence, install/distribution edge, governance Q&A, sample Review Card render).
+- Cross-file coherence: Rule 18 referenced in PROTOCOL/GAFFER/FOREMAN/TRAINX; Rule 19 in PROTOCOL/FOREMAN; Telemetry block in all 5 doc files; LOW→PROVISIONAL rule consistent across PROTOCOL/GAFFER/FOREMAN.
+- Risk scan run on this session's actual diff — surfaced 1 legitimate signal (PROTOCOL.md prior incident, April 2026), 0 false positives.
+- Self-Compliance Gate (Check 17) ran on this session's build: all 4 sub-checks PASS. v4.6.2 itself classified MATERIAL (>10 lines + new rules + new gates + new install machinery).
+
+### Deferred to v4.6.3
+- Rebase-aware skip for risk scan (don't fire on every commit during a rebase).
+- Risk scan excludes `## Resolved` section in `debts.md` (reduce false positives).
+- `FIRM_PATH` env var for monorepo non-standard paths.
+- `/sync` auto-triggers `install-hooks.sh` when `.githooks/` files change.
+- Opt-in prompt before overriding `.husky` hooksPath.
+- Per-reviewer-playbook confidence sections (currently extrapolated from PROTOCOL.md table).
+- Formal `confidence-tier-drift` calibration ledger schema.
+
 ## 2026-05-15 — Firm v4.6.1: DOMA Contamination Cleanup + Worker Re-Onboarding
 
 ### Major

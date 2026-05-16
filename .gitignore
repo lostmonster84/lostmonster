@@ -8,9 +8,11 @@
 # testing
 /coverage
 
-# next.js
+# next.js (monorepo-aware: catches website/.next/, framework/.next/, etc.)
 /.next/
+**/.next/
 /out/
+**/out/
 
 # production
 /build
@@ -38,4 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI agent workspaces (per-machine exploration, not tracked)
+.agents/
+.playwright-mcp/
 

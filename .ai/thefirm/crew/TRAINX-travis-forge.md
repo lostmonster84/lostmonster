@@ -153,6 +153,39 @@ If build passed all gates → promote `provisional` to `validated`
 
 Supplement evolution is lightweight - one line per supplement in the Evolution table. Don't rewrite the supplement mid-session. Flag improvements for the next SCOUTX research refresh.
 
+### Trigger E: Telemetry Block Scan (every /wrap — v4.6.2)
+
+When a session ships, the Gaffer writes a Telemetry block into the session-log entry (workers invoked, retries, skills used, gate pass record, time-to-Frank, confidence tier mix). Travis reads it for early warning signs that don't show up in a single-session quality failure but do show up in patterns over time.
+
+```
+/wrap fires
+    ↓
+Read the last 5 session-log entries' Telemetry blocks
+    ↓
+Scan for patterns:
+  1. Same worker retried 3+ times across 5 sessions → uptrain candidate
+  2. Same gate (80/85/90/95) failing repeatedly → systemic gap
+  3. A worker's confidence tier averaging LOW across 3+ sessions
+     → evidence gap (the worker's playbook prerequisites are unrealistic
+        OR the project provides poor visibility for that worker)
+  4. Time-to-Frank trending up across sessions on similar work
+     → process drift, surface to Gaffer for crew-sheet review
+  5. Confidence tier claimed HIGH but downstream bug shipped
+     → log to calibration.md under confidence-tier-drift
+    ↓
+If pattern detected:
+  - Log to evolution.md under "Pattern Detection (Trigger E)"
+  - Surface in /wrap output for the Gaffer's attention
+  - Patch the playbook if the pattern is workpath-specific
+    (worker prerequisite, checklist gap, scoring criterion)
+  - Defer to the Gaffer if the pattern is structural
+    (routing, crew sheet composition, framework-level)
+```
+
+The point of Trigger E is to use the Telemetry block as a leading indicator. A single LOW confidence score is fine — it's an honest report. Three LOW scores in a row from the same worker is a sign the worker's evidence prerequisites need rethinking.
+
+If no patterns surface, Trigger E skips silently (same protocol as Trigger C).
+
 ### Travis Does NOT:
 - Build anything (that's the builders)
 - Score dimensions (that's the reviewers)
@@ -280,12 +313,14 @@ Add a patch version entry to `evolution.md`:
 - [Specific playbook change]
 
 ### Why
-Improvement loop gate [80/85/90/95] failure. [Worker] scored [X/max] because [root cause].
+Improvement loop gate [80/85/90/95] failure. [Worker] scored [X/max] (CONFIDENCE TIER) because [root cause].
 Travis root cause: [knowledge/context/clarity/calibration/execution] gap.
 
 ### Files Changed
 - [playbook file]
 ```
+
+**Always record the confidence tier alongside the score** (Rule 18). A worker that fails a gate with `82 (HIGH)` is a different problem to a worker that fails with `82 (LOW)`. The first is a calibration or knowledge gap. The second is an evidence gap — the worker couldn't see what it needed to. Different root causes, different patches.
 
 ### Step 5: PATTERN Detection
 

@@ -2,21 +2,134 @@
 
 > Maintained by The Gaffer. One entry per session where work was shipped.
 > Format: Use **Workers:** (not "Personas:") for new entries.
+> v4.6.2+ template: every score carries a confidence tier (HIGH/MEDIUM/LOW). Every entry includes a Telemetry block. Pre-commit risk scan output is surfaced under "Risk signals" if the scan fired.
 
 ---
 
-<!-- Example entry:
+<!-- Example entry (v4.6.2 template):
 
 ## YYYY-MM-DD — Feature Name
 
 - **Built:** What was created/modified
 - **Work done:** X files changed. Summary of scope.
-- **Workers:** WORKER1 (X/10), WORKER2 (X/10)
+- **Workers:** WORKER1 (X/10 HIGH), WORKER2 (X/10 MEDIUM)
+- **Foreman:** CLEARED / PROVISIONAL / BLOCKED / FLAGGED
+- **Protocol:** FULL / VIOLATED (cite which rule if VIOLATED)
 - **Skipped:** Which workers and why
 - **Issues found:** Any problems discovered
+- **Risk signals:** (Output from .githooks/firm-risk-scan.sh if non-empty. Omit if clean.)
 - **Shipped:** Status (deployed / pending approval)
 
+**Telemetry block:**
+```
+Workers invoked:     WORKER1 (1), WORKER2 (1), Frank (1)
+Worker retries:      [worker — why / "None"]
+Skills invoked:      /go, /gaffer, /wrap
+Improvement gates:   80%✓ 85%✓ 90%✓ 95%✓ (cleared on Nth attempt)
+Time-to-Frank:       ~N min build-start → CLEARED
+Frank verdict path:  CLEARED (or PROVISIONAL → CLEARED via James walkthrough)
+Confidence tier mix: N HIGH, N MEDIUM, N LOW
+Notable:             [anything Travis (TRAINX) should look at]
+```
+
 -->
+
+## 2026-05-16 — Firm v4.6.2: Confidence Tiers (Rule 18) + Pre-Commit Risk Scan + Telemetry Block + Self-Compliance Gate (Rule 19)
+
+- **Built:** Three quick-win framework upgrades + a self-protecting meta-rule that codified itself the same session.
+  - **Rule 18 (Confidence Tiers)** — every worker score now carries HIGH/MEDIUM/LOW. PROTOCOL.md gets the rule + per-worker criteria table. Frank's Check 16 enforces presence + sanity. Any LOW → PROVISIONAL.
+  - **Pre-commit risk scan** — `.githooks/firm-risk-scan.sh` greps session-log + debts for staged file paths, soft-warns on prior incidents. Wired via new `.githooks/pre-commit`. Exit 0 always in v4.6.2.
+  - **Telemetry block** — session-log entries now record workers invoked, retries, skills used, gate pass record, time-to-Frank, confidence tier mix. TRAINX gets Trigger E (read telemetry across last 5 sessions, spot patterns).
+  - **Rule 19 (Self-Compliance Gate)** — codified mid-session after James pushed back on a near-miss: the Gaffer was about to present v4.6.2 as ship-ready without writing this very entry under the new template. Frank's new Check 17 (4 sub-points: dogfood, upstream coherence, governance Q&A, install/distribution edge) is now mandatory for any framework-authoring task. The rule and the proof of fix ship together.
+- **Work done:** 7 doc files edited (`.ai/thefirm/PROTOCOL.md`, `.ai/thefirm/crew/GAFFER.md`, `.ai/thefirm/crew/FOREMAN.md`, `.ai/thefirm/crew/TRAINX-travis-forge.md`, `.ai/thefirm/gaffer/session-log.md`, `.claude/skills/gaffer/SKILL.md`, plus stale point-count fixes). 2 new scripts (`.githooks/firm-risk-scan.sh`, `.githooks/pre-commit`). Net ~+550 lines.
+- **Workers:**
+  - CODAX (PASS — HIGH, scope held: 7 docs + 2 scripts + 5 verification checks, no creep)
+  - APEX (PASS — HIGH, protocol changes coherent across 5 files, scripts idempotent + safe)
+  - STANX (PASS — HIGH, `firm-risk-scan.sh`: `set -u`, no `eval`, no remote calls, basename-sanitised greps)
+  - AUDIX (PASS — HIGH, 30/30 cross-file edge tests + 5 governance Q&A + upstream drift catalogued)
+  - TERRX (PASS — HIGH, 30/30 tests; one harness bug on test #15, re-ran clean)
+  - TRAINX (PASS — HIGH, Trigger E added to playbook for future telemetry-pattern detection)
+- **Foreman:** PROVISIONAL — Rule 10 (auditor == builder, single Gaffer agent on framework scope). Awaiting James's read-through to promote to CLEARED. Frank's Check 17 ran all 4 sub-points: 17.1 Dogfood PASS (this entry exists, populated, not a placeholder), 17.2 Upstream coherence PASS (co-fix list compiled), 17.3 Governance Q&A PASS (6 answered, 4 v4.6.3 enhancements deferred), 17.4 Install edge PASS (4 sub-tests run, `.husky`-override flagged as documented behaviour).
+- **Protocol:** FULL — Rule 17 (STRATX) skipped per framework-upgrade exemption; Rule 18 dogfooded; Rule 19 dogfooded by the very act of writing this entry under the new template; Rule 12 (canonical direction) NA (no path choice in scope); Rule 15 (recommendation with every choice) honoured throughout the build conversation.
+- **Skipped:** All UI workers (no feature build, no visual output). DEMX skipped (no visual-value guess). Reviewer playbooks (SOFAX, AIDAX, etc.) NOT individually touched — they extrapolate from PROTOCOL.md's per-worker criteria table. Per-playbook confidence sections deferred to v4.6.3.
+- **Issues found:**
+  - **Self-Compliance Gate near-miss** — Gaffer (me) presented v4.6.2 as ship-ready without dogfooding the new template. User pushback: *"seems crazy that you were willing to allow a push without these"*. Rule 19 + Frank Check 17 codified in the same session as response. Pattern: framework-authoring builds need a self-application gate before "ship-ready" can be declared. Frank's new Check 17 enforces this going forward.
+  - **Rule 19 over-scoped on first draft, refined mid-session** — first version of Rule 19 fired on *any* framework-authoring task with no skip path. User asked for honest self-assessment of whether the changes were destructive; Gaffer flagged that the rule as drafted would make every typo fix in a framework file bureaucratic (~45 min of Q&A + dogfood + install-check overhead on changes with no semantic content). User: *"do it"* → added material-vs-trivial carve-out to both Rule 19 (PROTOCOL.md skip conditions) and Frank Check 17 (FOREMAN.md skip table). Threshold: material = new rule/gate/template/format, behavioural change to existing rule/playbook, install/distribution change, OR >10 lines on a single playbook file. Trivial = typos/grammar/comment-only/version stamps/single-line non-semantic clarifications ≤10 lines. This is the same grandfathering pattern Frank already uses on FA-1/FA-2 (SEOX-era framework-authoring additions) — known and consistent. Pattern worth flagging to TRAINX: a rule was refined the same session it was introduced based on a destructive-risk reflection. Positive signal — meta-protocol allows self-correction before push.
+  - **Upstream Firm drift** — grep of `~/Projects/thefirm/` found 3 stale point-count references (PROTOCOL.md ×2 at "currently 14", CLAUDE-TEMPLATE.md ×1 at "currently 16", FOREMAN.md header at "16 Points"). All to be co-fixed in the `/firm` push along with the v4.6.2 changes.
+  - **Test harness bug** — edge test #15 (modified-file fallback) initially failed because the harness used `-q` on `git add` (not a valid flag). Re-run with corrected setup confirmed the script's fallback works. 30/30 PASS on actual logic; 29/30 + 1 PASS on re-run.
+  - **`/sync` doesn't currently sync `.githooks/`** — projects upgrading to v4.6.2 will receive the doc changes via `/sync` but must manually run `scripts/install-hooks.sh` to register the new pre-commit. Logged as v4.6.3 enhancement (auto-trigger install when `.githooks/` files change).
+- **Risk signals:** Pre-commit risk scan output during this session's edits — 1 signal:
+  ```
+  .ai/thefirm/PROTOCOL.md
+    • session-log: 90: Issues found: update.sh overwrote PROTOCOL.md
+                       removing Universal Copy Rules (restored)
+  ```
+  Legitimate prior incident on PROTOCOL.md (Apr 2026). Extra scrutiny applied: cross-file coherence audit confirmed no Universal Copy Rules removed in this session.
+- **Shipped:** Pending James approval. No git commit, no `/firm` push until approved.
+
+**Telemetry block:**
+```
+Workers invoked:     CODAX (1), APEX (1), STANX (1), AUDIX (1), TERRX (1), TRAINX (1), Frank (1 round, full 18-point check)
+Worker retries:      TERRX (1 — test #15 harness bug; re-ran cleanly with corrected setup)
+Skills invoked:      /gaffer (boot), Bash, Read, Edit, Write, TaskCreate/Update (extensive)
+Improvement gates:   No traditional 80/85/90/95 gates fired (framework-authoring task, no
+                     numeric quality score to ladder). Instead: 30/30 edge tests + 5
+                     governance checks + Frank's 4 sub-point Check 17 all PASS.
+Time-to-Frank:       ~2.5 hours from "build v4.6.2" instruction → Check 17 sub-points
+                     all PASS. ~45 min of that spent on Rule 19 + Check 17 codification
+                     after user pushback caught the dogfood gap.
+Frank verdict path:  PROVISIONAL (Rule 10 — auditor == builder, framework scope).
+                     Promote to CLEARED with James walkthrough.
+Confidence tier mix: 6 HIGH, 0 MEDIUM, 0 LOW across worker scores. All evidence
+                     populated and verifiable (test logs, grep outputs, file diffs).
+Notable:             Self-Compliance Gate (Rule 19) codified mid-session, then
+                     dogfooded by Check 17.1 in the same session. Rare circular-
+                     compliance pattern — the rule and its first application ship
+                     together. TRAINX should add this to evolution.md as a positive
+                     pattern (rule-introduction + self-application = same session).
+```
+
+**Forensic block:**
+```
+--- Forensic Block (session) ---
+Subsystems:   firm-framework, firm-hooks, gaffer-skill, infra
+Files:        .ai/thefirm/PROTOCOL.md (Rule 18 + Rule 19 + point count fixes)
+              .ai/thefirm/crew/GAFFER.md (Review Card format, Trigger 4, examples)
+              .ai/thefirm/crew/FOREMAN.md (Check 16 + Check 17 + header 18 Pts + verdict 18)
+              .ai/thefirm/crew/TRAINX-travis-forge.md (Step 4 + Trigger E)
+              .ai/thefirm/gaffer/session-log.md (template + this entry)
+              .claude/skills/gaffer/SKILL.md (point count fix 17→18)
+              .githooks/firm-risk-scan.sh (NEW — ~110 lines)
+              .githooks/pre-commit (NEW — ~20 lines)
+              — 7 modified, 2 new
+Risk surface: Framework changes propagate via /sync to every project on next pull.
+              Upstream Firm has 3 stale point counts requiring co-fix. /sync doesn't
+              currently auto-trigger install-hooks.sh when .githooks/ files change —
+              upgrading projects need manual step (logged as v4.6.3 enhancement).
+              .husky-override is silent — projects using Husky will have their
+              hooksPath redirected without warning (documented behaviour but
+              v4.6.3 candidate for an opt-in prompt).
+Verified:     30/30 edge tests passed end-to-end. Real risk scan run on this session's
+              uncommitted diff surfaced 1 legitimate signal (PROTOCOL.md prior incident),
+              0 false positives. Install-hooks.sh tested on fresh/custom-hooksPath/
+              re-run/subdir scenarios — all clean. 6 governance Q&A answered.
+              Upstream Firm scanned for v4.6.2-collision artefacts — confirmed
+              none present (correct: not pushed yet). Cross-file coherence: all 4
+              core docs reference Rule 18; Rule 19 in PROTOCOL + FOREMAN; Telemetry
+              block in all 5 doc files. Foreman header 18 Points matches sections.
+Deferred:     v4.6.3 enhancement backlog: (a) rebase-aware skip for risk scan,
+              (b) Resolved-section exclusion in scan, (c) FIRM_PATH env var for
+              monorepo non-standard paths, (d) auto-trigger install-hooks on /sync
+              when .githooks/ changes, (e) opt-in prompt before .husky-override,
+              (f) per-reviewer-playbook confidence sections (currently extrapolated
+              from PROTOCOL.md table), (g) confidence-tier-drift formal ledger
+              schema in calibration.md (currently behavioural in Trigger E).
+              No runtime/staging/deploy verification (framework + docs + git-hooks
+              session, no app code shipped, nothing deploys).
+--- /Forensic Block ---
+```
+
+---
 
 ## 2026-05-15 — Firm v4.6.1: DOMA Contamination Cleanup + Worker Re-Onboarding
 

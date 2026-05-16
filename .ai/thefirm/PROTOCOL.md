@@ -574,6 +574,146 @@ Codified during a session where the user proposed an ambitious LLM-powered websi
 
 ---
 
+## Confidence Tiers On Every Score (Execution Contract Rule 18)
+
+Every worker score must be reported with a confidence tier: **HIGH**, **MEDIUM**, or **LOW**. No exceptions. A score without a tier is a protocol violation and Frank blocks it.
+
+### The problem this solves
+
+Before Rule 18, every worker spoke with the same authority. SOFAX saying "84/100" sounded the same whether the worker had inspected three pages or thirty. Frank could clear work where the underlying reviews were thin without realising it. The tier makes how-much-the-worker-looked visible alongside what-they-found.
+
+### The three tiers
+
+| Tier | What it means |
+|------|---------------|
+| **HIGH** | The worker inspected the full surface that matters for their dimension. All pages reviewed, all viewports tested, all paths exercised. The score reflects complete evidence. |
+| **MEDIUM** | The worker sampled enough to form a defensible view but did not cover everything. The score is honest but partial. |
+| **LOW** | The worker had limited evidence. The score is provisional and should not be treated as a clearance signal on its own. |
+
+### The format
+
+Every score reported anywhere — crew sheets, Review Cards, session-log entries, Frank verdicts — uses this format:
+
+```
+SOFAX: 87/100 (HIGH)
+AIDAX: 32/40 (MEDIUM)
+TERRX: PASS (HIGH)
+```
+
+The tier sits in parentheses immediately after the score. Pass/fail workers (TERRX) still report a tier; for them HIGH is the default because the test suite either ran or didn't.
+
+### How each worker scopes confidence
+
+Each worker decides their own tier using these guidelines:
+
+| Worker | HIGH means | MEDIUM means | LOW means |
+|--------|------------|--------------|-----------|
+| **SOFAX** (design) | Every page in scope reviewed at desktop + mobile | Sampled key pages, missed some viewports | Only saw a static screenshot or one viewport |
+| **AIDAX** (conversion) | Walked the full user flow from entry to conversion | Reviewed the page but didn't trace the full flow | Only saw isolated copy or single screen |
+| **NIGELX** (simplicity) | Every CTA + label + flow seen end-to-end | Sampled the main paths | Only saw the headline or hero |
+| **CONSX** (consistency) | Compared against 3+ similar patterns in codebase | Compared against 1-2 similar patterns | No comparison run, judged in isolation |
+| **PIXLX** (edge cases) | Tested empty, loading, error, mobile, role variants | Tested 2-3 of those variants | Tested the happy path only |
+| **STANX** (security) | Full code path traced, auth boundaries verified | Spot-checked obvious risks | Read the diff only, no path tracing |
+| **TERRX** (tests) | Test suite ran clean | Subset ran, some skipped | Could not run the suite |
+
+Workers not in the table extrapolate from these — the rule is "did I cover the full relevant surface (HIGH), sample it (MEDIUM), or have limited evidence (LOW)?"
+
+### Frank's enforcement
+
+Frank's verdict rules change:
+
+| Situation | Verdict |
+|-----------|---------|
+| All scores ≥ MEDIUM | CLEARED is available |
+| Any LOW score | PROVISIONAL by default; promote to CLEARED only with user walkthrough or fresh-eyes pass |
+| Any score missing a tier | BLOCKED — send back to the worker to declare a tier |
+
+Worker self-honesty matters here. Reporting HIGH when you only sampled is the same severity as inflating a score. TRAINX tracks tier honesty over time — if a worker reports HIGH and a downstream bug shows they couldn't have, that's a calibration issue logged for uptraining.
+
+### Why this matters
+
+Rule 18 turns "the work passed" into "the work passed with this much evidence behind it." Three downstream wins:
+
+1. **Frank stops clearing work with thin reviews.** A page-redesign Review Card where every reviewer reports LOW because the dev server was down is now visible as PROVISIONAL, not silently CLEARED.
+2. **Workers get permission to admit limits.** A LOW tier with a sensible reason ("dev server unavailable, reviewed static screenshots only") is more useful than a guessed HIGH score.
+3. **Score drift becomes detectable.** TRAINX can now see "SOFAX is averaging MEDIUM lately, what changed?" — confidence is a leading indicator of review quality.
+
+### Enforcement
+
+- Frank's Pre-Present Gate adds Check 17 (Confidence Tier Presence + Sanity). Missing tier = BLOCKED. Suspect tier (e.g. HIGH reported but evidence section is thin) = FLAGGED for Gaffer judgement.
+- TRAINX logs confidence tier alongside score in every patch entry. Patterns build over time.
+- Session-log Telemetry block (introduced in v4.6.2) records the tier mix per session.
+- Calibration: if a worker's reported tier doesn't match the evidence (HIGH claimed but downstream bug proves otherwise), logged under `confidence-tier-drift` in calibration.md.
+
+### Receipt
+
+Codified in v4.6.2 alongside the pre-commit risk scan and session telemetry block. The framework spent its first 4 major versions making scoring rigorous (rubrics, anchors, gates) but never made the *evidence behind a score* visible to Frank. Rule 18 closes that gap.
+
+---
+
+## Self-Compliance Gate (Execution Contract Rule 19)
+
+When a framework-authoring task introduces a new rule, mandatory field, format, template, or gate, the **same session that ships the change must demonstrate compliance with it**. The fix and the proof of fix ship together. Frank cannot CLEAR a framework-authoring task that lacks dogfood, upstream coherence, governance Q&A, and (where relevant) install-path verification.
+
+### The failure pattern this prevents
+
+A session ships v4.6.2 which says *"every entry without a Telemetry block is INVALID"* — and the v4.6.2 session-log entry itself doesn't have a Telemetry block. The framework's first deployment under the new rule violates the new rule. The next `/go` boot read sees the new rule alongside its own violation. Credibility damaged on day one, and the violation propagates to every downstream project via `/sync` before anyone notices.
+
+### The rule, applied
+
+For any task classified `framework-authoring` (new playbook, material change to PROTOCOL.md / GAFFER.md / FOREMAN.md, new Execution Contract Rule, new format, new template, new gate, new hook, change to install/distribution machinery), Frank's Self-Compliance Gate runs four sub-checks before CLEARED is available:
+
+1. **Dogfood** — if the build introduces a mandatory field, template, format, or rule, the session shipping it must produce a real artefact under the new rule. Populated with actual content, not template placeholders. A v4.6.2 build introducing a Telemetry block requirement *must* ship the v4.6.2 session-log entry containing a Telemetry block.
+
+2. **Upstream coherence** — for changes that propagate to `~/Projects/thefirm/` (or any upstream master), grep the upstream for stale references this fix closes. Co-fix list ships in the same push, or the next `/sync` re-imports the drift.
+
+3. **Governance Q&A** — answer 5-8 questions a user might ask after deployment. Categories: gaming the rule, fresh-project edge cases, upgrade path for existing projects, behaviour during rare git operations (rebase, cherry-pick, bisect), non-standard layouts (monorepos, custom paths). Answers recorded in the present-back.
+
+4. **Install/distribution edge** — for builds touching hooks, scripts, or install machinery, confirm the install path handles the new artefacts on projects with non-standard configurations. Standard install + custom-`core.hooksPath` install + monorepo install must all work.
+
+### Skip conditions
+
+Rule 19 differentiates **material** framework changes (full gate runs) from **trivial** framework edits (skip silently with `Rule 19: NA - trivial framework edit (no behavioural change)` in the Foreman verdict block). The split prevents the gate from making every comma fix bureaucratic while preserving the full check on changes that actually carry blast radius.
+
+**Material framework change** (full Self-Compliance Gate runs) — ANY of:
+- New Execution Contract Rule
+- New Frank gate or sub-check
+- New template, format, or mandatory field
+- Modifies the behaviour of an existing rule
+- Modifies the behaviour of an existing playbook section (worker scoring criteria, routing logic, gate definitions)
+- Changes to install/distribution machinery (hooks, scripts, sync)
+- More than 10 lines changed in a single playbook file in one session
+
+**Trivial framework edit** (skip Rule 19) — ALL of:
+- Typo, grammar, or punctuation fix
+- Comment-only or formatting-only edit
+- Version stamp bump
+- Single-line clarification that doesn't change semantics
+- 10 lines or fewer changed in a single playbook file
+
+If a change spans both buckets in one session, treat as material — the higher gate wins. If unsure, default to material; the cost of an unnecessary Q&A pass is lower than the cost of a missed dogfood.
+
+Non-framework tasks (feature work, bug fixes, content changes) skip Rule 19 silently — it doesn't apply at all.
+
+**Override path:** if a material change genuinely cannot dogfood (e.g. introducing a rule whose first application is in a different project), log `Rule 19 override: 17.1 dogfood - <reason>` in the session-log. The override is reviewable; TRAINX flags 2+ overrides within 30 days for protocol calibration.
+
+### Why this matters
+
+Framework changes ship to every project that runs `/sync`. A rule that the originating session itself violates ships that violation to every downstream project before anyone notices. The blast radius multiplies, not damps. Rule 19 is the only check that catches *"this rule is broken on its own deployment"* — every other gate (TERRX, AUDIX, Frank's composition check) verifies the code is internally consistent. Rule 19 verifies the framework is consistent with itself across the rule-and-its-application boundary.
+
+### Receipt
+
+Codified in v4.6.2 the same session as Rule 18. The Gaffer presented v4.6.2 as ship-ready without writing the v4.6.2 session-log entry under the new template — the entry would have violated the rule it introduced. User pushback: *"seems crazy that you were willing to allow a push without these"* and *"Let's make sure that this is not happening again. Let's add this to the protocol, push it upstream so that whenever we do make these amendments or changes or whatever it is, you know, we run this fucking thing."* Rule 19 + Foreman Check 17 codified in the same session as the dogfood pass that proved the rule.
+
+### Enforcement
+
+- Frank's Pre-Present Gate adds Check 17 (Self-Compliance) for framework-authoring tasks. Any sub-check failing = BLOCKED. Frank cannot issue CLEARED on framework-authoring without all four sub-checks passing or being explicitly overridden.
+- The Gaffer's Phase 5 (Present) cannot declare "ship-ready" on framework-authoring without Frank's Check 17 passing. Presenting before the dogfood + Q&A + coherence pass is itself a Rule 19 violation.
+- Session-log records the dogfood artefact (Review Card, populated template, sample render) alongside the work. The artefact is the audit trail, not just the claim.
+- Pattern detection: 2+ Rule 19 overrides within 30 days = TRAINX flag for protocol calibration (is Rule 19 too rigid, or are we cutting too many corners?).
+
+---
+
 ## The Hierarchy
 
 ```
@@ -1245,7 +1385,7 @@ When ANY reviewer (AIDAX, SOFAX, NIGELX, PIXLX, ALLYX) flags a CRITICAL finding:
 - Gates are **concise** - a checklist, not a methodology. No playbook file needed
 - Gate failures are **logged** to `calibration.md` - if the Build Gate catches a misplacement, that's a pattern worth tracking. Repeated failures on the same check = the builder needs guidance, not just a gate
 - Gates feed into **The Foreman's composition check** - Frank runs the gates, then runs his full composition check on top (FOREMAN.md is canonical for the current point count)
-- Frank always runs the **full Foreman composition check** (FOREMAN.md, currently 14 points). Frank is NEVER skipped
+- Frank always runs the **full Foreman composition check** (FOREMAN.md, currently 18 points). Frank is NEVER skipped
 - **Builder ≠ Approver rule** - if the Gaffer executes work directly, Frank's check runs at maximum rigour
 
 ---
@@ -1259,7 +1399,7 @@ When ANY reviewer (AIDAX, SOFAX, NIGELX, PIXLX, ALLYX) flags a CRITICAL finding:
 
 **When:** After all department lead gates pass, before the Gaffer's final sign-off.
 
-**What:** Composition checklist (FOREMAN.md is canonical - currently 14 points) covering department gate verification, composition ("right thing, right place?"), cross-worker conflict detection, scope creep, score sanity, debt awareness, write-path verification, **Nigel summary present** (hard gate - plain-English 3-sentence reader summary in commit body + present-back), canonical-direction check (Rule 12 backstop), and Review Card assembly.
+**What:** Composition checklist (FOREMAN.md is canonical - currently 18 points) covering department gate verification, composition ("right thing, right place?"), cross-worker conflict detection, scope creep, score sanity, debt awareness, write-path verification, **Nigel summary present** (hard gate - plain-English 3-sentence reader summary in commit body + present-back), canonical-direction check (Rule 12 backstop), and Review Card assembly.
 
 **Three verdicts:**
 

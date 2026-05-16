@@ -161,7 +161,7 @@ The Gaffer runs at six trigger points. No manual invocation needed.
 
 **Format:**
 ```
-GAFFER: Last session shipped inbox redesign (SOFAX: 87, TERRX: pass).
+GAFFER: Last session shipped inbox redesign (SOFAX: 87 HIGH, TERRX: pass HIGH).
 ROADX: ON PLAN - M2.4 closed, M2 at 53% (8/15).
 Open debt: Search page SOFAX dropped to 79 - needs polish.
 Aida hasn't run in 3 sessions - flag any user-facing work for conversion check.
@@ -454,13 +454,15 @@ If the user reports "I didn't see anything" after a headed run, the diagnosis is
 1. Log the session to `.ai/thefirm/gaffer/session-log.md` with ALL mandatory fields:
    - Date + feature name
    - What was built, files changed
-   - Which workers ran and their scores (minimum 3 roles: 1 builder + 1 reviewer/checker + Frank)
-   - **Foreman:** verdict (CLEARED/BLOCKED/FLAGGED) - MANDATORY
+   - Which workers ran and their scores **with confidence tier** (Rule 18 — `SOFAX: 87 (HIGH)`). Minimum 3 roles: 1 builder + 1 reviewer/checker + Frank.
+   - **Foreman:** verdict (CLEARED/BLOCKED/FLAGGED/PROVISIONAL) - MANDATORY
    - **Protocol:** compliance status (FULL/VIOLATED) - MANDATORY
    - Any issues found during BULLETPROOF
-   - An entry without Foreman and Protocol fields is INVALID
+   - **Telemetry block** (introduced in v4.6.2 — MANDATORY) — workers invoked, retries, skills used, improvement-gate pass record, time-to-Frank, Frank verdict path, notable observations. Template lives in `session-log.md` header.
+   - **Pre-commit risk scan output** if the scan surfaced warnings — paste them into the session-log entry under "Risk signals." If clean, omit.
+   - An entry without Foreman, Protocol, OR Telemetry block is INVALID.
 2. Update `.ai/thefirm/gaffer/debts.md` - close resolved debts, add new ones
-3. If any Firm files changed this session (evolution.md, worker playbooks, PROTOCOL.md, GAFFER.md): **run Firm Sync Protocol** - copy to `~/Projects/thefirm/`, commit with version number, push to GitHub
+3. If any Firm files changed this session (evolution.md, worker playbooks, PROTOCOL.md, GAFFER.md): **run Firm Sync Protocol** - copy to `~/Projects/thefirm/`, commit with version number, push to GitHub. **The pre-commit hook runs the Firm risk scan automatically** (`.githooks/firm-risk-scan.sh`) and prints any signals to stdout. Surface them. Soft-warn only in v4.6.2 — never blocks the commit.
 4. **Generalisation check (MANDATORY before /wrap)** - ask: "Does this lesson apply across projects, or is it project-specific?" If the lesson generalises (a worker behavior pattern, a verification protocol, a triage discipline, a process anti-pattern, a tooling failure mode), the patch MUST propagate to thefirm or thestack within the same session. CLAUDE.md Rule 7 already covers framework FILES; this rule extends it to learned-lesson PATTERNS. Stranded behavioral lessons become protocol drift across other projects.
    - **Generalises -> framework / methodology / worker behavior:** push to `~/Projects/thefirm/` via `/firm`
    - **Generalises -> skill workflow / dispatcher logic / tool wrapper:** push to `~/Projects/thestack/` via `/stack`
@@ -470,8 +472,9 @@ If the user reports "I didn't see anything" after a headed run, the diagnosis is
 
 **Format:**
 ```
-GAFFER: Logged. SOFAX 96/110 (up from 90 last time on this page).
+GAFFER: Logged. SOFAX 96/110 (HIGH, up from 90 last time on this page).
 Search page debt still open.
+Pre-commit risk scan: 0 signals.
 ```
 
 **Rules:**
@@ -837,18 +840,21 @@ If either is missing, the work is not ready.
 
 **Review Card format:**
 ```
-┌─ REVIEW CARD ───────────────────────────────────┐
-│ SOFAX:  95/110 (incl. Dim 11 Brand: 8/10)       │
-│ CONSX:  PASS - no adjacent section conflicts     │
-│ NIGELX: PASS - "Would Nigel find this obvious?"  │
-│ PIXLX:  PASS - Mobile 390×844 verified           │
-│ AIDAX:  31/40 (A:8 I:8 D:7 A:8)                 │
-│ TERRX:  PASS - builds clean                      │
-│─────────────────────────────────────────────────│
-│ FOREMAN: CLEARED - composition sound, all gates  │
-│ GAFFER:  APPROVED - ready for James              │
-└─────────────────────────────────────────────────┘
+┌─ REVIEW CARD ───────────────────────────────────────────┐
+│ SOFAX:  95/110 (HIGH)  incl. Dim 11 Brand: 8/10         │
+│ CONSX:  PASS  (HIGH)   no adjacent section conflicts    │
+│ NIGELX: PASS  (HIGH)   "Would Nigel find this obvious?" │
+│ PIXLX:  PASS  (MEDIUM) Mobile 390×844 verified,         │
+│                        loading state not exercised      │
+│ AIDAX:  31/40 (HIGH)   (A:8 I:8 D:7 A:8)                │
+│ TERRX:  PASS  (HIGH)   builds clean                     │
+│─────────────────────────────────────────────────────────│
+│ FOREMAN: CLEARED - composition sound, all gates         │
+│ GAFFER:  APPROVED - ready for James                     │
+└─────────────────────────────────────────────────────────┘
 ```
+
+**Every score carries a confidence tier (HIGH/MEDIUM/LOW).** This is Execution Contract Rule 18 — see PROTOCOL.md → "Confidence Tiers On Every Score" for the rule and per-worker criteria. A score reported without a tier is a protocol violation and Frank blocks it.
 
 **What triggers the gate:**
 - Any screenshot being shown to James
@@ -857,11 +863,16 @@ If either is missing, the work is not ready.
 - Any DEMX variation recommendation
 
 **What the review card must include:**
-1. Scores from every worker assigned on the crew sheet
-2. PASS/FAIL for each checker (not just "it ran")
+1. Scores from every worker assigned on the crew sheet — **each with a confidence tier**
+2. PASS/FAIL for each checker (not just "it ran") — **with a confidence tier**
 3. CONSX adjacent-section check (are neighbouring sections visually distinct?)
-4. The Foreman's verdict (CLEARED / BLOCKED / FLAGGED)
+4. The Foreman's verdict (CLEARED / BLOCKED / FLAGGED / PROVISIONAL)
 5. The Gaffer's verdict (APPROVED / FIX FIRST / NOT READY)
+
+**Confidence tier rules at this gate:**
+- All scores ≥ MEDIUM → CLEARED is available
+- Any LOW score → PROVISIONAL by default (promote to CLEARED only with user walkthrough or fresh-eyes pass)
+- Any score missing a tier → BLOCKED, send back to the worker
 
 **The Nigel summary appears alongside the Review Card** in the present-back, in this format:
 
@@ -1005,11 +1016,11 @@ PHASE 2: BUILD ✓
   12 files created/modified
 
 PHASE 3: REVIEW
-  SOFAX: 88 ✓
-  NIGELX: 85 ✓
-  AIDAX: 81 ✓
-  PIXLX: 83 ✗ → Fixed empty state → Re-run: 90 ✓
-  TERRX: pass ✓
+  SOFAX: 88 (HIGH) ✓
+  NIGELX: 85 (HIGH) ✓
+  AIDAX: 81 (MEDIUM) ✓
+  PIXLX: 83 (HIGH) ✗ → Fixed empty state → Re-run: 90 (HIGH) ✓
+  TERRX: pass (HIGH) ✓
 
 PHASE 4: SIGN-OFF ✓
   All scores above threshold. No contradictions. No new debts.

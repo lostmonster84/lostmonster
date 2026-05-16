@@ -29,7 +29,7 @@ lostmonster/
 │   └── CLAUDE.md         Website-specific AI instructions
 ├── framework/            Universal development framework (templates, agents, docs)
 ├── .ai/
-│   ├── thefirm/          The Firm v4.6.1 — 34 workers, protocol, gaffer state
+│   ├── thefirm/          The Firm v4.6.2 — 34 workers, Confidence Tiers, Self-Compliance Gate, risk scan, telemetry
 │   └── portfolio/        Portfolio knowledge base (INDEX + CHANGELOG + projects/)
 ├── .claude/skills/       Slash-command skills (synced from The Stack + project-specific)
 ├── scripts/              Repo tooling (forensic-log.ts, lint-subsystems.ts)
@@ -60,7 +60,14 @@ Brand docs live in `website/.ai/` (including `LOST-MONSTER-DESIGN-SYSTEM.md`). T
 Reusable project-spin-up templates, agents and docs. Not wired into the website — it is a toolkit consumed when starting new projects.
 
 ### The Firm (`.ai/thefirm/`)
-The AI worker-crew framework, currently v4.6.1 with 34 workers. `PROTOCOL.md` is the execution contract; `crew/` holds worker playbooks (GAFFER, FOREMAN, planners, builders, reviewers, checkers); `gaffer/` holds per-project state (session-log, debts, calibration, evolution, session-context). Synced down from `lostmonster84/thefirm` via `/sync` (which runs `update.sh`); genuine improvements pushed back via `/firm`. Project-specific context is filled into workers by an onboarding mechanism (manifest token tables + `## Project Context` sections) driven by `project.json` — this onboarding state must never be pushed upstream.
+The AI worker-crew framework, currently **v4.6.2** with 34 workers. `PROTOCOL.md` is the execution contract; `crew/` holds worker playbooks (GAFFER, FOREMAN, planners, builders, reviewers, checkers); `gaffer/` holds per-project state (session-log, debts, calibration, evolution, session-context). Synced down from `lostmonster84/thefirm` via `/sync` (which runs `update.sh`); genuine improvements pushed back via `/firm`. Project-specific context is filled into workers by an onboarding mechanism (manifest token tables + `## Project Context` sections) driven by `project.json` — this onboarding state must never be pushed upstream.
+
+**v4.6.2 additions** (shipped 2026-05-16):
+- **Execution Contract Rule 18 (Confidence Tiers)** — every worker score carries HIGH/MEDIUM/LOW. Any LOW → Foreman verdict downgrades to PROVISIONAL.
+- **Execution Contract Rule 19 (Self-Compliance Gate)** — material framework changes must dogfood + upstream-cohere + Q&A + verify install before ship-ready. Trivial edits (≤10 lines, typo/grammar/comment/version stamps) skip the gate.
+- **Pre-commit risk scan** — `.githooks/firm-risk-scan.sh` greps session-log + debts for staged file paths, soft-warns on prior incidents. Wired via `.githooks/pre-commit`. Exit 0 always (warn-only in v4.6.2).
+- **Telemetry block in session-log** — workers invoked, retries, skills used, gate pass record, time-to-Frank, confidence tier mix. TRAINX gets Trigger E to spot patterns over time.
+- **Foreman 16 → 18 points** (added Check 16 Confidence Tier Presence + Check 17 Self-Compliance Gate).
 
 ### Portfolio intelligence (`.ai/portfolio/`, `.claude/skills/portfolio/`)
 The `/portfolio` skill (project-specific, never synced to The Stack) scans every repo in `/Volumes/Projects/`, classifies each, and maintains:

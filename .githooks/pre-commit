@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# pre-commit - The Firm's pre-commit gate.
+#
+# Currently runs:
+#   1. firm-risk-scan.sh — soft warning if staged files have prior incident
+#      signals in session-log.md or debts.md. Never blocks commits in v4.6.2.
+#
+# Bypass with --no-verify if you genuinely need to skip. Don't make it a habit.
+# Lives in .githooks/ so it travels with the repo. install-hooks.sh wires
+# core.hooksPath = .githooks so this fires automatically on every commit.
+
+set -e
+
+HOOK_DIR="$(dirname "$0")"
+
+# --- 1. Firm risk scan (soft warn, never blocks) ---
+if [ -x "$HOOK_DIR/firm-risk-scan.sh" ]; then
+    bash "$HOOK_DIR/firm-risk-scan.sh" || true
+fi
+
+# Add future pre-commit checks below this line. Keep them well-labelled.
+
+exit 0

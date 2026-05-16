@@ -86,7 +86,7 @@ Workers finish  -->  Department Lead  -->  Improvement Loop  -->  THE FOREMAN  -
 
 ---
 
-## The Foreman's Checklist (16 Points)
+## The Foreman's Checklist (18 Points)
 
 Run these every time, in order. This is the complete methodology.
 
@@ -210,19 +210,20 @@ Every shipped change carries a 3-sentence Nigel summary written by NIGELX, cover
 **Why this gate exists:** every other artifact (Review Card, forensic block, worker scores) speaks Worker-language. Nigel summary is the only artifact in James's-language. Without it, the Pre-Present Gate ships hieroglyphics.
 
 ### 10. Review Card Assembly
-Compile the Review Card from all worker scores:
+Compile the Review Card from all worker scores. **Every score carries a confidence tier (HIGH/MEDIUM/LOW)** — Rule 18.
 ```
-+-- REVIEW CARD -----------------------------------+
-| SOFAX:  95/110 (incl. Dim 11 Brand: 8/10)       |
-| CONSX:  PASS -- no adjacent section conflicts    |
-| NIGELX: PASS -- "Would Nigel find this obvious?" |
-| PIXLX:  PASS -- Mobile 390x844 verified         |
-| AIDAX:  31/40 (A:8 I:8 D:7 A:8)                 |
-| TERRX:  PASS -- builds clean                     |
-|-------------------------------------------------|
-| FOREMAN: CLEARED -- composition sound,           |
-|          all gates passed, ready for Gaffer      |
-+--------------------------------------------------+
++-- REVIEW CARD -----------------------------------------+
+| SOFAX:  95/110 (HIGH)  incl. Dim 11 Brand: 8/10        |
+| CONSX:  PASS  (HIGH)   no adjacent section conflicts   |
+| NIGELX: PASS  (HIGH)   "Would Nigel find this obvious?"|
+| PIXLX:  PASS  (MEDIUM) Mobile 390x844 verified,        |
+|                        loading state not exercised     |
+| AIDAX:  31/40 (HIGH)   (A:8 I:8 D:7 A:8)               |
+| TERRX:  PASS  (HIGH)   builds clean                    |
+|--------------------------------------------------------|
+| FOREMAN: CLEARED -- composition sound, all tiers ≥     |
+|          MEDIUM, gates passed, ready for Gaffer        |
++--------------------------------------------------------+
 ```
 
 ### 11. Auditor-Builder Independence (added 2026-04-30 - Rule 10 alignment)
@@ -348,7 +349,86 @@ Receipt: Session 2026-05-13. Phase 1 trusted-agent re-architecture plan presente
 
 ---
 
-### 16. Verdict
+### 16. Confidence Tier Presence + Sanity (Execution Contract Rule 18 backstop)
+
+Every worker score in the Review Card must carry a confidence tier — HIGH, MEDIUM, or LOW — in parentheses immediately after the score. The Foreman checks both **presence** (is the tier there at all?) and **sanity** (does the claimed tier match the evidence?).
+
+**The check — two parts:**
+
+**Part A — Presence.** Scan every line of the Review Card. Every score (numeric or PASS/FAIL) must have a confidence tier. Format: `SOFAX: 87/100 (HIGH)`, `TERRX: PASS (HIGH)`.
+
+**Part B — Sanity.** For each score, glance at the evidence the worker cites (rationale field, fragment notes, or inline reasoning). Does the tier match what the worker actually inspected?
+
+| Claimed | Evidence shows | Verdict |
+|---------|----------------|---------|
+| HIGH | Full surface inspected (all pages, all viewports, all paths) | OK |
+| HIGH | Sampled only — clear gaps in what was reviewed | FLAGGED — challenge the worker, likely MEDIUM |
+| MEDIUM | Sampled with defensible coverage | OK |
+| MEDIUM | Full surface inspected (under-claiming) | OK — bias toward honesty is fine |
+| LOW | Limited evidence stated honestly | OK |
+| Missing | (no tier reported) | BLOCKED — send back, worker must declare a tier |
+
+**Verdict modifiers (apply before Point 17 verdict):**
+
+| Confidence pattern | Verdict modifier |
+|--------------------|------------------|
+| All scores ≥ MEDIUM, tier matches evidence | No modifier — proceed to verdict |
+| Any LOW score present | Default verdict downgrades to **PROVISIONAL** — promote to CLEARED only with user walkthrough or fresh-eyes pass |
+| Any score missing a tier | **BLOCKED** — protocol violation, send back to the worker |
+| HIGH claimed but evidence is thin (sanity failure) | **FLAGGED** — Gaffer judgement call on whether to challenge or accept |
+
+**Why this point exists:** before Rule 18, every worker spoke with the same authority. A page-redesign Review Card where every reviewer reports LOW because the dev server was down would silently CLEAR. Point 16 makes evidence-behind-a-score visible to Frank. The check is mandatory because un-tier'd scores defeat the rule.
+
+Receipt: Codified v4.6.2 — quick-win pack that introduces Rule 18, the pre-commit risk scan, and the session telemetry block. See PROTOCOL.md → Confidence Tiers On Every Score for the rule and per-worker criteria.
+
+---
+
+### 17. Self-Compliance Gate (Execution Contract Rule 19 backstop)
+
+**Runs only on framework-authoring tasks** — new playbook, material change to PROTOCOL.md / GAFFER.md / FOREMAN.md, new Execution Contract Rule, new format, new template, new gate, new hook, change to install/distribution machinery. Skips silently on feature work, bug fixes, content changes.
+
+Four sub-checks. Any failure = BLOCKED until corrected, no exceptions without an explicit `Rule 19 override` logged in session-log.
+
+| Sub-check | What's verified | Failure verdict |
+|-----------|-----------------|-----------------|
+| **17.1 Dogfood** | The session's own artefacts (session-log entry, Review Card, commit message) demonstrate compliance with any new rule introduced. Populated with real content, not template placeholders. | BLOCKED — write the artefact under the new rule before re-running |
+| **17.2 Upstream coherence** | For changes that sync to `~/Projects/thefirm/` or any upstream master, the upstream has been grepped for stale references this fix closes. Co-fix list included in the same push. | BLOCKED — close upstream drift in the same push or `/sync` re-imports it |
+| **17.3 Governance Q&A** | 5-8 questions answered covering: gaming the rule, fresh-project edge cases, upgrade path for existing projects, rare git operations (rebase, cherry-pick), non-standard layouts. Answers recorded in present-back. | BLOCKED — run the Q&A; behavioural unknowns surface only by asking |
+| **17.4 Install/distribution edge** | For builds touching hooks, scripts, or install machinery: install path handles new artefacts on standard install + custom `core.hooksPath` + monorepo install. | BLOCKED — fix the install path or document the manual step |
+
+**Skip conditions:** Check 17 has TWO valid skip paths — pick whichever applies:
+
+| Situation | Skip line in Foreman verdict block |
+|-----------|------------------------------------|
+| Task is NOT framework-authoring (feature work, bug fix, content change) | `Check 17: NA - not framework-authoring scope` |
+| Task IS framework-authoring but the change is **trivial** (typo, grammar, comment-only, formatting, version stamp, single-line non-semantic clarification, OR ≤10 lines changed in a single playbook file) | `Check 17: NA - trivial framework edit (no behavioural change)` |
+
+**Material vs trivial — the test Frank applies:**
+
+A change is **material** (Check 17 runs in full) when ANY of these hold:
+- Introduces a new Execution Contract Rule
+- Introduces a new Frank gate or sub-check
+- Introduces a new template, format, or mandatory field
+- Modifies the behaviour of an existing rule
+- Modifies the behaviour of an existing playbook section
+- Changes install/distribution machinery (hooks, scripts, `/sync` logic)
+- Exceeds 10 lines changed in a single playbook file in one session
+
+A change is **trivial** (Check 17 skips) when ALL of these hold:
+- Typo, grammar, punctuation, comment, or formatting only
+- OR version stamp bump
+- OR single-line clarification that doesn't change semantics
+- AND ≤10 lines changed in a single playbook file
+
+When a session spans both buckets, treat as material — the higher gate wins. When unsure, default to material; the cost of an unnecessary Q&A pass is lower than the cost of a missed dogfood.
+
+**Why this point exists:** Codified the same session as Rule 19 (2026-05-16) after the v4.6.2 build was presented as ship-ready without the v4.6.2 session-log entry being written under the new template. The entry would have shipped INVALID against the rule it introduced — and the rule would have propagated to every downstream project via `/sync` before anyone noticed. The Self-Compliance Gate is the only Frank check that catches "this rule is broken on its own deployment." Other points verify code is internally consistent; Point 17 verifies the framework is consistent with itself across the rule-and-its-application boundary.
+
+**Receipt:** User pushback after the Gaffer (me) was about to present v4.6.2 with the dogfood gap unaddressed. Verbatim: *"seems crazy that you were willing to allow a push without these"* → *"Let's make sure that this is not happening again. Let's add this to the protocol, push it upstream so that whenever we do make these amendments or changes or whatever it is, we run this fucking thing."* Point 17 codified in the same session as the dogfood pass it now enforces.
+
+---
+
+### 18. Verdict
 Four possible outcomes (Rule 10 added PROVISIONAL):
 
 | Verdict | What Happens |
@@ -374,6 +454,8 @@ FOREMAN CHECK:
   Cross-worker conflicts: None
   Scope: Matches task. No creep
   Scores: Honest. No contradictions
+  Confidence tiers: All present. All HIGH or MEDIUM. No LOW.
+                    Sanity OK — claimed tiers match evidence cited.
   Debts: [resolved X | introduced Y | none]
   Write-path: [PUT /api/foo exercised on claimed + unclaimed entity,
                2xx + DB write verified | N/A - no mutations in scope]
@@ -381,6 +463,18 @@ FOREMAN CHECK:
   Nigel summary: PRESENT in commit body + present-back. Plain-English.
                  Sentence 3 describes observable user-feel.
   VERDICT: CLEARED -- ready for Gaffer
+```
+
+```
+FOREMAN CHECK:
+  Department Gates: Planning PASS | Build PASS | Review PASS | QA PASS
+  Composition: Right thing, right place? YES
+  Scores: SOFAX 88 (HIGH), AIDAX 81 (LOW — only saw hero copy)
+  Confidence tiers: All present. PIXLX LOW — dev server unavailable,
+                    reviewed static screenshots only.
+  Per Point 16 + Rule 18: any LOW present → default downgrades to PROVISIONAL
+  VERDICT: PROVISIONAL -- LOW confidence on PIXLX. Promote with user
+           walkthrough at correct viewport, or re-run with dev server up.
 ```
 
 ```

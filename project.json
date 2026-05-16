@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/lostmonster84/thefirm/main/schemas/project.schema.json",
-  "firmVersion": "4.6.0",
+  "firmVersion": "4.6.2",
   "project": {
     "name": "Lost Monster",
     "domain": "Framework-driven development that actually works",

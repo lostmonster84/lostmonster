@@ -6,6 +6,10 @@
 
 ## Open Debts
 
+- **Missing v4.0–v4.6.1 entries in evolution.md** (flagged 2026-05-16)
+  Local `.ai/thefirm/gaffer/evolution.md` jumps from v3.18 (2026-04-22) directly to v4.6.2 entry written today. All v4.x history is absent locally. Should be recoverable from upstream `~/Projects/thefirm/.ai/thefirm/gaffer/evolution.md` if it carries the entries, or reconstructed from CHANGELOG.md headings. Fix: merge missing entries from upstream into local file. Not blocking, but `/go` boot reads see an incomplete history.
+  Affected: `.ai/thefirm/gaffer/evolution.md`
+
 - **"2-4 weeks" references in .ai/ brand docs** (flagged 2026-04-03)
   ~60 references to "2-4 weeks" remain in .ai/ brand docs, worker playbooks, and design system. Production pages fixed but docs still contain the old timeline claim. Need to update the canonical metrics set (was: 50+, 70%, 4.9/5, 2-4 wks. New: 17, 5 live, 80/100, 4.9/5).
   Affected: `.ai/brand/`, `.ai/crew/`, `.ai/LOST-MONSTER-DESIGN-SYSTEM.md`, `website/CLAUDE.md`

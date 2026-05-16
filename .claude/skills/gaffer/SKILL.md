@@ -58,7 +58,7 @@ When a task is given, classify and route:
 **Minimum Crew Rule (NON-NEGOTIABLE):** Every task needs 3 roles minimum:
 - 1 builder (APEX, CRUDX, RIGX, DEMX, etc.)
 - 1 reviewer or checker (CONSX, TERRX, STANX, etc.)
-- Frank (full Foreman composition check - point count is whatever FOREMAN.md currently defines, currently 13)
+- Frank (full Foreman composition check - point count is whatever FOREMAN.md currently defines, currently 18)
 
 **Crew Sheet Format:**
 ```
