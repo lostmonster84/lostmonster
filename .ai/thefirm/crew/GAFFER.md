@@ -582,7 +582,7 @@ The Firm master (`~/Projects/thefirm/`) is meant to be project-agnostic - generi
 grep -rnE '^# .*\bEdition\b' .ai/thefirm/crew/
 ```
 
-Single-hash on purpose (H1 only - never trips on an H2 like `## AI Slop Detection (WORDX Edition)`). For each hit, the name before "Edition" is either **this project's name** (correct onboarding - pass), **`Lost Monster`** (generic - pass), or **a different project** (contamination).
+Single-hash on purpose (H1 only - never trips on an H2 like `## AI Slop Detection (WORDX Edition)`). For each hit, the name before "Edition" is either **this project's name** (correct onboarding - pass), **`[PROJECT]`** (generic - pass), or **a different project** (contamination).
 
 **Classify each hit by reading it - do NOT `grep -v <projectname>` to filter.** A `grep -rn` line is prefixed with the file path, and the project's own path (`/Volumes/Projects/<project>/...`) contains the project name - filtering on it swallows every line. Read the title, name the project, classify.
 
@@ -600,7 +600,7 @@ The residual list is ALLCAPS words that aren't worker codenames - mostly Firm/te
 **Classifying a hit** (either layer) against **this project's** name (from `project.json`):
 
 - **Matches this project** (the title's name is this project's own name) - correct onboarding. Pass.
-- **A generic token** (`Lost Monster`) - correct. Pass.
+- **A generic token** (`[PROJECT]`) - correct. Pass.
 - **A different project** (the title or body carries a project name that is not this project's - e.g. a `DOMA Edition` title, or a stray `DOMA` reference in the body) - **contamination**. The worker's playbook was pulled down from a contaminated master.
 
 **What the Gaffer does on a contamination hit - and its honest limit:**
@@ -1433,29 +1433,31 @@ With those 6 answers, The Gaffer has enough to rewrite everything.
 
 ---
 
-## Project Context
+## Lost Monster Context
 
-**Project:** HospoJobs - UK hospitality recruitment platform
-**One-liner:** Find your next hospitality role
-**Target users:** Job seekers (chefs, bartenders, FOH, hotel workers), Recruiters (restaurant managers, hotel HR)
-**Test persona:** Graduate Grace - 21, hospitality management grad, first full-time job, not super technical
+> Generic template. `Gaffer: onboard` fills this section from the project PRD, and `update.sh` PRESERVES the filled version across Firm updates (it never overwrites this section - same rule as onboarded worker context). New projects start from the tokens below; never commit a real project's identity here.
 
-**Core flow:** Seeker: search → filter → view job → apply (instant apply with saved CV). Recruiter: post job (6-step form) → manage Kanban pipeline → email candidates
-**Navigation:** Marketing (public pages) → Seeker dashboard → Recruiter dashboard → Superadmin
+**Project:** Lost Monster - Framework-driven development that actually works
+**One-liner:** [PROJECT-ONE-LINER]
+**Target users:** Graduate Grace (21, hospitality grad, non-technical), SMB owners and startup founders seeking web development
+**Test persona:** Graduate Grace
 
-**Tech stack:** Next.js 15+ (App Router + Turbopack), TypeScript strict, Tailwind CSS, PostgreSQL (pg driver), Railway, Cloudflare R2, Resend, Stripe, Google Maps, Playwright
-**Dev port:** 3000
-**Test command:** npx playwright test
+**Core flow:** [PROJECT-CORE-FLOW]
+**Navigation:** [PROJECT-NAVIGATION]
 
-**Domain entities:** jobs, applications, companies, seeker_profiles, users, sessions, salary_data, career_articles, job_alerts, saved_jobs, job_categories
+**Tech stack:** [PROJECT-TECH-STACK]
+**Dev port:** [DEV-PORT]
+**Test command:** [PROJECT-TEST-COMMAND]
 
-**Design system:** Teal #0D7377 (primary), Snow #F5F6FA (bg), Midnight #0F1225 (dark), Copper #C2703E (warm accent), Ink #1A1D35 (body). Outfit headings, Plus Jakarta Sans body, JetBrains Mono data. Card-on-canvas. White cards on Snow. Lucide icons.
-**Design guide:** `docs/DESIGN-GUIDE.md`
+**Domain entities:** Projects, Case Studies, Clients
+
+**Design system:** Bold Personal Brand — dark backgrounds, massive typography, dynamic 5-colour theming, glassmorphism
+**Design guide:** `website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md`
 **Slop test:** `docs/slop-test.md`
 
-**Conversion funnel:** Seeker: land → search → view job → apply → track status. Recruiter: sign up → post job → review applicants → shortlist → hire
+**Conversion funnel:** [PROJECT-CONVERSION-FUNNEL]
 
-**Key principles:** Salary transparency (show real salaries), hospitality-native (industry-specific filters), mobile-first (seekers browse between shifts), fast and respectful (no time to waste), warm but direct (like a good colleague)
+**Key principles:** [PROJECT-KEY-PRINCIPLES]
 
 ---
 
