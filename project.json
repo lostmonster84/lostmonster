@@ -53,13 +53,15 @@
     "issueTracker": "Linear"
   },
   "paths": {
+    "debts": ".ai/thefirm/gaffer/debts.md",
+    "sessionLog": ".ai/thefirm/gaffer/session-log.md",
     "appPublic": "website/app/",
     "appAdmin": "dashboard/apps/web/src/app/",
     "appApi": "website/app/api/ + dashboard/apps/web/src/app/api/",
     "appSuperadmin": "N/A",
     "designGuide": "website/.ai/LOST-MONSTER-DESIGN-SYSTEM.md",
     "slopTest": "N/A",
-    "prd": "N/A"
+    "prd": "docs/PRD.md"
   },
   "ux": {
     "testPersona": "Graduate Grace",

@@ -9,7 +9,7 @@
 |-------|-------|--------|
 | `[PROJECT]` | Lost Monster | project.json |
 | `[PROJECT-DOMAIN]` | Framework-driven development that actually works | project.json |
-| `[BUILD-PLAN-PATH]` | docs/BUILD-PLAN.md | project convention |
+| `[BUILD-PLAN-PATH]` |  | project convention |
 | `[PRD-PATH]` | docs/PRD.md | project convention |
 | `[BUSINESS-PLAN-PATH]` | N/A | repo root |
 | `[TECH-BUILD-PLAN-PATH]` | N/A | repo root |
