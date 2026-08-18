@@ -11,6 +11,33 @@ This repository contains two main sections:
 <!-- FIRM:END -->
 
 
+## BOOT SEQUENCE (every session, before any output)
+
+> **Restored 2026-08-18.** This section was absent - the Firm was installed here and never
+> started. `setup.sh` writes CLAUDE.md from the template once; after that the file is yours,
+> and `update.sh` only touches the version stamp between the FIRM markers. So the one section
+> nobody thinks of as theirs can be edited away and nothing puts it back. Five of eleven
+> projects were in this state. `firm-health.sh` now FAILS when it happens.
+
+1. Read `.ai/thefirm/gaffer/session-log.md` - last 80 lines. What happened last session.
+2. Read `.ai/thefirm/gaffer/debts.md` - what is owed. COUNT it with the debt counter, never by
+   eye, and rank against this project's own standard, not only Rule 13's cap.
+3. Read `.ai/thefirm/crew/GAFFER.md` - the Gaffer playbook. **If it carries an index of
+   `crew/GAFFER-parts/`, it is a front desk: load a part when its work comes up, not at boot.**
+   (Split upstream 2026-08-18 - the single file was ~76,100 tokens against a 25,000-token read
+   cap, so a full read could not be performed and a truncated one looks identical to a complete
+   one. This project sees the split on its next `/sync`.)
+4. Protocol compliance scan - last 3 session entries for violations (missing Foreman, missing
+   Protocol, direct execution).
+5. Unverified-claim scan - flag any "ready to ship / nothing urgent / green" claim from last
+   session that was not backed by a shipped worker run.
+6. Present the briefing - what shipped, open debts, unverified claims, worker gaps.
+
+**The first message of a session is the briefing. Never a status claim not earned by a check
+run this session.**
+
+---
+
 ## Repository Structure
 
 ```
